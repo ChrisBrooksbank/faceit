@@ -113,11 +113,12 @@ FaceIt is designed with privacy as a core principle:
 
 ## Technology
 
-- **Vite** - Fast build tool and dev server
+- **SvelteKit** - Full-stack Svelte framework with routing and SSG
+- **Svelte 5** - Reactive UI with minimal bundle size (~2KB)
 - **TypeScript** - Strict type-safe development
 - **Zod** - Runtime validation for config and data
 - **IndexedDB** (via idb) - Local data persistence
-- **PWA** - Installable, offline-capable
+- **PWA** - Installable, offline-capable (@vite-pwa/sveltekit)
 - **Vitest** - Unit testing with 80% coverage threshold
 - **Playwright** - E2E testing across browsers
 - **ESLint + Prettier** - Code quality and formatting

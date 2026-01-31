@@ -584,22 +584,31 @@ interface Assessment {
 
 ### 7.1 Technology Stack
 
-| Layer      | Technology          | Rationale                                     |
-| ---------- | ------------------- | --------------------------------------------- |
-| Build      | Vite 5+             | Fast dev server, optimized builds, PWA plugin |
-| Language   | TypeScript (strict) | Type safety, better DX                        |
-| Validation | Zod                 | Runtime validation for config and data        |
-| PWA        | vite-plugin-pwa     | Workbox service worker, offline support       |
-| Storage    | IndexedDB (via idb) | Large local storage, no cloud needed          |
-| Testing    | Vitest + Playwright | Unit tests + E2E tests                        |
-| Linting    | ESLint + Prettier   | Code quality and formatting                   |
-| Dead Code  | Knip                | Unused exports/dependencies detection         |
-| Pre-commit | Husky + lint-staged | Quality gates before commit                   |
-| CI         | GitHub Actions      | Automated checks on push/PR                   |
+| Layer      | Technology          | Rationale                                          |
+| ---------- | ------------------- | -------------------------------------------------- |
+| Framework  | SvelteKit           | Svelte 5 with routing, SSG, excellent PWA support  |
+| Language   | TypeScript (strict) | Type safety, better DX                             |
+| UI         | Svelte 5            | Minimal bundle, reactive by default, simple syntax |
+| Validation | Zod                 | Runtime validation for config and data             |
+| PWA        | @vite-pwa/sveltekit | Workbox service worker, offline support            |
+| Storage    | IndexedDB (via idb) | Large local storage, no cloud needed               |
+| Testing    | Vitest + Playwright | Unit tests + E2E tests                             |
+| Linting    | ESLint + Prettier   | Code quality and formatting                        |
+| Dead Code  | Knip                | Unused exports/dependencies detection              |
+| Pre-commit | Husky + lint-staged | Quality gates before commit                        |
+| CI         | GitHub Actions      | Automated checks on push/PR                        |
+
+**Why Svelte over React:**
+
+- Smaller bundle size (~2KB vs ~40KB) - faster PWA load times
+- Built-in reactivity without hooks or state management libraries
+- Simpler component syntax with less boilerplate
+- Excellent performance for the training trial animations
+- SvelteKit provides file-based routing and SSG out of the box
 
 ### 7.2 PWA Requirements
 
-**Manifest (configured in vite.config.ts):**
+**Manifest (configured in svelte.config.js via @vite-pwa/sveltekit):**
 
 - Name: "FaceIt - Face Recognition Training"
 - Short name: "FaceIt"

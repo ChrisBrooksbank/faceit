@@ -6,93 +6,95 @@ This file provides guidance to Claude Code when working with this codebase.
 
 FaceIt is a Progressive Web App to help people with prosopagnosia improve face recognition through evidence-based perceptual discrimination training.
 
+## Technology Stack
+
+- **SvelteKit** - Full-stack framework with file-based routing
+- **Svelte 5** - Reactive UI components (minimal bundle ~2KB)
+- **TypeScript** - Strict type checking
+- **Zod** - Runtime validation
+- **IndexedDB** (via idb) - Local data persistence
+
 ## Development Commands
 
 ```bash
-npm run dev            # Start Vite dev server
-npm run build          # Production build
+npm run dev            # Start SvelteKit dev server
+npm run build          # Production build (static site)
 npm run preview        # Preview production build
 npm test               # Vitest watch mode
 npm run test:run       # Run tests once
 npm run test:coverage  # Coverage report (80% threshold)
 npm run test:e2e       # Run Playwright E2E tests
-npm run test:e2e:ui    # Run Playwright with UI
-npm run lint           # ESLint check
-npm run lint:fix       # ESLint auto-fix
+npm run lint           # ESLint + svelte-check
 npm run format         # Prettier format all files
-npm run typecheck      # TypeScript type check
-npm run knip           # Find unused code
 npm run check          # Run ALL checks (typecheck, lint, format, knip, tests)
 ```
 
 ## Architecture
 
-### TypeScript with ES Modules
-
-Path aliases configured:
-
-- `@/*` → `src/*`
-- `@api/*` → `src/api/*`
-- `@core/*` → `src/core/*`
-- `@utils/*` → `src/utils/*`
-- `@config/*` → `src/config/*`
-- `@types/*` → `src/types/*`
-
-### Project Structure
+### SvelteKit Project Structure
 
 ```
 src/
-├── main.ts              # Application entry point
-├── main.test.ts         # Example test
-├── api/                 # External API clients (IndexedDB operations)
-├── core/                # Core business logic (staircase algorithm, PI20 scoring)
-├── config/              # Configuration with Zod validation
-├── utils/               # Logger, helpers (debounce, throttle, retry)
-└── types/               # Shared TypeScript types
+├── routes/              # File-based routing (SvelteKit)
+│   ├── +page.svelte     # Home/Dashboard
+│   ├── +layout.svelte   # Root layout
+│   ├── onboarding/      # Onboarding flow
+│   ├── training/        # Training session
+│   └── progress/        # Progress view
+├── lib/                 # Shared code ($lib alias)
+│   ├── components/      # Reusable Svelte components
+│   ├── stores/          # Svelte stores for state
+│   ├── core/            # Business logic (staircase, PI20)
+│   ├── db/              # IndexedDB operations
+│   ├── utils/           # Helpers (logger, etc.)
+│   └── types/           # TypeScript types
+├── app.html             # HTML template
+└── app.d.ts             # App-level type declarations
+static/                  # Static assets (icons, face stimuli)
 e2e/                     # Playwright E2E tests
-docs/                    # Documentation (MVP spec, research)
+docs/                    # Documentation
 ```
 
 ### Key Patterns
 
-Use Logger instead of console.log:
+**Svelte 5 Runes (reactivity):**
 
-```typescript
-import { Logger } from '@utils/logger';
-Logger.info('Message');
-Logger.warn('Warning');
-Logger.error('Error');
-Logger.success('Done');
-Logger.debug('Debug'); // Only in debug mode
+```svelte
+<script lang="ts">
+    let count = $state(0);
+    let doubled = $derived(count * 2);
+
+    function increment() {
+        count++;
+    }
+</script>
 ```
 
-Config is loaded asynchronously and validated with Zod:
+**Svelte Stores (shared state):**
 
 ```typescript
-import { loadConfig, getConfig } from '@config';
+import { writable } from 'svelte/store';
 
-// At startup (once):
-await loadConfig();
-
-// After initialization:
-const config = getConfig();
+export const userProfile = writable<UserProfile | null>(null);
 ```
 
-Retry logic for flaky operations:
+**Component imports use $lib alias:**
 
-```typescript
-import { retryWithBackoff } from '@utils/helpers';
-const data = await retryWithBackoff(() => fetchData());
+```svelte
+<script lang="ts">
+    import { Button } from '$lib/components';
+    import { staircaseAlgorithm } from '$lib/core/staircase';
+</script>
 ```
 
 ## Quality Guardrails
 
 This project has strict quality checks that run:
 
-1. **On save** - TypeScript type checking in editor
+1. **On save** - TypeScript + svelte-check in editor
 2. **On commit** - Pre-commit hook runs typecheck + lint-staged
 3. **On push** - CI runs full check suite + E2E tests
-4. **Periodically** - Run `npm run knip` to find dead code
+4. **Periodically** - Run `npm run check` to find issues
 
 ### ESLint Rules
 
@@ -104,7 +106,7 @@ This project has strict quality checks that run:
 ### Test Coverage
 
 - Minimum 80% coverage required for statements, branches, functions, lines
-- Unit tests in `*.test.ts` files alongside source
+- Unit tests in `*.test.ts` files in `src/lib/`
 - E2E tests in `e2e/` directory using Playwright
 
 ## Domain Knowledge
@@ -120,7 +122,7 @@ FaceIt uses a staircase algorithm for adaptive difficulty:
 
 ### Key Data Types
 
-See `src/types/index.ts` for:
+See `src/lib/types/` for:
 
 - `UserProfile` - PI20 score, baseline, settings
 - `TrainingSession` - Trials, accuracy, threshold
