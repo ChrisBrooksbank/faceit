@@ -17,6 +17,7 @@ Interview completed with primary user (59, male) who has lifelong face recogniti
 Investigate the following areas and create a findings report:
 
 ### 1. Scientific Understanding
+
 - What is developmental prosopagnosia? Prevalence, causes, subtypes
 - How does typical face recognition work vs. prosopagnosic processing?
 - Can face recognition ability be improved through training?
@@ -24,12 +25,14 @@ Investigate the following areas and create a findings report:
 - What outcomes are realistic to expect?
 
 ### 2. Existing Products & Tools
+
 - What apps exist for prosopagnosia training or assistance?
 - Face training software (academic or commercial)
 - Compensatory tools (people databases, social aids)
 - What approaches have been tried? Success/failure?
 
 ### 3. Evidence-Based Interventions
+
 - Published training studies - what protocols were tested?
 - Feature-based vs. holistic training approaches
 - Duration and intensity of effective programs
@@ -37,6 +40,7 @@ Investigate the following areas and create a findings report:
 - Long-term retention of any gains
 
 ### 4. Compensatory Strategies
+
 - What non-training approaches help people cope?
 - Multi-modal recognition (voice, gait, context)
 - Social strategies and disclosure approaches
@@ -46,20 +50,24 @@ Investigate the following areas and create a findings report:
 ## User Requirements Summary
 
 ### Must Have
+
 - Private/personal use (not creepy facial recognition)
 - Training-focused (build skill, not rely on external tech)
 - Progressive difficulty
 - Works as PWA
 
 ### The Core Idea
+
 User proposed "artist's eye" training - learning to analytically observe and distinguish faces like an artist learns to observe structure. This maps to **feature-based analytical processing** in the literature.
 
 ### User Commitment
+
 - Willing to practice 10 minutes daily
 - Wants evidence-based approach
 - Values scientific grounding
 
 ### Secondary Features (if supported by research)
+
 - Pre-event preparation (study photos/names)
 - Personal notes database (discreet)
 
@@ -68,6 +76,7 @@ User proposed "artist's eye" training - learning to analytically observe and dis
 ## Output Expected
 
 Create `research-findings.md` with:
+
 1. Summary of scientific understanding
 2. Analysis of existing products
 3. Evidence on training effectiveness
@@ -86,4 +95,4 @@ Create `research-findings.md` with:
 
 ---
 
-*Brief created 2026-01-31 for post-context-clear continuation*
+_Brief created 2026-01-31 for post-context-clear continuation_

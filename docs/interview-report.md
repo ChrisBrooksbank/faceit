@@ -74,13 +74,13 @@ When the participant discloses their condition, the response is consistently dis
 
 ### 5. Current Coping Strategies
 
-| Strategy | Description |
-|----------|-------------|
-| Context reliance | Expect to see certain people at certain places/times |
-| Passive waiting | Let others recognize them first, watch for recognition cues |
-| Social co-pilot | Wife attends events and identifies people |
-| Multi-modal recognition | Voice, stance, movement, clothes, mannerisms |
-| Avoidance | Skip stressful social situations |
+| Strategy                | Description                                                 |
+| ----------------------- | ----------------------------------------------------------- |
+| Context reliance        | Expect to see certain people at certain places/times        |
+| Passive waiting         | Let others recognize them first, watch for recognition cues |
+| Social co-pilot         | Wife attends events and identifies people                   |
+| Multi-modal recognition | Voice, stance, movement, clothes, mannerisms                |
+| Avoidance               | Skip stressful social situations                            |
 
 ### 6. The Movie Problem
 
@@ -95,11 +95,13 @@ Difficulty tracking actors in films - frequently asks "Is that the same person f
 **A private training app to improve underlying face perception ability.**
 
 Not:
+
 - Real-time facial recognition ("creepy")
 - Database of real people to identify
 - Something used visibly in social situations
 
 But rather:
+
 - Teaching how to analytically observe faces
 - Learning to notice distinguishing features
 - Progressive difficulty (simple → realistic)
@@ -107,7 +109,7 @@ But rather:
 
 ### The "Artist's Eye" Hypothesis
 
-The participant proposed that artists are trained to really *look* at things and understand structure. Could the same approach work for faces?
+The participant proposed that artists are trained to really _look_ at things and understand structure. Could the same approach work for faces?
 
 > "An artist has to really be trained to look, maybe I can be trained to look at faces and notice the differences?"
 
@@ -116,22 +118,22 @@ This aligns with **feature-based analytical processing** - a compensatory strate
 ### Key Feature Ideas
 
 1. **Progressive training exercises**
-   - Start with stylized/simplified faces
-   - Move to realistic photographs
-   - Eventually include faces of known people (opt-in)
+    - Start with stylized/simplified faces
+    - Move to realistic photographs
+    - Eventually include faces of known people (opt-in)
 
 2. **Analytical observation training**
-   - Focus on individual features (brow, nose, ears, jaw)
-   - Compare and contrast exercises
-   - "Spot the difference" with faces
+    - Focus on individual features (brow, nose, ears, jaw)
+    - Compare and contrast exercises
+    - "Spot the difference" with faces
 
 3. **Pre-event preparation** (secondary feature)
-   - Study photos and names before social events
-   - Review who might be present
+    - Study photos and names before social events
+    - Review who might be present
 
 4. **Personal notes database** (if privacy concerns addressed)
-   - Discreet way to record distinguishing features
-   - Review before seeing someone again
+    - Discreet way to record distinguishing features
+    - Review before seeing someone again
 
 ### User Commitment
 
@@ -148,17 +150,20 @@ The participant confirmed willingness to practice regularly (e.g., 10 minutes da
 The following areas require investigation before proceeding:
 
 ### Scientific Understanding
+
 - What does research say about developmental prosopagnosia?
 - Can face recognition be improved through training?
 - What training approaches have been tested?
 - What is the prognosis for improvement?
 
 ### Existing Products
+
 - What apps or tools currently exist?
 - What do they do well or poorly?
 - Why might they have succeeded or failed?
 
 ### Evidence-Based Interventions
+
 - Which training protocols show promise?
 - Feature-based vs. holistic training?
 - How much practice is needed?
@@ -190,4 +195,4 @@ The following areas require investigation before proceeding:
 
 ---
 
-*Report generated from interview conducted 2026-01-31*
+_Report generated from interview conducted 2026-01-31_
