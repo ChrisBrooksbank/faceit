@@ -1,27 +1,14 @@
+import { sveltekit } from '@sveltejs/kit/vite';
+import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
     plugins: [
-        tsconfigPaths(),
-        VitePWA({
+        sveltekit(),
+        SvelteKitPWA({
             registerType: 'autoUpdate',
             workbox: {
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,webp}'],
-                runtimeCaching: [
-                    {
-                        urlPattern: /^https:\/\/api\./i,
-                        handler: 'NetworkFirst',
-                        options: {
-                            cacheName: 'api-cache',
-                            expiration: {
-                                maxEntries: 50,
-                                maxAgeSeconds: 300,
-                            },
-                        },
-                    },
-                ],
             },
             manifest: {
                 name: 'FaceIt - Face Recognition Training',
@@ -47,8 +34,27 @@ export default defineConfig({
             },
         }),
     ],
-    build: {
-        outDir: 'dist',
-        sourcemap: true,
+    test: {
+        include: ['src/**/*.{test,spec}.{js,ts}'],
+        environment: 'jsdom',
+        globals: true,
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'html', 'lcov'],
+            exclude: [
+                'node_modules/',
+                'build/',
+                '.svelte-kit/',
+                '**/*.test.ts',
+                '**/*.spec.ts',
+                'src/routes/',
+            ],
+            thresholds: {
+                statements: 80,
+                branches: 80,
+                functions: 80,
+                lines: 80,
+            },
+        },
     },
 });

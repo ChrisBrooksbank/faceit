@@ -6,13 +6,20 @@ test.describe('FaceIt Application', () => {
         await expect(page).toHaveTitle(/FaceIt/);
     });
 
-    test('should display the header', async ({ page }) => {
+    test('should display the header with app name', async ({ page }) => {
         await page.goto('/');
         await expect(page.locator('header h1')).toHaveText('FaceIt');
     });
 
-    test('should show running status', async ({ page }) => {
+    test('should show welcome card', async ({ page }) => {
         await page.goto('/');
-        await expect(page.locator('.status')).toHaveText('Running');
+        await expect(page.locator('.welcome h2')).toHaveText('Welcome to FaceIt');
+    });
+
+    test('should have start assessment link', async ({ page }) => {
+        await page.goto('/');
+        const startButton = page.locator('a.btn-primary');
+        await expect(startButton).toHaveText('Start Assessment');
+        await expect(startButton).toHaveAttribute('href', '/onboarding');
     });
 });

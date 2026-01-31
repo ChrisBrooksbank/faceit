@@ -1,13 +1,6 @@
 {
+    "extends": "./.svelte-kit/tsconfig.json",
     "compilerOptions": {
-        "target": "ES2022",
-        "lib": ["ES2022", "DOM", "DOM.Iterable"],
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
         "strict": true,
         "strictNullChecks": true,
         "noImplicitAny": true,
@@ -15,21 +8,12 @@
         "noFallthroughCasesInSwitch": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "allowJs": true,
+        "checkJs": true,
+        "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "declaration": true,
-        "sourceMap": true,
-        "outDir": "./dist",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"],
-            "@api/*": ["src/api/*"],
-            "@core/*": ["src/core/*"],
-            "@utils/*": ["src/utils/*"],
-            "@config/*": ["src/config/*"],
-            "@types/*": ["src/types/*"]
-        }
-    },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules", "dist"]
+        "resolveJsonModule": true,
+        "moduleResolution": "bundler"
+    }
 }

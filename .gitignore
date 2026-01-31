@@ -1,4 +1,6 @@
 node_modules/
+build/
+.svelte-kit/
 dist/
 coverage/
 *.log
@@ -10,3 +12,5 @@ coverage/
 playwright-report/
 playwright/.cache/
 test-results/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
