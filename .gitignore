@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+*.log
+.env
+.env.local
+.DS_Store
+*.config.json
+!*.config.example.json
+playwright-report/
+playwright/.cache/
+test-results/

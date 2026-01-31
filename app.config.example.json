@@ -1,0 +1,16 @@
+{
+    "debug": false,
+    "training": {
+        "defaultTrialsPerSession": 60,
+        "minMorphLevel": 28,
+        "maxMorphLevel": 88,
+        "stepSize": 4,
+        "targetDisplayMs": 2000,
+        "maskDisplayMs": 500,
+        "feedbackDisplayMs": 1000
+    },
+    "assessment": {
+        "pi20QuestionCount": 20,
+        "perceptionTestTrials": 6
+    }
+}

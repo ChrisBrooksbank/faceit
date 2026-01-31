@@ -25,22 +25,23 @@ Prosopagnosia (face blindness) affects approximately 2% of the population. Despi
 
 ## Getting Started
 
-*Coming soon - project is currently in specification phase*
-
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Node.js 20+
+- npm
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/faceit.git
+git clone https://github.com/ChrisBrooksbank/faceit.git
 cd faceit
 
 # Install dependencies
 npm install
+
+# Initialize Playwright (for E2E tests)
+npx playwright install
 
 # Run development server
 npm run dev
@@ -50,8 +51,26 @@ npm run dev
 
 ```bash
 npm run build
-npm run start
+npm run preview
 ```
+
+## Scripts
+
+| Command                 | Description               |
+| ----------------------- | ------------------------- |
+| `npm run dev`           | Start development server  |
+| `npm run build`         | Production build          |
+| `npm run preview`       | Preview production build  |
+| `npm test`              | Run tests in watch mode   |
+| `npm run test:run`      | Run tests once            |
+| `npm run test:coverage` | Generate coverage report  |
+| `npm run test:e2e`      | Run Playwright E2E tests  |
+| `npm run lint`          | Check for lint errors     |
+| `npm run lint:fix`      | Fix lint errors           |
+| `npm run format`        | Format code with Prettier |
+| `npm run typecheck`     | TypeScript type checking  |
+| `npm run knip`          | Find unused code          |
+| `npm run check`         | Run all checks            |
 
 ## How It Works
 
@@ -66,6 +85,7 @@ Each training trial follows this structure:
 5. **Adapt** - Difficulty adjusts based on performance
 
 The **staircase algorithm** automatically adjusts difficulty:
+
 - Get it right → faces become more similar (harder)
 - Get it wrong → faces become more different (easier)
 - System converges to your perceptual threshold
@@ -93,11 +113,16 @@ FaceIt is designed with privacy as a core principle:
 
 ## Technology
 
-- **Next.js** - React framework with static site generation
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **IndexedDB** - Local data persistence
+- **Vite** - Fast build tool and dev server
+- **TypeScript** - Strict type-safe development
+- **Zod** - Runtime validation for config and data
+- **IndexedDB** (via idb) - Local data persistence
 - **PWA** - Installable, offline-capable
+- **Vitest** - Unit testing with 80% coverage threshold
+- **Playwright** - E2E testing across browsers
+- **ESLint + Prettier** - Code quality and formatting
+- **Knip** - Dead code detection
+- **Husky** - Pre-commit hooks
 
 ## Research Background
 
@@ -111,11 +136,11 @@ See [prosopagnosia-research.md](docs/prosopagnosia-research.md) for detailed res
 
 ## Contributing
 
-*Contribution guidelines coming soon*
+_Contribution guidelines coming soon_
 
 ## License
 
-*License to be determined*
+_License to be determined_
 
 ## Acknowledgments
 
