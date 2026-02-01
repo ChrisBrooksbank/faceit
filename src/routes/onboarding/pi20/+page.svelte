@@ -3,6 +3,7 @@
     import { PI20_QUESTIONS } from '$lib/core/pi20';
     import type { PI20Response } from '$lib/types';
     import { goto } from '$app/navigation';
+    import { setPI20Responses } from '$lib/stores/onboarding';
 
     let currentQuestionIndex = $state(0);
     // eslint-disable-next-line prefer-const
@@ -29,7 +30,8 @@
         if (!canGoNext) return;
 
         if (isLastQuestion) {
-            // Navigate to perception test
+            // Save responses to store and navigate to perception test
+            setPI20Responses(responses);
             goto('/onboarding/perception');
         } else {
             currentQuestionIndex++;

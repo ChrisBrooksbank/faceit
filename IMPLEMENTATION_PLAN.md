@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 9
+- Build iterations: 10
 - Last updated: 2026-02-01
 
 ## Current Phase: Onboarding (Phase 1)
@@ -26,7 +26,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
 - [x] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
 - [x] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
-- [ ] Create Results Profile screen at /onboarding/results (spec: 01-onboarding.md)
+- [x] Create Results Profile screen at /onboarding/results (spec: 01-onboarding.md)
 - [ ] Create Expectations screen at /onboarding/expectations (spec: 01-onboarding.md)
 
 ### Phase 2: Core Training
@@ -144,6 +144,22 @@ Onboarding flow to guide new users through assessment.
     - Uses existing Button, Card, and ProgressBar components
     - Uses Svelte 5 runes ($state, $derived) for reactivity
     - All 94 tests passing
+    - All validation checks passing
+
+- [x] Create Results Profile screen at /onboarding/results
+    - Created `src/lib/stores/onboarding.ts` for temporary onboarding data storage
+    - Created comprehensive test suite in `src/lib/stores/onboarding.test.ts` (7 tests)
+    - Updated `src/routes/onboarding/pi20/+page.svelte` to save responses to store
+    - Updated `src/routes/onboarding/perception/+page.svelte` to save score to store
+    - Created `src/routes/onboarding/results/+page.svelte`
+    - Displays PI20 score with severity badge and interpretation
+    - Displays perception test score (X/6) with interpretation
+    - Shows combined profile summary explaining what results mean for training
+    - Validates data exists, redirects to missing screens if incomplete
+    - Uses existing Button and Card components
+    - Uses Svelte 5 runes ($state, $derived) for reactivity
+    - Navigates to /onboarding/expectations when complete
+    - All 101 tests passing
     - All validation checks passing
 
 ## Notes

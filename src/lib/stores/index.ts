@@ -99,3 +99,6 @@ export function resetStores(): void {
     currentSession.set(null);
     progressMetrics.set(null);
 }
+
+// Re-export onboarding store
+export * from './onboarding';

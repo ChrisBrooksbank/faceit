@@ -2,6 +2,7 @@
     import { Button, Card, ProgressBar } from '$lib/components';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
+    import { setPerceptionScore } from '$lib/stores/onboarding';
 
     // Trial configuration: 6 trials at fixed difficulty levels
     const MORPH_LEVELS = [88, 76, 64, 52, 40, 28];
@@ -94,7 +95,7 @@
     // Handle completion
     function handleComplete(): void {
         // Store the baseline perception score
-        // TODO: Store in a temporary state or pass to results page
+        setPerceptionScore(correctCount);
         goto('/onboarding/results');
     }
 
