@@ -3,10 +3,10 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 11
+- Build iterations: 12
 - Last updated: 2026-02-01
 
-## Current Phase: Onboarding (Phase 1)
+## Current Phase: Core Training (Phase 2)
 
 Onboarding flow to guide new users through assessment.
 
@@ -31,7 +31,7 @@ Onboarding flow to guide new users through assessment.
 
 ### Phase 2: Core Training
 
-- [ ] Create FaceDisplay component (spec: 02-core-training.md)
+- [x] Create FaceDisplay component (spec: 02-core-training.md)
 - [ ] Create TrialDisplay component (spec: 02-core-training.md)
 - [ ] Update Home Dashboard at / (spec: 02-core-training.md)
 - [ ] Create Training Session screen at /training (spec: 02-core-training.md)
@@ -183,6 +183,20 @@ Onboarding flow to guide new users through assessment.
     - All 101 tests passing
     - All validation checks passing
     - Completes Phase 1: Onboarding
+
+### Phase 2: Core Training
+
+- [x] Create FaceDisplay component
+    - Created `src/lib/components/FaceDisplay.svelte` with multiple size variants (small, medium, large)
+    - Supports both display mode (non-selectable) and choice mode (selectable)
+    - Props: faceId, selectable, selected, onclick, size, ariaLabel
+    - Displays face stimuli from `/faces/{faceId}.svg`
+    - Accessible: proper ARIA labels, aria-pressed state, keyboard navigable
+    - Visual feedback: border highlight on hover/selection, tap target >44px
+    - Created test suite in `src/lib/components/FaceDisplay.test.ts` (2 tests)
+    - Exported from `src/lib/components/index.ts`
+    - All 103 tests passing
+    - All validation checks passing
 
 ## Notes
 
