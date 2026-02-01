@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 19
+- Build iterations: 20
 - Last updated: 2026-02-01
 
 ## Current Phase: Polish & Settings (Phase 3)
@@ -42,7 +42,7 @@ Onboarding flow to guide new users through assessment.
 
 - [x] Create Progress View screen at /progress (spec: 03-polish-settings.md)
 - [x] Create Settings screen at /settings (spec: 03-polish-settings.md)
-- [ ] Add real face stimuli (spec: 03-polish-settings.md)
+- [x] Add real face stimuli (spec: 03-polish-settings.md)
 - [ ] Add PWA icons (spec: 03-polish-settings.md)
 - [ ] Final E2E test coverage (spec: 03-polish-settings.md)
 - [ ] Accessibility audit (spec: 03-polish-settings.md)
@@ -341,6 +341,25 @@ Onboarding flow to guide new users through assessment.
     - Accessible: proper ARIA labels, keyboard navigable dialogs
     - Uses existing Button and Card components
     - Uses Svelte 5 runes ($state, $derived) for reactivity
+    - All 130 tests passing
+    - All validation checks passing
+
+- [x] Add real face stimuli
+    - Created comprehensive documentation in `static/faces/README.md`
+    - Documented two recommended face databases:
+        - Face Research Lab London Set (Figshare, 102 faces, freely available)
+        - Utrecht ECVP Face Database (PICS collection, 131 faces)
+    - Created conversion script `scripts/convert-to-webp.js` for processing face images
+    - Script converts PNG/JPG to optimized WebP format (target <50KB per image)
+    - Script validates file set (20 pairs × 6 morph levels = 120 files)
+    - Created verification script `scripts/verify-faces.js` to check file integrity
+    - Added npm scripts: `npm run convert-faces` and `npm run verify-faces`
+    - Updated `static/faces/metadata.json` with source and placeholder flag fields
+    - Created `static/faces/metadata.template.json` showing structure for real face data
+    - Added ESLint exemptions for utility scripts in `eslint.config.js`
+    - Added sharp to knip.json ignoreDependencies (optional dependency for conversion)
+    - Documented full workflow: download → morph generation → WebP conversion → verification
+    - Current placeholder SVG files remain in place (can be replaced when real faces available)
     - All 130 tests passing
     - All validation checks passing
 

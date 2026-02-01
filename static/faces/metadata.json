@@ -1,6 +1,9 @@
 {
     "version": "1.0",
-    "description": "Placeholder face stimuli for FaceIt MVP",
+    "source": "Placeholder - Geometric SVG faces",
+    "description": "Placeholder face stimuli for FaceIt MVP. Replace with real face database for production.",
+    "citation": null,
+    "isPlaceholder": true,
     "facePairs": [
         {
             "faceA": "face1",

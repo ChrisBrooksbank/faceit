@@ -58,6 +58,17 @@ export default tseslint.config(
         },
     },
     {
+        // Relax rules for utility scripts
+        files: ['scripts/**/*.js'],
+        rules: {
+            'no-console': 'off',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            'max-lines-per-function': 'off',
+            complexity: 'off',
+            '@typescript-eslint/no-unused-vars': 'off',
+        },
+    },
+    {
         ignores: [
             'build/',
             '.svelte-kit/',

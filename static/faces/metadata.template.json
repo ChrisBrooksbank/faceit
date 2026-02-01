@@ -1,0 +1,74 @@
+{
+    "version": "1.0",
+    "source": "Face Research Lab London Set",
+    "description": "Real face stimuli for perceptual discrimination training",
+    "citation": "DeBruine, Lisa; Jones, Benedict (2017): Face Research Lab London Set. figshare. Dataset. https://doi.org/10.6084/m9.figshare.5047666.v3",
+    "isPlaceholder": false,
+    "facePairs": [
+        {
+            "id": 1,
+            "faceA": {
+                "id": "face1",
+                "originalId": "001",
+                "demographics": {
+                    "age": 25,
+                    "gender": "female",
+                    "ethnicity": "white"
+                }
+            },
+            "faceB": {
+                "id": "face2",
+                "originalId": "002",
+                "demographics": {
+                    "age": 28,
+                    "gender": "female",
+                    "ethnicity": "white"
+                }
+            },
+            "morphLevels": [28, 40, 52, 64, 76, 88],
+            "files": [
+                "face1_face2_28.webp",
+                "face1_face2_40.webp",
+                "face1_face2_52.webp",
+                "face1_face2_64.webp",
+                "face1_face2_76.webp",
+                "face1_face2_88.webp"
+            ]
+        },
+        {
+            "id": 2,
+            "faceA": {
+                "id": "face3",
+                "originalId": "003",
+                "demographics": {
+                    "age": 22,
+                    "gender": "male",
+                    "ethnicity": "asian"
+                }
+            },
+            "faceB": {
+                "id": "face4",
+                "originalId": "004",
+                "demographics": {
+                    "age": 24,
+                    "gender": "male",
+                    "ethnicity": "asian"
+                }
+            },
+            "morphLevels": [28, 40, 52, 64, 76, 88],
+            "files": [
+                "face3_face4_28.webp",
+                "face3_face4_40.webp",
+                "face3_face4_52.webp",
+                "face3_face4_64.webp",
+                "face3_face4_76.webp",
+                "face3_face4_88.webp"
+            ]
+        }
+    ],
+    "totalPairs": 20,
+    "totalMorphLevels": 6,
+    "totalImages": 120,
+    "morphLevels": [28, 40, 52, 64, 76, 88],
+    "notes": "This is a template showing the structure for real face metadata. Complete all 20 pairs following this pattern."
+}
