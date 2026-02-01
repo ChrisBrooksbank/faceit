@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 2
+- Build iterations: 3
 - Last updated: 2026-02-01
 
 ## Current Phase: Foundation (Phase 0)
@@ -16,7 +16,7 @@ Focus on data layer before UI.
 
 - [x] Create IndexedDB module with FaceItDB schema (spec: 00-foundation.md)
 - [x] Create Svelte stores for app state (spec: 00-foundation.md)
-- [ ] Create app initialization logic (spec: 00-foundation.md)
+- [x] Create app initialization logic (spec: 00-foundation.md)
 
 ### Phase 1: Onboarding
 
@@ -64,6 +64,15 @@ Focus on data layer before UI.
     - Created action functions (setUserProfile, setCurrentSession, setProgressMetrics, resetStores)
     - Created comprehensive test suite in `src/lib/stores/index.test.ts`
     - All 21 tests passing
+
+- [x] Create app initialization logic
+    - Created `src/lib/init.ts` with initApp() and isFirstLaunch() functions
+    - Created `src/lib/utils/logger.ts` for structured logging
+    - Created comprehensive test suite in `src/lib/init.test.ts`
+    - Integrated initialization in `src/routes/+layout.ts` load function
+    - Updated `src/routes/+layout.svelte` to receive isOnboarded data
+    - All 8 tests passing (86 tests total in project)
+    - All validation checks passing
 
 ## Notes
 

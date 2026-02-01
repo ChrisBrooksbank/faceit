@@ -4,9 +4,13 @@
 
     interface Props {
         children: Snippet;
+        data: {
+            isOnboarded: boolean;
+        };
     }
 
     const { children }: Props = $props();
+    // data is available but not used in layout currently
 </script>
 
 <div class="app">
