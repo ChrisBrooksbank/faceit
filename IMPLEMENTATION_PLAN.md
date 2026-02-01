@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 1
+- Build iterations: 2
 - Last updated: 2026-02-01
 
 ## Current Phase: Foundation (Phase 0)
@@ -15,7 +15,7 @@ Focus on data layer before UI.
 ### Phase 0: Foundation
 
 - [x] Create IndexedDB module with FaceItDB schema (spec: 00-foundation.md)
-- [ ] Create Svelte stores for app state (spec: 00-foundation.md)
+- [x] Create Svelte stores for app state (spec: 00-foundation.md)
 - [ ] Create app initialization logic (spec: 00-foundation.md)
 
 ### Phase 1: Onboarding
@@ -57,6 +57,13 @@ Focus on data layer before UI.
     - Added fake-indexeddb for test environment
     - Updated ProgressMetrics type to include userId
     - All 22 tests passing
+
+- [x] Create Svelte stores for app state
+    - Created `src/lib/stores/index.ts` with core stores (userProfile, currentSession, progressMetrics)
+    - Created derived stores (isOnboarded, hasSessionToday, currentStreak)
+    - Created action functions (setUserProfile, setCurrentSession, setProgressMetrics, resetStores)
+    - Created comprehensive test suite in `src/lib/stores/index.test.ts`
+    - All 21 tests passing
 
 ## Notes
 
