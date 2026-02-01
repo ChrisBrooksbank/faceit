@@ -3,12 +3,12 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 3
+- Build iterations: 4
 - Last updated: 2026-02-01
 
-## Current Phase: Foundation (Phase 0)
+## Current Phase: Onboarding (Phase 1)
 
-Focus on data layer before UI.
+Onboarding flow to guide new users through assessment.
 
 ## Tasks
 
@@ -20,7 +20,7 @@ Focus on data layer before UI.
 
 ### Phase 1: Onboarding
 
-- [ ] Create shared UI components (Button, Card, ProgressBar) (spec: 01-onboarding.md)
+- [x] Create shared UI components (Button, Card, ProgressBar) (spec: 01-onboarding.md)
 - [ ] Create Welcome screen at /onboarding (spec: 01-onboarding.md)
 - [ ] Create LikertScale component (spec: 01-onboarding.md)
 - [ ] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
@@ -72,6 +72,18 @@ Focus on data layer before UI.
     - Integrated initialization in `src/routes/+layout.ts` load function
     - Updated `src/routes/+layout.svelte` to receive isOnboarded data
     - All 8 tests passing (86 tests total in project)
+    - All validation checks passing
+
+### Phase 1: Onboarding
+
+- [x] Create shared UI components (Button, Card, ProgressBar)
+    - Created `src/lib/components/Button.svelte` with primary/secondary variants
+    - Created `src/lib/components/Card.svelte` as content container
+    - Created `src/lib/components/ProgressBar.svelte` with visual progress indicator
+    - Created `src/lib/components/index.ts` barrel export
+    - Added component exports to `src/lib/index.ts`
+    - Created basic test suites for all components
+    - All 6 component tests passing (92 tests total in project)
     - All validation checks passing
 
 ## Notes
