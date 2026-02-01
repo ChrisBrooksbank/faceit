@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 15
+- Build iterations: 16
 - Last updated: 2026-02-01
 
 ## Current Phase: Core Training (Phase 2)
@@ -35,7 +35,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create TrialDisplay component (spec: 02-core-training.md)
 - [x] Update Home Dashboard at / (spec: 02-core-training.md)
 - [x] Create Training Session screen at /training (spec: 02-core-training.md)
-- [ ] Create Session Summary screen at /training/summary (spec: 02-core-training.md)
+- [x] Create Session Summary screen at /training/summary (spec: 02-core-training.md)
 - [ ] Create progress calculation logic (spec: 02-core-training.md)
 
 ### Phase 3: Polish & Settings
@@ -263,6 +263,25 @@ Onboarding flow to guide new users through assessment.
     - Uses existing components: Button, Card, ProgressBar, TrialDisplay
     - Uses stores: userProfile, progressMetrics, setCurrentSession, setProgressMetrics
     - Validates user is onboarded before starting session
+    - All 105 tests passing
+    - All validation checks passing
+
+- [x] Create Session Summary screen at /training/summary
+    - Created `src/routes/training/summary/+page.svelte` with comprehensive session results
+    - Session summary display:
+        - Green checkmark icon and "Session Complete!" header
+        - Key stats in card grid: Today's Accuracy, Threshold Level (with comparison arrow), Current Streak
+        - Threshold comparison: shows ↓ (improving), ↑ (declining), or → (stable) vs previous session
+        - Trend indicator: "📈 Improving", "📉 Keep Practicing", or "➡️ Stable" with explanatory message
+        - Dynamic encouragement message based on accuracy level (80%+, 70%+, 60%+, <60%)
+        - Streak-specific message (first day, 2 days, 7+ days, etc.)
+        - Session details: Duration (MM:SS format), Trials completed
+    - Fetches previous sessions using getSessionsByDate() to calculate trend
+    - Trend calculation: >2% threshold decrease = improving, >2% increase = declining, else stable
+    - Redirects to dashboard if no session data exists
+    - Uses existing Button and Card components
+    - Uses stores: currentSession, currentStreak
+    - Mobile-responsive: grid layout adapts to single column on small screens
     - All 105 tests passing
     - All validation checks passing
 
