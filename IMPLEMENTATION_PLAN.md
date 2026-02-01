@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 6
+- Build iterations: 7
 - Last updated: 2026-02-01
 
 ## Current Phase: Onboarding (Phase 1)
@@ -23,7 +23,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create shared UI components (Button, Card, ProgressBar) (spec: 01-onboarding.md)
 - [x] Create Welcome screen at /onboarding (spec: 01-onboarding.md)
 - [x] Create LikertScale component (spec: 01-onboarding.md)
-- [ ] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
+- [x] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
 - [ ] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
 - [ ] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
 - [ ] Create Results Profile screen at /onboarding/results (spec: 01-onboarding.md)
@@ -104,6 +104,20 @@ Onboarding flow to guide new users through assessment.
     - Created test suite in `src/lib/components/LikertScale.test.ts`
     - Exported from `src/lib/components/index.ts`
     - All 94 tests passing
+    - All validation checks passing
+
+- [x] Create PI20 Survey screen at /onboarding/pi20
+    - Created `src/routes/onboarding/pi20/+page.svelte`
+    - Uses existing Button, Card, LikertScale, and ProgressBar components
+    - Displays progress indicator (question X of 20)
+    - Shows current question text from PI20_QUESTIONS
+    - Collects responses using LikertScale component
+    - Back/Next navigation with state management
+    - Back button returns to Welcome screen when on first question
+    - Next button disabled until current question is answered
+    - Final question shows "Continue" button that navigates to /onboarding/perception
+    - Uses Svelte 5 runes ($state, $derived) for reactivity
+    - All 94 tests passing (routes excluded from coverage)
     - All validation checks passing
 
 ## Notes
