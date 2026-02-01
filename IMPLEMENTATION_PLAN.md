@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 10
+- Build iterations: 11
 - Last updated: 2026-02-01
 
 ## Current Phase: Onboarding (Phase 1)
@@ -27,7 +27,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
 - [x] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
 - [x] Create Results Profile screen at /onboarding/results (spec: 01-onboarding.md)
-- [ ] Create Expectations screen at /onboarding/expectations (spec: 01-onboarding.md)
+- [x] Create Expectations screen at /onboarding/expectations (spec: 01-onboarding.md)
 
 ### Phase 2: Core Training
 
@@ -161,6 +161,28 @@ Onboarding flow to guide new users through assessment.
     - Navigates to /onboarding/expectations when complete
     - All 101 tests passing
     - All validation checks passing
+
+- [x] Create Expectations screen at /onboarding/expectations
+    - Created `src/routes/onboarding/expectations/+page.svelte`
+    - Displays four key expectations based on MVP spec:
+        - "This is training, not a cure"
+        - "Research shows 50-60% of people see measurable improvement"
+        - "Benefits typically appear after 2-4 weeks of consistent practice"
+        - "Daily practice (10 minutes) works better than occasional longer sessions"
+    - Requires checkbox acknowledgment before continuing
+    - Creates UserProfile with PI20 results and baseline perception score
+    - Creates initial ProgressMetrics with zero values
+    - Saves both to IndexedDB using saveUserProfile() and saveProgressMetrics()
+    - Updates stores using setUserProfile() and setProgressMetrics()
+    - Clears onboarding data using resetOnboardingData()
+    - Validates onboarding data exists, redirects if incomplete
+    - Navigates to / (dashboard) when complete
+    - Uses existing Button and Card components
+    - Uses logger for error handling
+    - Uses Svelte 5 runes ($state) for reactivity
+    - All 101 tests passing
+    - All validation checks passing
+    - Completes Phase 1: Onboarding
 
 ## Notes
 
