@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 12
+- Build iterations: 13
 - Last updated: 2026-02-01
 
 ## Current Phase: Core Training (Phase 2)
@@ -32,7 +32,7 @@ Onboarding flow to guide new users through assessment.
 ### Phase 2: Core Training
 
 - [x] Create FaceDisplay component (spec: 02-core-training.md)
-- [ ] Create TrialDisplay component (spec: 02-core-training.md)
+- [x] Create TrialDisplay component (spec: 02-core-training.md)
 - [ ] Update Home Dashboard at / (spec: 02-core-training.md)
 - [ ] Create Training Session screen at /training (spec: 02-core-training.md)
 - [ ] Create Session Summary screen at /training/summary (spec: 02-core-training.md)
@@ -196,6 +196,20 @@ Onboarding flow to guide new users through assessment.
     - Created test suite in `src/lib/components/FaceDisplay.test.ts` (2 tests)
     - Exported from `src/lib/components/index.ts`
     - All 103 tests passing
+    - All validation checks passing
+
+- [x] Create TrialDisplay component
+    - Created `src/lib/components/TrialDisplay.svelte` with automatic phase progression
+    - Props: faces (targetFaceId, choiceFaceIds, correctPosition), onSelect callback, size variant
+    - Three phases: target (2000ms) → mask (500ms) → choice (user selection)
+    - Uses FaceDisplay component for rendering faces
+    - Automatic timing transitions using setTimeout
+    - Handles choice selection with validation
+    - Uses Svelte 5 runes ($state, $derived, $effect) for reactivity
+    - Resets phases when faces change (new trial)
+    - Created test suite in `src/lib/components/TrialDisplay.test.ts` (2 tests)
+    - Exported from `src/lib/components/index.ts`
+    - All 105 tests passing
     - All validation checks passing
 
 ## Notes
