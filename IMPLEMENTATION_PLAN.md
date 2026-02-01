@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 4
+- Build iterations: 6
 - Last updated: 2026-02-01
 
 ## Current Phase: Onboarding (Phase 1)
@@ -21,8 +21,8 @@ Onboarding flow to guide new users through assessment.
 ### Phase 1: Onboarding
 
 - [x] Create shared UI components (Button, Card, ProgressBar) (spec: 01-onboarding.md)
-- [ ] Create Welcome screen at /onboarding (spec: 01-onboarding.md)
-- [ ] Create LikertScale component (spec: 01-onboarding.md)
+- [x] Create Welcome screen at /onboarding (spec: 01-onboarding.md)
+- [x] Create LikertScale component (spec: 01-onboarding.md)
 - [ ] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
 - [ ] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
 - [ ] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
@@ -84,6 +84,26 @@ Onboarding flow to guide new users through assessment.
     - Added component exports to `src/lib/index.ts`
     - Created basic test suites for all components
     - All 6 component tests passing (92 tests total in project)
+    - All validation checks passing
+
+- [x] Create Welcome screen at /onboarding
+    - Created `src/routes/onboarding/+page.svelte`
+    - Displays FaceIt logo and tagline "Train your brain to recognize faces better"
+    - Shows privacy assurance "All data stays on your device" with lock icon
+    - "Get Started" button navigates to `/onboarding/pi20`
+    - Uses existing Button and Card components
+    - All 92 tests passing
+    - All validation checks passing
+
+- [x] Create LikertScale component
+    - Created `src/lib/components/LikertScale.svelte` with 5-point scale (1-5)
+    - Props: value (PI20Response | null), onchange callback, disabled flag
+    - Labels: Strongly Disagree, Disagree, Neutral, Agree, Strongly Agree
+    - Accessible: 44px tap targets, aria-pressed, keyboard navigable
+    - Visual feedback: selected state with primary color, hover states
+    - Created test suite in `src/lib/components/LikertScale.test.ts`
+    - Exported from `src/lib/components/index.ts`
+    - All 94 tests passing
     - All validation checks passing
 
 ## Notes
