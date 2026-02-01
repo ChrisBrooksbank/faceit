@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 16
+- Build iterations: 17
 - Last updated: 2026-02-01
 
 ## Current Phase: Core Training (Phase 2)
@@ -36,7 +36,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Update Home Dashboard at / (spec: 02-core-training.md)
 - [x] Create Training Session screen at /training (spec: 02-core-training.md)
 - [x] Create Session Summary screen at /training/summary (spec: 02-core-training.md)
-- [ ] Create progress calculation logic (spec: 02-core-training.md)
+- [x] Create progress calculation logic (spec: 02-core-training.md)
 
 ### Phase 3: Polish & Settings
 
@@ -283,6 +283,32 @@ Onboarding flow to guide new users through assessment.
     - Uses stores: currentSession, currentStreak
     - Mobile-responsive: grid layout adapts to single column on small screens
     - All 105 tests passing
+    - All validation checks passing
+
+- [x] Create progress calculation logic
+    - Created `src/lib/core/progress.ts` with three main functions:
+        - `calculateStreak(sessions, referenceDate)`: Counts consecutive days with completed sessions
+        - `calculateImprovement(sessions, baselineThreshold)`: Calculates improvement rate as percentage
+        - `updateProgressMetrics(userId)`: Updates all progress metrics after session completion
+    - Streak calculation:
+        - Normalizes dates to start of day for accurate counting
+        - Filters only completed sessions
+        - Handles multiple sessions per day correctly
+        - Breaks streak on gaps (>1 day)
+    - Improvement calculation:
+        - Uses last 7 sessions (or all if fewer) for recent performance
+        - Lower threshold = better (harder difficulty)
+        - Returns percentage improvement (positive = better, negative = worse)
+        - Rounds to 1 decimal place
+    - Progress metrics updates:
+        - Recalculates all metrics from session history
+        - Updates: currentStreak, longestStreak, totalSessions, totalTrainingTime
+        - Updates: avgThreshold, bestThreshold, avgAccuracy, improvementRate
+        - Saves updated metrics to IndexedDB
+    - Created comprehensive test suite in `src/lib/core/progress.test.ts` (25 tests)
+    - Tests cover edge cases: empty sessions, incomplete sessions, gaps, multiple sessions per day
+    - Uses vitest date mocking for consistent streak testing
+    - All 130 tests passing (25 new progress tests)
     - All validation checks passing
 
 ## Notes
