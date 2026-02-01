@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 18
+- Build iterations: 19
 - Last updated: 2026-02-01
 
 ## Current Phase: Polish & Settings (Phase 3)
@@ -41,7 +41,7 @@ Onboarding flow to guide new users through assessment.
 ### Phase 3: Polish & Settings
 
 - [x] Create Progress View screen at /progress (spec: 03-polish-settings.md)
-- [ ] Create Settings screen at /settings (spec: 03-polish-settings.md)
+- [x] Create Settings screen at /settings (spec: 03-polish-settings.md)
 - [ ] Add real face stimuli (spec: 03-polish-settings.md)
 - [ ] Add PWA icons (spec: 03-polish-settings.md)
 - [ ] Final E2E test coverage (spec: 03-polish-settings.md)
@@ -325,6 +325,22 @@ Onboarding flow to guide new users through assessment.
     - Back to Dashboard button for navigation
     - Empty state: prompts user to start first session if no data
     - Uses existing Button and Card components
+    - All 130 tests passing
+    - All validation checks passing
+
+- [x] Create Settings screen at /settings
+    - Created `src/routes/settings/+page.svelte` with comprehensive settings interface
+    - Notification settings: daily reminder toggle and time picker
+    - Session settings: trials per session selection (50/60/70 trials)
+    - Save changes button appears when settings are modified
+    - Data export: download all training data as JSON file
+    - Data deletion: clear all data with confirmation dialog
+    - About section: app version, privacy policy, research references
+    - Added `deleteAllData` function to `src/lib/db/index.ts` as alias for `clearAllData`
+    - Responsive design: mobile-friendly layout
+    - Accessible: proper ARIA labels, keyboard navigable dialogs
+    - Uses existing Button and Card components
+    - Uses Svelte 5 runes ($state, $derived) for reactivity
     - All 130 tests passing
     - All validation checks passing
 

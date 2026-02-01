@@ -199,6 +199,13 @@ export async function clearAllData(): Promise<void> {
 }
 
 /**
+ * Delete all data from the database (alias for clearAllData)
+ */
+export async function deleteAllData(): Promise<void> {
+    await clearAllData();
+}
+
+/**
  * Close the database connection
  */
 export function closeDB(): void {
