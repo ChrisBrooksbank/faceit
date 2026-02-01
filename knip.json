@@ -3,7 +3,7 @@
     "entry": ["src/routes/**/*.svelte", "src/lib/index.ts"],
     "project": ["src/**/*.{ts,svelte}"],
     "ignore": ["**/*.test.ts", "**/*.spec.ts"],
-    "ignoreDependencies": ["@playwright/test", "prettier-plugin-svelte", "eslint-plugin-svelte"],
+    "ignoreDependencies": ["@eslint/js", "zod"],
     "svelte": {
         "entry": ["src/routes/**/*.svelte", "svelte.config.js"]
     }

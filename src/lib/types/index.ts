@@ -55,6 +55,7 @@ export interface TrainingSession {
 // ============================================
 
 export interface ProgressMetrics {
+    userId: string;
     currentStreak: number;
     longestStreak: number;
     totalSessions: number;

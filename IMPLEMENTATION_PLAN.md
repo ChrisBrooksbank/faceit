@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 0
+- Build iterations: 1
 - Last updated: 2026-02-01
 
 ## Current Phase: Foundation (Phase 0)
@@ -14,7 +14,7 @@ Focus on data layer before UI.
 
 ### Phase 0: Foundation
 
-- [ ] Create IndexedDB module with FaceItDB schema (spec: 00-foundation.md)
+- [x] Create IndexedDB module with FaceItDB schema (spec: 00-foundation.md)
 - [ ] Create Svelte stores for app state (spec: 00-foundation.md)
 - [ ] Create app initialization logic (spec: 00-foundation.md)
 
@@ -49,7 +49,14 @@ Focus on data layer before UI.
 
 ## Completed
 
-<!-- Completed tasks move here -->
+### Phase 0: Foundation
+
+- [x] Create IndexedDB module with FaceItDB schema
+    - Created `src/lib/db/index.ts` with full CRUD operations for all stores
+    - Created comprehensive test suite in `src/lib/db/index.test.ts`
+    - Added fake-indexeddb for test environment
+    - Updated ProgressMetrics type to include userId
+    - All 22 tests passing
 
 ## Notes
 
