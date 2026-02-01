@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 14
+- Build iterations: 15
 - Last updated: 2026-02-01
 
 ## Current Phase: Core Training (Phase 2)
@@ -34,7 +34,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create FaceDisplay component (spec: 02-core-training.md)
 - [x] Create TrialDisplay component (spec: 02-core-training.md)
 - [x] Update Home Dashboard at / (spec: 02-core-training.md)
-- [ ] Create Training Session screen at /training (spec: 02-core-training.md)
+- [x] Create Training Session screen at /training (spec: 02-core-training.md)
 - [ ] Create Session Summary screen at /training/summary (spec: 02-core-training.md)
 - [ ] Create progress calculation logic (spec: 02-core-training.md)
 
@@ -225,6 +225,44 @@ Onboarding flow to guide new users through assessment.
     - Uses existing Button and Card components
     - Uses stores: userProfile, progressMetrics, hasSessionToday, currentStreak
     - Mobile-responsive stats grid (3 columns → 1 column on small screens)
+    - All 105 tests passing
+    - All validation checks passing
+
+- [x] Create Training Session screen at /training
+    - Created `src/routes/training/+page.svelte` with full training session functionality
+    - Implements adaptive staircase algorithm with 50-60 trials (configurable via user settings)
+    - Session management:
+        - Session ID generation (UUID)
+        - Start time tracking
+        - Trial counting and progress tracking
+        - Automatic trial progression with 1000ms delay between trials
+    - Trial generation:
+        - Random face pair selection from 20 pairs (40 faces total)
+        - Morph level matching closest available level (28, 40, 52, 64, 76, 88)
+        - Three-alternative forced choice with randomized correct position
+        - Distractor faces from different pair with varied morph levels
+    - Uses TrialDisplay component for three-phase trial presentation
+    - Staircase state management:
+        - Updates difficulty based on response (2-down/1-up rule)
+        - Tracks reversals for threshold calculation
+        - Records trial data (response time, correct/incorrect, positions)
+    - Progress display:
+        - Trial X of Y counter
+        - ProgressBar component showing completion percentage
+        - Pause button in header
+    - Pause/exit functionality:
+        - Pause menu overlay with Resume/Exit options
+        - Exit confirmation dialog with warning about streak
+        - Saves partial session data when exiting early
+    - Session completion:
+        - Calculates accuracy, threshold level, duration
+        - Saves complete session to IndexedDB
+        - Updates progress metrics (streak, total sessions, best threshold, training time)
+        - Streak logic: consecutive day tracking, breaks if >1 day gap
+        - Navigates to /training/summary
+    - Uses existing components: Button, Card, ProgressBar, TrialDisplay
+    - Uses stores: userProfile, progressMetrics, setCurrentSession, setProgressMetrics
+    - Validates user is onboarded before starting session
     - All 105 tests passing
     - All validation checks passing
 
