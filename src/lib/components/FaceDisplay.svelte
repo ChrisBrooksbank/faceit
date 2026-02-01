@@ -41,7 +41,7 @@
         ariaLabel = 'Face stimulus',
     }: Props = $props();
 
-    const imageSrc = $derived(`/faces/${faceId}.svg`);
+    const imageSrc = $derived(`/faces/${faceId}.jpg`);
 </script>
 
 {#if selectable}

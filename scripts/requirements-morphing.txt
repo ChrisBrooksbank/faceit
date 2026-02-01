@@ -1,0 +1,22 @@
+# Requirements for face morphing script
+# Install with: pip install -r requirements-morphing.txt
+
+# Core morphing library
+facemorpher>=1.0.0
+
+# Image processing
+opencv-python>=4.5.0
+numpy>=1.20.0
+Pillow>=9.0.0
+
+# Facial landmark detection (required by facemorpher)
+dlib>=19.22.0
+
+# Note: dlib requires cmake and a C++ compiler
+# On Windows: pip install cmake && pip install dlib
+# On Mac: brew install cmake && pip install dlib
+# On Linux: sudo apt-get install cmake && pip install dlib
+
+# You also need the shape predictor model:
+# Download from: http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+# Extract and place in the same directory as the script
