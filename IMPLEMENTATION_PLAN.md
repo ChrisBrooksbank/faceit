@@ -3,10 +3,10 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 17
+- Build iterations: 18
 - Last updated: 2026-02-01
 
-## Current Phase: Core Training (Phase 2)
+## Current Phase: Polish & Settings (Phase 3)
 
 Onboarding flow to guide new users through assessment.
 
@@ -40,7 +40,7 @@ Onboarding flow to guide new users through assessment.
 
 ### Phase 3: Polish & Settings
 
-- [ ] Create Progress View screen at /progress (spec: 03-polish-settings.md)
+- [x] Create Progress View screen at /progress (spec: 03-polish-settings.md)
 - [ ] Create Settings screen at /settings (spec: 03-polish-settings.md)
 - [ ] Add real face stimuli (spec: 03-polish-settings.md)
 - [ ] Add PWA icons (spec: 03-polish-settings.md)
@@ -309,6 +309,23 @@ Onboarding flow to guide new users through assessment.
     - Tests cover edge cases: empty sessions, incomplete sessions, gaps, multiple sessions per day
     - Uses vitest date mocking for consistent streak testing
     - All 130 tests passing (25 new progress tests)
+    - All validation checks passing
+
+### Phase 3: Polish & Settings
+
+- [x] Create Progress View screen at /progress
+    - Created `src/routes/progress/+page.svelte` with comprehensive progress visualization
+    - Statistics summary: total training time, best threshold, average accuracy, longest streak
+    - Threshold chart: line graph showing threshold progression over sessions (lower is better)
+    - Accuracy chart: line graph showing accuracy progression over sessions
+    - PI20 assessment history: displays initial and follow-up assessments with comparison
+    - Simple SVG charts (no heavy libraries, fully offline-compatible)
+    - Responsive design: stats grid adapts to single column on mobile
+    - Error handling with logger
+    - Back to Dashboard button for navigation
+    - Empty state: prompts user to start first session if no data
+    - Uses existing Button and Card components
+    - All 130 tests passing
     - All validation checks passing
 
 ## Notes
