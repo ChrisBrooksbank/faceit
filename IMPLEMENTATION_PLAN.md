@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 13
+- Build iterations: 14
 - Last updated: 2026-02-01
 
 ## Current Phase: Core Training (Phase 2)
@@ -33,7 +33,7 @@ Onboarding flow to guide new users through assessment.
 
 - [x] Create FaceDisplay component (spec: 02-core-training.md)
 - [x] Create TrialDisplay component (spec: 02-core-training.md)
-- [ ] Update Home Dashboard at / (spec: 02-core-training.md)
+- [x] Update Home Dashboard at / (spec: 02-core-training.md)
 - [ ] Create Training Session screen at /training (spec: 02-core-training.md)
 - [ ] Create Session Summary screen at /training/summary (spec: 02-core-training.md)
 - [ ] Create progress calculation logic (spec: 02-core-training.md)
@@ -209,6 +209,22 @@ Onboarding flow to guide new users through assessment.
     - Resets phases when faces change (new trial)
     - Created test suite in `src/lib/components/TrialDisplay.test.ts` (2 tests)
     - Exported from `src/lib/components/index.ts`
+    - All 105 tests passing
+    - All validation checks passing
+
+- [x] Update Home Dashboard at /
+    - Updated `src/routes/+page.svelte` with conditional rendering based on onboarding status
+    - Not onboarded: Shows welcome message and "Start Assessment" button
+    - Onboarded: Shows personalized dashboard with:
+        - Greeting with current streak (🔥 X day streak!)
+        - Session status (completed today or ready to start)
+        - "Start Session" button (disabled if completed today, shows "Done for today")
+        - Quick stats: current streak, total sessions, average threshold
+        - Links to /progress and /settings
+    - Added fullWidth prop to Button component for better layout control
+    - Uses existing Button and Card components
+    - Uses stores: userProfile, progressMetrics, hasSessionToday, currentStreak
+    - Mobile-responsive stats grid (3 columns → 1 column on small screens)
     - All 105 tests passing
     - All validation checks passing
 

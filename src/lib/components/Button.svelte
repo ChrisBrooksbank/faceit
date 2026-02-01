@@ -6,6 +6,7 @@
         disabled?: boolean;
         type?: 'button' | 'submit' | 'reset';
         onclick?: () => void;
+        fullWidth?: boolean;
         children: Snippet;
     }
 
@@ -14,11 +15,12 @@
         disabled = false,
         type = 'button',
         onclick,
+        fullWidth = false,
         children,
     }: Props = $props();
 </script>
 
-<button class="btn btn-{variant}" {type} {disabled} {onclick}>
+<button class="btn btn-{variant}" class:full-width={fullWidth} {type} {disabled} {onclick}>
     {@render children()}
 </button>
 
@@ -64,5 +66,10 @@
 
     .btn-secondary:hover:not(:disabled) {
         background: var(--color-bg);
+    }
+
+    .btn.full-width {
+        display: block;
+        width: 100%;
     }
 </style>
