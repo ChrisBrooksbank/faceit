@@ -1,0 +1,30 @@
+<svg width="300" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="300" height="400" fill="#f5f5f5"/>
+
+  <!-- Face outline -->
+  <ellipse cx="150" cy="200" rx="107.6" ry="140"
+           fill="hsl(165.2, 70%, 85%)"
+           stroke="hsl(165.2, 50%, 60%)" stroke-width="2"/>
+
+  <!-- Eyes -->
+  <ellipse cx="110.2" cy="180" rx="15" ry="20" fill="#333"/>
+  <ellipse cx="189.8" cy="180" rx="15" ry="20" fill="#333"/>
+
+  <!-- Nose -->
+  <path d="M 150 200 L 154 220 L 155 220 Z"
+        fill="hsl(165.2, 50%, 70%)"/>
+
+  <!-- Mouth -->
+  <ellipse cx="150" cy="260" rx="30" ry="14"
+           fill="hsl(165.2, 60%, 65%)"/>
+
+  <!-- Pattern overlay (distinctive feature) -->
+  <path d="M 50 140 Q 100 100 150 120 Q 200 100 250 140"
+              fill="hsl(345.2, 40%, 30%)" opacity="0.8"/>
+
+  <!-- Debug text (morphLevel indicator) -->
+  <text x="150" y="380" text-anchor="middle" font-size="12" fill="#999">
+    40% morph
+  </text>
+</svg>

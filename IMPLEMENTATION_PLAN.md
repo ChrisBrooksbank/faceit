@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 7
+- Build iterations: 8
 - Last updated: 2026-02-01
 
 ## Current Phase: Onboarding (Phase 1)
@@ -24,7 +24,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create Welcome screen at /onboarding (spec: 01-onboarding.md)
 - [x] Create LikertScale component (spec: 01-onboarding.md)
 - [x] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
-- [ ] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
+- [x] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
 - [ ] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
 - [ ] Create Results Profile screen at /onboarding/results (spec: 01-onboarding.md)
 - [ ] Create Expectations screen at /onboarding/expectations (spec: 01-onboarding.md)
@@ -118,6 +118,19 @@ Onboarding flow to guide new users through assessment.
     - Final question shows "Continue" button that navigates to /onboarding/perception
     - Uses Svelte 5 runes ($state, $derived) for reactivity
     - All 94 tests passing (routes excluded from coverage)
+    - All validation checks passing
+
+- [x] Create placeholder face stimuli in static/faces/
+    - Created `scripts/generate-placeholders.js` to generate placeholder SVG faces
+    - Generated 120 morph images (20 face pairs × 6 morph levels)
+    - Morph levels: 28%, 40%, 52%, 64%, 76%, 88%
+    - Naming convention: `face{A}_face{B}_{morphLevel}.svg`
+    - Created `static/faces/metadata.json` with face pair metadata
+    - SVG faces use geometric patterns, colors, and variations to simulate morphing
+    - Each face has distinctive features (hue, shape, eye spacing, patterns)
+    - Morph level displayed as debug text on each image
+    - Ready to be replaced with real photos + morphs in Phase 3
+    - All 94 tests passing
     - All validation checks passing
 
 ## Notes
