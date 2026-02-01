@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 8
+- Build iterations: 9
 - Last updated: 2026-02-01
 
 ## Current Phase: Onboarding (Phase 1)
@@ -25,7 +25,7 @@ Onboarding flow to guide new users through assessment.
 - [x] Create LikertScale component (spec: 01-onboarding.md)
 - [x] Create PI20 Survey screen at /onboarding/pi20 (spec: 01-onboarding.md)
 - [x] Create placeholder face stimuli in static/faces/ (spec: 01-onboarding.md)
-- [ ] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
+- [x] Create Perception Test screen at /onboarding/perception (spec: 01-onboarding.md)
 - [ ] Create Results Profile screen at /onboarding/results (spec: 01-onboarding.md)
 - [ ] Create Expectations screen at /onboarding/expectations (spec: 01-onboarding.md)
 
@@ -130,6 +130,19 @@ Onboarding flow to guide new users through assessment.
     - Each face has distinctive features (hue, shape, eye spacing, patterns)
     - Morph level displayed as debug text on each image
     - Ready to be replaced with real photos + morphs in Phase 3
+    - All 94 tests passing
+    - All validation checks passing
+
+- [x] Create Perception Test screen at /onboarding/perception
+    - Created `src/routes/onboarding/perception/+page.svelte`
+    - Implements 6 trials at fixed difficulty levels (88%, 76%, 64%, 52%, 40%, 28%)
+    - Three phases per trial: target display (2000ms) → mask (500ms) → 3-choice selection
+    - Uses placeholder face stimuli from static/faces/
+    - Tracks correct responses (0-6)
+    - Shows completion screen with score
+    - Navigates to /onboarding/results when complete
+    - Uses existing Button, Card, and ProgressBar components
+    - Uses Svelte 5 runes ($state, $derived) for reactivity
     - All 94 tests passing
     - All validation checks passing
 
