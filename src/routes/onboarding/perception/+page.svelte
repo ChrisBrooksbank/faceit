@@ -45,16 +45,10 @@
         const distractor1 = `/faces/${faceA}_${faceB}_28.jpg`;
         const distractor2 = `/faces/${faceA}_${faceB}_88.jpg`;
 
-        choiceFaceUrls = [];
-        for (let i = 0; i < 3; i++) {
-            if (i === correctPosition) {
-                choiceFaceUrls.push(targetFaceUrl);
-            } else if (choiceFaceUrls.length === 1) {
-                choiceFaceUrls.push(distractor1);
-            } else {
-                choiceFaceUrls.push(distractor2);
-            }
-        }
+        const distractors = [distractor1, distractor2];
+        choiceFaceUrls = Array.from({ length: 3 }, (_, index) =>
+            index === correctPosition ? targetFaceUrl : (distractors.shift() ?? distractor1)
+        );
 
         selectedPosition = -1;
     }

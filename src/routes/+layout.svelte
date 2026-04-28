@@ -13,6 +13,10 @@
     // data is available but not used in layout currently
 </script>
 
+<svelte:head>
+    <title>FaceIt</title>
+</svelte:head>
+
 <div class="app">
     <header>
         <h1>FaceIt</h1>

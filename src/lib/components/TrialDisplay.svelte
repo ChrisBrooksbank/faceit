@@ -8,7 +8,6 @@
      * 3. Choice: Shows 3 faces, waits for selection
      */
 
-    import { onMount } from 'svelte';
     import FaceDisplay from './FaceDisplay.svelte';
 
     type TrialPhase = 'target' | 'mask' | 'choice';
@@ -45,19 +44,25 @@
     let selectedPosition = $state<number>(-1);
 
     // Start trial progression through phases
-    function startPhases(): void {
+    function startPhases(): () => void {
         phase = 'target';
         selectedPosition = -1;
 
-        // Show target for 2 seconds
-        setTimeout(() => {
+        let maskTimer: ReturnType<typeof setTimeout> | null = null;
+        const targetTimer = setTimeout(() => {
             phase = 'mask';
 
-            // Show mask for 500ms
-            setTimeout(() => {
+            maskTimer = setTimeout(() => {
                 phase = 'choice';
             }, MASK_TIME);
         }, DISPLAY_TIME);
+
+        return () => {
+            clearTimeout(targetTimer);
+            if (maskTimer) {
+                clearTimeout(maskTimer);
+            }
+        };
     }
 
     // Handle choice selection
@@ -69,16 +74,14 @@
         onSelect(position, correct);
     }
 
-    // Start phases when component mounts or faces change
-    onMount(() => {
-        startPhases();
-    });
-
     // Restart phases when faces change (new trial)
     $effect(() => {
-        // Track faces to trigger on change
-        void faces;
-        startPhases();
+        const { targetFaceId, choiceFaceIds, correctPosition } = faces;
+        void targetFaceId;
+        void choiceFaceIds;
+        void correctPosition;
+
+        return startPhases();
     });
 </script>
 

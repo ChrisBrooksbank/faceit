@@ -4,7 +4,7 @@
     import { onMount } from 'svelte';
     import { onboardingData, resetOnboardingData } from '$lib/stores/onboarding';
     import { setUserProfile, setProgressMetrics } from '$lib/stores';
-    import { saveUserProfile, saveProgressMetrics } from '$lib/db';
+    import { saveAssessment, saveUserProfile, saveProgressMetrics } from '$lib/db';
     import { getPI20Result } from '$lib/core/pi20';
     import { logger } from '$lib/utils/logger';
     import type { UserProfile, ProgressMetrics, PI20Response } from '$lib/types';
@@ -32,6 +32,43 @@
         dataValid = true;
     });
 
+    function createUserProfile(
+        userId: string,
+        now: Date,
+        pi20Score: number,
+        pi20Responses: PI20Response[],
+        perceptionScore: number
+    ): UserProfile {
+        return {
+            id: userId,
+            createdAt: now,
+            pi20Score,
+            pi20Responses,
+            baselinePerception: perceptionScore,
+            onboardingComplete: true,
+            settings: {
+                reminderEnabled: false,
+                reminderTime: '09:00',
+                trialsPerSession: 60,
+            },
+        };
+    }
+
+    function createProgressMetrics(userId: string): ProgressMetrics {
+        return {
+            userId,
+            currentStreak: 0,
+            longestStreak: 0,
+            totalSessions: 0,
+            totalTrainingTime: 0,
+            avgThreshold: 0,
+            bestThreshold: 0,
+            avgAccuracy: 0,
+            lastSessionDate: null,
+            improvementRate: 0,
+        };
+    }
+
     async function handleComplete(): Promise<void> {
         if (!acknowledged || !dataValid) {
             return;
@@ -41,42 +78,32 @@
 
         try {
             const data = $onboardingData;
-            const pi20Result = getPI20Result(data.pi20Responses as PI20Response[]);
+            const pi20Responses: PI20Response[] = data.pi20Responses.map(response => response ?? 3);
+            const perceptionScore = data.perceptionScore ?? 0;
+            const pi20Result = getPI20Result(pi20Responses as PI20Response[]);
 
             // Create user profile
             const userId = crypto.randomUUID();
             const now = new Date();
-
-            const profile: UserProfile = {
-                id: userId,
-                createdAt: now,
-                pi20Score: pi20Result.score,
-                pi20Responses: data.pi20Responses as number[],
-                baselinePerception: data.perceptionScore as number,
-                onboardingComplete: true,
-                settings: {
-                    reminderEnabled: false,
-                    reminderTime: '09:00',
-                    trialsPerSession: 40,
-                },
-            };
-
-            // Create initial progress metrics
-            const metrics: ProgressMetrics = {
+            const profile = createUserProfile(
                 userId,
-                currentStreak: 0,
-                longestStreak: 0,
-                totalSessions: 0,
-                totalTrainingTime: 0,
-                avgThreshold: 0,
-                bestThreshold: 0,
-                avgAccuracy: 0,
-                lastSessionDate: null,
-                improvementRate: 0,
-            };
+                now,
+                pi20Result.score,
+                pi20Responses,
+                perceptionScore
+            );
+            const metrics = createProgressMetrics(userId);
 
             // Save to IndexedDB
             await saveUserProfile(profile);
+            await saveAssessment({
+                id: crypto.randomUUID(),
+                date: now,
+                type: 'initial',
+                pi20Score: pi20Result.score,
+                pi20Responses,
+                perceptionScore,
+            });
             await saveProgressMetrics(metrics);
 
             // Update stores

@@ -1,7 +1,7 @@
 {
     "version": "1.0",
-    "source": "Placeholder - Geometric SVG faces",
-    "description": "Placeholder face stimuli for FaceIt MVP. Replace with real face database for production.",
+    "source": "Placeholder - Generated JPG faces",
+    "description": "Placeholder JPG face stimuli for FaceIt MVP. Replace with a licensed real face database for production.",
     "citation": null,
     "isPlaceholder": true,
     "facePairs": [
@@ -10,12 +10,12 @@
             "faceB": "face2",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face1_face2_28.svg",
-                "face1_face2_40.svg",
-                "face1_face2_52.svg",
-                "face1_face2_64.svg",
-                "face1_face2_76.svg",
-                "face1_face2_88.svg"
+                "face1_face2_28\.jpg",
+                "face1_face2_40\.jpg",
+                "face1_face2_52\.jpg",
+                "face1_face2_64\.jpg",
+                "face1_face2_76\.jpg",
+                "face1_face2_88\.jpg"
             ]
         },
         {
@@ -23,12 +23,12 @@
             "faceB": "face4",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face3_face4_28.svg",
-                "face3_face4_40.svg",
-                "face3_face4_52.svg",
-                "face3_face4_64.svg",
-                "face3_face4_76.svg",
-                "face3_face4_88.svg"
+                "face3_face4_28\.jpg",
+                "face3_face4_40\.jpg",
+                "face3_face4_52\.jpg",
+                "face3_face4_64\.jpg",
+                "face3_face4_76\.jpg",
+                "face3_face4_88\.jpg"
             ]
         },
         {
@@ -36,12 +36,12 @@
             "faceB": "face6",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face5_face6_28.svg",
-                "face5_face6_40.svg",
-                "face5_face6_52.svg",
-                "face5_face6_64.svg",
-                "face5_face6_76.svg",
-                "face5_face6_88.svg"
+                "face5_face6_28\.jpg",
+                "face5_face6_40\.jpg",
+                "face5_face6_52\.jpg",
+                "face5_face6_64\.jpg",
+                "face5_face6_76\.jpg",
+                "face5_face6_88\.jpg"
             ]
         },
         {
@@ -49,12 +49,12 @@
             "faceB": "face8",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face7_face8_28.svg",
-                "face7_face8_40.svg",
-                "face7_face8_52.svg",
-                "face7_face8_64.svg",
-                "face7_face8_76.svg",
-                "face7_face8_88.svg"
+                "face7_face8_28\.jpg",
+                "face7_face8_40\.jpg",
+                "face7_face8_52\.jpg",
+                "face7_face8_64\.jpg",
+                "face7_face8_76\.jpg",
+                "face7_face8_88\.jpg"
             ]
         },
         {
@@ -62,12 +62,12 @@
             "faceB": "face10",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face9_face10_28.svg",
-                "face9_face10_40.svg",
-                "face9_face10_52.svg",
-                "face9_face10_64.svg",
-                "face9_face10_76.svg",
-                "face9_face10_88.svg"
+                "face9_face10_28\.jpg",
+                "face9_face10_40\.jpg",
+                "face9_face10_52\.jpg",
+                "face9_face10_64\.jpg",
+                "face9_face10_76\.jpg",
+                "face9_face10_88\.jpg"
             ]
         },
         {
@@ -75,12 +75,12 @@
             "faceB": "face12",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face11_face12_28.svg",
-                "face11_face12_40.svg",
-                "face11_face12_52.svg",
-                "face11_face12_64.svg",
-                "face11_face12_76.svg",
-                "face11_face12_88.svg"
+                "face11_face12_28\.jpg",
+                "face11_face12_40\.jpg",
+                "face11_face12_52\.jpg",
+                "face11_face12_64\.jpg",
+                "face11_face12_76\.jpg",
+                "face11_face12_88\.jpg"
             ]
         },
         {
@@ -88,12 +88,12 @@
             "faceB": "face14",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face13_face14_28.svg",
-                "face13_face14_40.svg",
-                "face13_face14_52.svg",
-                "face13_face14_64.svg",
-                "face13_face14_76.svg",
-                "face13_face14_88.svg"
+                "face13_face14_28\.jpg",
+                "face13_face14_40\.jpg",
+                "face13_face14_52\.jpg",
+                "face13_face14_64\.jpg",
+                "face13_face14_76\.jpg",
+                "face13_face14_88\.jpg"
             ]
         },
         {
@@ -101,12 +101,12 @@
             "faceB": "face16",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face15_face16_28.svg",
-                "face15_face16_40.svg",
-                "face15_face16_52.svg",
-                "face15_face16_64.svg",
-                "face15_face16_76.svg",
-                "face15_face16_88.svg"
+                "face15_face16_28\.jpg",
+                "face15_face16_40\.jpg",
+                "face15_face16_52\.jpg",
+                "face15_face16_64\.jpg",
+                "face15_face16_76\.jpg",
+                "face15_face16_88\.jpg"
             ]
         },
         {
@@ -114,12 +114,12 @@
             "faceB": "face18",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face17_face18_28.svg",
-                "face17_face18_40.svg",
-                "face17_face18_52.svg",
-                "face17_face18_64.svg",
-                "face17_face18_76.svg",
-                "face17_face18_88.svg"
+                "face17_face18_28\.jpg",
+                "face17_face18_40\.jpg",
+                "face17_face18_52\.jpg",
+                "face17_face18_64\.jpg",
+                "face17_face18_76\.jpg",
+                "face17_face18_88\.jpg"
             ]
         },
         {
@@ -127,12 +127,12 @@
             "faceB": "face20",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face19_face20_28.svg",
-                "face19_face20_40.svg",
-                "face19_face20_52.svg",
-                "face19_face20_64.svg",
-                "face19_face20_76.svg",
-                "face19_face20_88.svg"
+                "face19_face20_28\.jpg",
+                "face19_face20_40\.jpg",
+                "face19_face20_52\.jpg",
+                "face19_face20_64\.jpg",
+                "face19_face20_76\.jpg",
+                "face19_face20_88\.jpg"
             ]
         },
         {
@@ -140,12 +140,12 @@
             "faceB": "face22",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face21_face22_28.svg",
-                "face21_face22_40.svg",
-                "face21_face22_52.svg",
-                "face21_face22_64.svg",
-                "face21_face22_76.svg",
-                "face21_face22_88.svg"
+                "face21_face22_28\.jpg",
+                "face21_face22_40\.jpg",
+                "face21_face22_52\.jpg",
+                "face21_face22_64\.jpg",
+                "face21_face22_76\.jpg",
+                "face21_face22_88\.jpg"
             ]
         },
         {
@@ -153,12 +153,12 @@
             "faceB": "face24",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face23_face24_28.svg",
-                "face23_face24_40.svg",
-                "face23_face24_52.svg",
-                "face23_face24_64.svg",
-                "face23_face24_76.svg",
-                "face23_face24_88.svg"
+                "face23_face24_28\.jpg",
+                "face23_face24_40\.jpg",
+                "face23_face24_52\.jpg",
+                "face23_face24_64\.jpg",
+                "face23_face24_76\.jpg",
+                "face23_face24_88\.jpg"
             ]
         },
         {
@@ -166,12 +166,12 @@
             "faceB": "face26",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face25_face26_28.svg",
-                "face25_face26_40.svg",
-                "face25_face26_52.svg",
-                "face25_face26_64.svg",
-                "face25_face26_76.svg",
-                "face25_face26_88.svg"
+                "face25_face26_28\.jpg",
+                "face25_face26_40\.jpg",
+                "face25_face26_52\.jpg",
+                "face25_face26_64\.jpg",
+                "face25_face26_76\.jpg",
+                "face25_face26_88\.jpg"
             ]
         },
         {
@@ -179,12 +179,12 @@
             "faceB": "face28",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face27_face28_28.svg",
-                "face27_face28_40.svg",
-                "face27_face28_52.svg",
-                "face27_face28_64.svg",
-                "face27_face28_76.svg",
-                "face27_face28_88.svg"
+                "face27_face28_28\.jpg",
+                "face27_face28_40\.jpg",
+                "face27_face28_52\.jpg",
+                "face27_face28_64\.jpg",
+                "face27_face28_76\.jpg",
+                "face27_face28_88\.jpg"
             ]
         },
         {
@@ -192,12 +192,12 @@
             "faceB": "face30",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face29_face30_28.svg",
-                "face29_face30_40.svg",
-                "face29_face30_52.svg",
-                "face29_face30_64.svg",
-                "face29_face30_76.svg",
-                "face29_face30_88.svg"
+                "face29_face30_28\.jpg",
+                "face29_face30_40\.jpg",
+                "face29_face30_52\.jpg",
+                "face29_face30_64\.jpg",
+                "face29_face30_76\.jpg",
+                "face29_face30_88\.jpg"
             ]
         },
         {
@@ -205,12 +205,12 @@
             "faceB": "face32",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face31_face32_28.svg",
-                "face31_face32_40.svg",
-                "face31_face32_52.svg",
-                "face31_face32_64.svg",
-                "face31_face32_76.svg",
-                "face31_face32_88.svg"
+                "face31_face32_28\.jpg",
+                "face31_face32_40\.jpg",
+                "face31_face32_52\.jpg",
+                "face31_face32_64\.jpg",
+                "face31_face32_76\.jpg",
+                "face31_face32_88\.jpg"
             ]
         },
         {
@@ -218,12 +218,12 @@
             "faceB": "face34",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face33_face34_28.svg",
-                "face33_face34_40.svg",
-                "face33_face34_52.svg",
-                "face33_face34_64.svg",
-                "face33_face34_76.svg",
-                "face33_face34_88.svg"
+                "face33_face34_28\.jpg",
+                "face33_face34_40\.jpg",
+                "face33_face34_52\.jpg",
+                "face33_face34_64\.jpg",
+                "face33_face34_76\.jpg",
+                "face33_face34_88\.jpg"
             ]
         },
         {
@@ -231,12 +231,12 @@
             "faceB": "face36",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face35_face36_28.svg",
-                "face35_face36_40.svg",
-                "face35_face36_52.svg",
-                "face35_face36_64.svg",
-                "face35_face36_76.svg",
-                "face35_face36_88.svg"
+                "face35_face36_28\.jpg",
+                "face35_face36_40\.jpg",
+                "face35_face36_52\.jpg",
+                "face35_face36_64\.jpg",
+                "face35_face36_76\.jpg",
+                "face35_face36_88\.jpg"
             ]
         },
         {
@@ -244,12 +244,12 @@
             "faceB": "face38",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face37_face38_28.svg",
-                "face37_face38_40.svg",
-                "face37_face38_52.svg",
-                "face37_face38_64.svg",
-                "face37_face38_76.svg",
-                "face37_face38_88.svg"
+                "face37_face38_28\.jpg",
+                "face37_face38_40\.jpg",
+                "face37_face38_52\.jpg",
+                "face37_face38_64\.jpg",
+                "face37_face38_76\.jpg",
+                "face37_face38_88\.jpg"
             ]
         },
         {
@@ -257,12 +257,12 @@
             "faceB": "face40",
             "morphLevels": [28, 40, 52, 64, 76, 88],
             "files": [
-                "face39_face40_28.svg",
-                "face39_face40_40.svg",
-                "face39_face40_52.svg",
-                "face39_face40_64.svg",
-                "face39_face40_76.svg",
-                "face39_face40_88.svg"
+                "face39_face40_28\.jpg",
+                "face39_face40_40\.jpg",
+                "face39_face40_52\.jpg",
+                "face39_face40_64\.jpg",
+                "face39_face40_76\.jpg",
+                "face39_face40_88\.jpg"
             ]
         }
     ],

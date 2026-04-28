@@ -7,16 +7,12 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     import { Button, Card, ProgressBar, TrialDisplay } from '$lib/components';
-    import {
-        userProfile,
-        progressMetrics,
-        setCurrentSession,
-        setProgressMetrics,
-    } from '$lib/stores';
+    import { userProfile, setCurrentSession, setProgressMetrics } from '$lib/stores';
     import { createStaircaseState, updateStaircase, calculateThreshold } from '$lib/core/staircase';
-    import { saveSession, saveProgressMetrics } from '$lib/db';
+    import { updateProgressMetrics as recalculateProgressMetrics } from '$lib/core/progress';
+    import { saveSession } from '$lib/db';
     import { logger } from '$lib/utils/logger';
-    import type { Trial, TrainingSession, ProgressMetrics, StaircaseState } from '$lib/types';
+    import type { Trial, TrainingSession, StaircaseState } from '$lib/types';
 
     // ============================================
     // Constants
@@ -189,18 +185,38 @@
         const distractorMorph1 = MORPH_LEVELS[Math.floor(Math.random() * MORPH_LEVELS.length)];
         const distractorMorph2 = MORPH_LEVELS[Math.floor(Math.random() * MORPH_LEVELS.length)];
 
+        let distractor2PairIndex = Math.floor(Math.random() * (FACE_PAIRS - 2));
+        const excludedPairs = [pairIndex, distractorPairIndex].sort((a, b) => a - b);
+        for (const excludedPair of excludedPairs) {
+            if (distractor2PairIndex >= excludedPair) {
+                distractor2PairIndex++;
+            }
+        }
+
+        const distractor2A = distractor2PairIndex * 2 + 1;
+        const distractor2B = distractor2A + 1;
+
         const distractor1 = `face${distractorA}_face${distractorB}_${distractorMorph1}`;
-        const distractor2 = `face${distractorA}_face${distractorB}_${distractorMorph2}`;
+        const distractor2 = `face${distractor2A}_face${distractor2B}_${distractorMorph2}`;
 
         // Randomize position of correct answer
         const correctPos = Math.floor(Math.random() * 3);
-        const choices = [distractor1, distractor2, distractor2];
-        choices[correctPos] = morphFaceId;
+        const distractors = [distractor1, distractor2];
+        const choices = Array.from({ length: 3 }, (_, index) =>
+            index === correctPos ? morphFaceId : (distractors.shift() ?? distractor1)
+        );
 
         return {
             target: morphFaceId,
             choices,
             correct: correctPos,
+        };
+    }
+
+    function serializeTrial(trial: Trial): Trial {
+        return {
+            ...trial,
+            distractorFaceIds: [...trial.distractorFaceIds],
         };
     }
 
@@ -217,16 +233,17 @@
         const thresholdLevel =
             calculateThreshold(staircaseState) ?? staircaseState.currentMorphLevel;
 
+        const completedTrials = trials.map(serializeTrial);
         const session: TrainingSession = {
             id: sessionId,
             date: new Date(),
             duration,
-            trialsCompleted: trials.length,
+            trialsCompleted: completedTrials.length,
             trialsTotal,
             accuracy,
             thresholdLevel,
-            thresholdHistory: staircaseState.reversals,
-            trials,
+            thresholdHistory: [...staircaseState.reversals],
+            trials: completedTrials,
             completed: true,
         };
 
@@ -236,7 +253,15 @@
             setCurrentSession(session);
 
             // Update progress metrics
-            await updateProgressMetrics(session);
+            const profile = $userProfile;
+            if (profile) {
+                try {
+                    const updatedMetrics = await recalculateProgressMetrics(profile.id);
+                    setProgressMetrics(updatedMetrics);
+                } catch (error) {
+                    logger.error('Failed to update progress metrics', error);
+                }
+            }
 
             logger.info('Training session completed', {
                 sessionId,
@@ -252,56 +277,6 @@
         }
     }
 
-    async function updateProgressMetrics(session: TrainingSession): Promise<void> {
-        const currentMetrics = $progressMetrics;
-        if (!currentMetrics) {
-            logger.error('Progress metrics not found');
-            return;
-        }
-
-        const today = new Date();
-        const lastSession = currentMetrics.lastSessionDate
-            ? new Date(currentMetrics.lastSessionDate)
-            : null;
-
-        // Calculate streak
-        let newStreak = currentMetrics.currentStreak;
-        if (!lastSession) {
-            newStreak = 1;
-        } else {
-            const daysSince = Math.floor(
-                (today.getTime() - lastSession.getTime()) / (1000 * 60 * 60 * 24)
-            );
-            if (daysSince === 0) {
-                // Same day, keep streak
-                newStreak = currentMetrics.currentStreak;
-            } else if (daysSince === 1) {
-                // Consecutive day
-                newStreak = currentMetrics.currentStreak + 1;
-            } else {
-                // Streak broken
-                newStreak = 1;
-            }
-        }
-
-        const updatedMetrics: ProgressMetrics = {
-            ...currentMetrics,
-            currentStreak: newStreak,
-            longestStreak: Math.max(newStreak, currentMetrics.longestStreak),
-            totalSessions: currentMetrics.totalSessions + 1,
-            totalTrainingTime: currentMetrics.totalTrainingTime + session.duration,
-            bestThreshold: Math.min(session.thresholdLevel, currentMetrics.bestThreshold || 100),
-            lastSessionDate: today,
-            // Note: avgThreshold, avgAccuracy, improvementRate calculated separately
-            avgThreshold: currentMetrics.avgThreshold,
-            avgAccuracy: currentMetrics.avgAccuracy,
-            improvementRate: currentMetrics.improvementRate,
-        };
-
-        await saveProgressMetrics(updatedMetrics);
-        setProgressMetrics(updatedMetrics);
-    }
-
     // ============================================
     // Pause & Exit
     // ============================================
@@ -315,6 +290,7 @@
     }
 
     function handleExitRequest(): void {
+        showPauseMenu = false;
         showExitConfirm = true;
     }
 
@@ -332,16 +308,17 @@
             const thresholdLevel =
                 calculateThreshold(staircaseState) ?? staircaseState.currentMorphLevel;
 
+            const partialTrials = trials.map(serializeTrial);
             const session: TrainingSession = {
                 id: sessionId,
                 date: new Date(),
                 duration,
-                trialsCompleted: trials.length,
+                trialsCompleted: partialTrials.length,
                 trialsTotal,
                 accuracy,
                 thresholdLevel,
-                thresholdHistory: staircaseState.reversals,
-                trials,
+                thresholdHistory: [...staircaseState.reversals],
+                trials: partialTrials,
                 completed: false,
             };
 

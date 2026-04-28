@@ -1,25 +1,24 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('FaceIt Application', () => {
-    test('should load the home page', async ({ page }) => {
+test.describe('FaceIt shell', () => {
+    test('loads the first-run dashboard', async ({ page }) => {
         await page.goto('/');
+
         await expect(page).toHaveTitle(/FaceIt/);
+        await expect(
+            page.getByRole('banner').getByRole('heading', { name: 'FaceIt' })
+        ).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Welcome to FaceIt' })).toBeVisible();
+        await expect(page.getByRole('button', { name: 'Start Assessment' })).toBeVisible();
     });
 
-    test('should display the header with app name', async ({ page }) => {
+    test('navigates from dashboard to onboarding welcome', async ({ page }) => {
         await page.goto('/');
-        await expect(page.locator('header h1')).toHaveText('FaceIt');
-    });
+        await page.getByRole('button', { name: 'Start Assessment' }).click();
 
-    test('should show welcome card', async ({ page }) => {
-        await page.goto('/');
-        await expect(page.locator('.welcome h2')).toHaveText('Welcome to FaceIt');
-    });
-
-    test('should have start assessment link', async ({ page }) => {
-        await page.goto('/');
-        const startButton = page.locator('a.btn-primary');
-        await expect(startButton).toHaveText('Start Assessment');
-        await expect(startButton).toHaveAttribute('href', '/onboarding');
+        await expect(page).toHaveURL('/onboarding');
+        await expect(
+            page.getByRole('heading', { name: 'Train your brain to recognize faces better' })
+        ).toBeVisible();
     });
 });
