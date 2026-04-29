@@ -22,11 +22,13 @@
     const { children }: Props = $props();
     // data is available but not used in layout currently
 
-    let canInstall = $state(false);
+    let isInstalled = $state(false);
     let hasUpdate = $state(false);
     let isOfflineReady = $state(false);
+    let showInstallHelp = $state(false);
     let installPrompt = $state<BeforeInstallPromptEvent | null>(null);
     let updateServiceWorker = $state<((reloadPage?: boolean) => Promise<void>) | null>(null);
+    const canShowInstall = $derived(!isInstalled);
 
     function isAppInstalled(): boolean {
         const navigatorWithStandalone = navigator as Navigator & { standalone?: boolean };
@@ -40,24 +42,27 @@
     function handleBeforeInstallPrompt(event: Event): void {
         event.preventDefault();
         installPrompt = event as BeforeInstallPromptEvent;
-        canInstall = !isAppInstalled();
+        isInstalled = isAppInstalled();
     }
 
     function handleAppInstalled(): void {
         installPrompt = null;
-        canInstall = false;
+        isInstalled = true;
+        showInstallHelp = false;
     }
 
     async function installApp(): Promise<void> {
         if (!installPrompt) {
+            showInstallHelp = !showInstallHelp;
             return;
         }
 
         const prompt = installPrompt;
         installPrompt = null;
-        canInstall = false;
+        showInstallHelp = false;
         await prompt.prompt();
-        await prompt.userChoice;
+        const choice = await prompt.userChoice;
+        isInstalled = choice.outcome === 'accepted' || isAppInstalled();
     }
 
     async function updateApp(): Promise<void> {
@@ -72,6 +77,7 @@
     onMount(() => {
         let isMounted = true;
 
+        isInstalled = isAppInstalled();
         window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
         window.addEventListener('appinstalled', handleAppInstalled);
 
@@ -112,7 +118,7 @@
                 <span class="offline-status">Offline ready</span>
             {/if}
 
-            {#if canInstall}
+            {#if canShowInstall}
                 <button class="pwa-button" type="button" onclick={installApp}>Install app</button>
             {/if}
 
@@ -123,6 +129,16 @@
             {/if}
         </div>
     </header>
+
+    {#if showInstallHelp && canShowInstall}
+        <section class="install-help" aria-label="Install instructions">
+            <p>
+                Use your browser menu and choose <strong>Install app</strong> or
+                <strong>Add to home screen</strong>. Chrome and Edge may also show an install icon
+                in the address bar.
+            </p>
+        </section>
+    {/if}
 
     <main>
         {@render children()}
@@ -194,6 +210,19 @@
         color: #92400e;
     }
 
+    .install-help {
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+        color: var(--color-text);
+        padding: var(--spacing-sm) var(--spacing-xl);
+    }
+
+    .install-help p {
+        font-size: var(--font-size-sm);
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
     main {
         flex: 1;
         padding: var(--spacing-xl);
@@ -219,6 +248,10 @@
         .pwa-actions {
             justify-content: flex-start;
             width: 100%;
+        }
+
+        .install-help {
+            padding: var(--spacing-sm) var(--spacing-md);
         }
 
         main {
