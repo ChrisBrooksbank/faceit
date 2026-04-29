@@ -11,7 +11,7 @@
     const MASK_TIME = 500; // 500ms
 
     // Trial state
-    type TrialPhase = 'target' | 'mask' | 'choice' | 'complete';
+    type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'complete';
     let currentTrialIndex = $state(0);
     let phase = $state<TrialPhase>('target');
     let correctCount = $state(0);
@@ -24,10 +24,10 @@
     const isTestComplete = $derived(currentTrialIndex >= MORPH_LEVELS.length);
 
     // Load face stimuli for current trial
-    function loadTrial(): void {
+    function loadTrial(): boolean {
         if (isTestComplete) {
             phase = 'complete';
-            return;
+            return false;
         }
 
         const morphLevel = MORPH_LEVELS[currentTrialIndex];
@@ -37,12 +37,17 @@
         correctPosition = trial.correct;
 
         selectedPosition = -1;
+        return true;
     }
 
     // Handle trial progression through phases
-    function startTrial(): void {
+    async function startTrial(): Promise<void> {
+        phase = 'loading';
+        if (!loadTrial()) return;
+
+        await preloadFaceImages([targetFaceUrl, ...choiceFaceUrls]);
+
         phase = 'target';
-        loadTrial();
 
         // Show target for 2 seconds
         setTimeout(() => {
@@ -68,7 +73,7 @@
         // Move to next trial after brief delay
         setTimeout(() => {
             currentTrialIndex++;
-            startTrial();
+            void startTrial();
         }, 500);
     }
 
@@ -79,9 +84,23 @@
         goto('/onboarding/results');
     }
 
+    async function preloadFaceImages(urls: string[]): Promise<void> {
+        await Promise.all(
+            urls.map(
+                url =>
+                    new Promise<void>(resolve => {
+                        const image = new Image();
+                        image.onload = (): void => resolve();
+                        image.onerror = (): void => resolve();
+                        image.src = url;
+                    })
+            )
+        );
+    }
+
     // Initialize first trial on mount
     onMount(() => {
-        startTrial();
+        void startTrial();
     });
 </script>
 
@@ -109,7 +128,12 @@
                 </div>
 
                 <div class="trial-area">
-                    {#if phase === 'target'}
+                    {#if phase === 'loading'}
+                        <div class="phase-instruction">Loading faces...</div>
+                        <div class="mask-display">
+                            <div class="mask"></div>
+                        </div>
+                    {:else if phase === 'target'}
                         <div class="phase-instruction">Remember this face</div>
                         <div class="target-display">
                             <img src={targetFaceUrl} alt="Target face" class="face-image" />

@@ -40,15 +40,16 @@ export function findClosestMorphLevel(target: number): number {
 export function buildTrainingTrial(morphLevel: number): FaceTrial {
     const pairIndex = randomIndex(FACE_PAIRS.length);
     const targetPair = FACE_PAIRS[pairIndex];
-    const distractorPairs = pickDistinctPairs([pairIndex], 2);
-    const distractors = distractorPairs.map(pair =>
-        faceIdFor(pair, randomItem(pair.morphLevels) ?? morphLevel)
+    const targetMorphLevel = findClosestMorphLevel(morphLevel);
+    const distractors = pickNearbyMorphLevels(targetPair, targetMorphLevel, 2).map(level =>
+        faceIdFor(targetPair, level)
     );
     const correct = randomIndex(3);
+    const target = faceIdFor(targetPair, targetMorphLevel);
 
     return {
-        target: faceIdFor(targetPair, morphLevel),
-        choices: placeCorrectAnswer(faceIdFor(targetPair, morphLevel), distractors, correct),
+        target,
+        choices: placeCorrectAnswer(target, distractors, correct),
         correct,
     };
 }
@@ -56,8 +57,11 @@ export function buildTrainingTrial(morphLevel: number): FaceTrial {
 export function buildPerceptionTrial(trialIndex: number, morphLevel: number): FaceTrial {
     const pairIndex = trialIndex % FACE_PAIRS.length;
     const targetPair = FACE_PAIRS[pairIndex];
-    const distractors = pickDistinctPairs([pairIndex], 2).map(pair => faceUrlFor(pair, morphLevel));
-    const target = faceUrlFor(targetPair, morphLevel);
+    const targetMorphLevel = findClosestMorphLevel(morphLevel);
+    const distractors = pickNearbyMorphLevels(targetPair, targetMorphLevel, 2).map(level =>
+        faceUrlFor(targetPair, level)
+    );
+    const target = faceUrlFor(targetPair, targetMorphLevel);
     const correct = randomIndex(3);
 
     return {
@@ -71,22 +75,11 @@ function randomIndex(length: number): number {
     return Math.floor(Math.random() * length);
 }
 
-function randomItem<T>(items: T[]): T | undefined {
-    return items[randomIndex(items.length)];
-}
-
-function pickDistinctPairs(excludedIndexes: number[], count: number): FacePair[] {
-    const excluded = new Set(excludedIndexes);
-    const available = FACE_PAIRS.filter((_, index) => !excluded.has(index));
-    const selected: FacePair[] = [];
-
-    while (selected.length < count && available.length > 0) {
-        const nextIndex = randomIndex(available.length);
-        const [nextPair] = available.splice(nextIndex, 1);
-        selected.push(nextPair);
-    }
-
-    return selected;
+function pickNearbyMorphLevels(pair: FacePair, targetMorphLevel: number, count: number): number[] {
+    return pair.morphLevels
+        .filter(level => level !== targetMorphLevel)
+        .sort((a, b) => Math.abs(a - targetMorphLevel) - Math.abs(b - targetMorphLevel))
+        .slice(0, count);
 }
 
 function placeCorrectAnswer(target: string, distractors: string[], correct: number): string[] {

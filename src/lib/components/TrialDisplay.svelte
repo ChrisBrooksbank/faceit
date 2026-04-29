@@ -10,7 +10,7 @@
 
     import FaceDisplay from './FaceDisplay.svelte';
 
-    type TrialPhase = 'target' | 'mask' | 'choice';
+    type TrialPhase = 'loading' | 'target' | 'mask' | 'choice';
 
     interface TrialFaces {
         targetFaceId: string;
@@ -40,29 +40,59 @@
     const DISPLAY_TIME = 2000; // 2 seconds for target display
     const MASK_TIME = 500; // 500ms for mask
 
-    let phase = $state<TrialPhase>('target');
+    let phase = $state<TrialPhase>('loading');
     let selectedPosition = $state<number>(-1);
 
     // Start trial progression through phases
     function startPhases(): () => void {
-        phase = 'target';
+        phase = 'loading';
         selectedPosition = -1;
 
         let maskTimer: ReturnType<typeof setTimeout> | null = null;
-        const targetTimer = setTimeout(() => {
-            phase = 'mask';
+        let targetTimer: ReturnType<typeof setTimeout> | null = null;
+        let cancelled = false;
 
-            maskTimer = setTimeout(() => {
-                phase = 'choice';
-            }, MASK_TIME);
-        }, DISPLAY_TIME);
+        void preloadFaceImages([faces.targetFaceId, ...faces.choiceFaceIds]).then(() => {
+            if (cancelled) return;
+
+            phase = 'target';
+
+            targetTimer = setTimeout(() => {
+                phase = 'mask';
+
+                maskTimer = setTimeout(() => {
+                    phase = 'choice';
+                }, MASK_TIME);
+            }, DISPLAY_TIME);
+        });
 
         return () => {
-            clearTimeout(targetTimer);
+            cancelled = true;
+            if (targetTimer) {
+                clearTimeout(targetTimer);
+            }
             if (maskTimer) {
                 clearTimeout(maskTimer);
             }
         };
+    }
+
+    async function preloadFaceImages(faceIds: string[]): Promise<void> {
+        await Promise.all(
+            faceIds.map(
+                faceId =>
+                    new Promise<void>(resolve => {
+                        const image = new Image();
+                        image.onload = (): void => resolve();
+                        image.onerror = (): void => resolve();
+                        image.src = faceSrc(faceId);
+                    })
+            )
+        );
+    }
+
+    function faceSrc(faceId: string): string {
+        return `/faces/${faceId}.jpg`;
     }
 
     // Handle choice selection
@@ -86,7 +116,17 @@
 </script>
 
 <div class="trial-display">
-    {#if phase === 'target'}
+    {#if phase === 'loading'}
+        <div class="phase-instruction">Loading faces...</div>
+        <div class="mask-display">
+            <div
+                class="mask"
+                class:mask-small={size === 'small'}
+                class:mask-medium={size === 'medium'}
+                class:mask-large={size === 'large'}
+            ></div>
+        </div>
+    {:else if phase === 'target'}
         <div class="phase-instruction">Remember this face</div>
         <div class="target-display">
             <FaceDisplay faceId={faces.targetFaceId} {size} ariaLabel="Target face to remember" />
