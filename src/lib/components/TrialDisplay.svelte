@@ -9,6 +9,7 @@
      */
 
     import FaceDisplay from './FaceDisplay.svelte';
+    import { getDifferenceCue } from '$lib/core/face-differences';
 
     type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'feedback';
 
@@ -42,6 +43,12 @@
 
     let phase = $state<TrialPhase>('loading');
     let selectedPosition = $state<number>(-1);
+    const feedbackCue = $derived(
+        getDifferenceCue(
+            faces.choiceFaceIds[selectedPosition] ?? '',
+            faces.choiceFaceIds[faces.correctPosition] ?? ''
+        )
+    );
 
     // Start trial progression through phases
     function startPhases(): () => void {
@@ -180,9 +187,7 @@
                 </div>
             </div>
         </div>
-        <p class="feedback-hint">
-            Compare the eye spacing, brow line, nose width, mouth shape, and jawline.
-        </p>
+        <p class="feedback-hint">{feedbackCue}</p>
     {/if}
 </div>
 

@@ -2,6 +2,7 @@
     import { Button, Card, ProgressBar } from '$lib/components';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
+    import { getDifferenceCue } from '$lib/core/face-differences';
     import { buildPerceptionTrial } from '$lib/core/faces';
     import { setPerceptionScore } from '$lib/stores/onboarding';
 
@@ -24,6 +25,12 @@
 
     const progress = $derived(currentTrialIndex + 1);
     const isTestComplete = $derived(currentTrialIndex >= MORPH_LEVELS.length);
+    const feedbackCue = $derived(
+        getDifferenceCue(
+            choiceFaceUrls[selectedPosition] ?? '',
+            choiceFaceUrls[correctPosition] ?? ''
+        )
+    );
 
     // Load face stimuli for current trial
     function loadTrial(): boolean {
@@ -188,10 +195,7 @@
                                 />
                             </div>
                         </div>
-                        <p class="feedback-hint">
-                            Compare the eye spacing, brow line, nose width, mouth shape, and
-                            jawline.
-                        </p>
+                        <p class="feedback-hint">{feedbackCue}</p>
                     {/if}
                 </div>
             {:else}

@@ -1,0 +1,3038 @@
+{
+    "version": "1.0",
+    "method": "landmark-region-distance",
+    "regionMapping": "coordinate-band-v1",
+    "source": "Face Research Lab London Set",
+    "sourceVersion": 5,
+    "morphLevels": [28, 40, 52, 64, 76, 88],
+    "regions": ["eyes", "brows", "nose", "mouth", "jawline"],
+    "regionPointCounts": {
+        "eyes": {
+            "min": 78,
+            "max": 86,
+            "average": 80.6
+        },
+        "brows": {
+            "min": 19,
+            "max": 40,
+            "average": 26.7
+        },
+        "nose": {
+            "min": 54,
+            "max": 86,
+            "average": 68.7
+        },
+        "mouth": {
+            "min": 37,
+            "max": 57,
+            "average": 49.25
+        },
+        "jawline": {
+            "min": 30,
+            "max": 52,
+            "average": 37.3
+        }
+    },
+    "comparisons": {
+        "face1_face2_28__face1_face2_40": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00349,
+                "brows": 0.00416,
+                "nose": 0.00254,
+                "mouth": 0.00174,
+                "jawline": 0.00354
+            }
+        },
+        "face1_face2_28__face1_face2_52": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00699,
+                "brows": 0.00832,
+                "nose": 0.00508,
+                "mouth": 0.00348,
+                "jawline": 0.00708
+            }
+        },
+        "face1_face2_28__face1_face2_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01048,
+                "brows": 0.01248,
+                "nose": 0.00762,
+                "mouth": 0.00522,
+                "jawline": 0.01062
+            }
+        },
+        "face1_face2_28__face1_face2_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01398,
+                "brows": 0.01665,
+                "nose": 0.01016,
+                "mouth": 0.00695,
+                "jawline": 0.01416
+            }
+        },
+        "face1_face2_28__face1_face2_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01747,
+                "brows": 0.02081,
+                "nose": 0.0127,
+                "mouth": 0.00869,
+                "jawline": 0.0177
+            }
+        },
+        "face1_face2_40__face1_face2_52": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00349,
+                "brows": 0.00416,
+                "nose": 0.00254,
+                "mouth": 0.00174,
+                "jawline": 0.00354
+            }
+        },
+        "face1_face2_40__face1_face2_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00699,
+                "brows": 0.00832,
+                "nose": 0.00508,
+                "mouth": 0.00348,
+                "jawline": 0.00708
+            }
+        },
+        "face1_face2_40__face1_face2_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01048,
+                "brows": 0.01248,
+                "nose": 0.00762,
+                "mouth": 0.00522,
+                "jawline": 0.01062
+            }
+        },
+        "face1_face2_40__face1_face2_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01398,
+                "brows": 0.01665,
+                "nose": 0.01016,
+                "mouth": 0.00695,
+                "jawline": 0.01416
+            }
+        },
+        "face1_face2_52__face1_face2_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00349,
+                "brows": 0.00416,
+                "nose": 0.00254,
+                "mouth": 0.00174,
+                "jawline": 0.00354
+            }
+        },
+        "face1_face2_52__face1_face2_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00699,
+                "brows": 0.00832,
+                "nose": 0.00508,
+                "mouth": 0.00348,
+                "jawline": 0.00708
+            }
+        },
+        "face1_face2_52__face1_face2_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01048,
+                "brows": 0.01248,
+                "nose": 0.00762,
+                "mouth": 0.00522,
+                "jawline": 0.01062
+            }
+        },
+        "face1_face2_64__face1_face2_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00349,
+                "brows": 0.00416,
+                "nose": 0.00254,
+                "mouth": 0.00174,
+                "jawline": 0.00354
+            }
+        },
+        "face1_face2_64__face1_face2_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00699,
+                "brows": 0.00832,
+                "nose": 0.00508,
+                "mouth": 0.00348,
+                "jawline": 0.00708
+            }
+        },
+        "face1_face2_76__face1_face2_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00349,
+                "brows": 0.00416,
+                "nose": 0.00254,
+                "mouth": 0.00174,
+                "jawline": 0.00354
+            }
+        },
+        "face3_face4_28__face3_face4_40": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00172,
+                "brows": 0.00225,
+                "nose": 0.00165,
+                "mouth": 0.00257,
+                "jawline": 0.00371
+            }
+        },
+        "face3_face4_28__face3_face4_52": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00345,
+                "brows": 0.0045,
+                "nose": 0.00331,
+                "mouth": 0.00514,
+                "jawline": 0.00742
+            }
+        },
+        "face3_face4_28__face3_face4_64": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00517,
+                "brows": 0.00675,
+                "nose": 0.00496,
+                "mouth": 0.0077,
+                "jawline": 0.01113
+            }
+        },
+        "face3_face4_28__face3_face4_76": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00689,
+                "brows": 0.009,
+                "nose": 0.00662,
+                "mouth": 0.01027,
+                "jawline": 0.01484
+            }
+        },
+        "face3_face4_28__face3_face4_88": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00862,
+                "brows": 0.01125,
+                "nose": 0.00827,
+                "mouth": 0.01284,
+                "jawline": 0.01855
+            }
+        },
+        "face3_face4_40__face3_face4_52": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00172,
+                "brows": 0.00225,
+                "nose": 0.00165,
+                "mouth": 0.00257,
+                "jawline": 0.00371
+            }
+        },
+        "face3_face4_40__face3_face4_64": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00345,
+                "brows": 0.0045,
+                "nose": 0.00331,
+                "mouth": 0.00514,
+                "jawline": 0.00742
+            }
+        },
+        "face3_face4_40__face3_face4_76": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00517,
+                "brows": 0.00675,
+                "nose": 0.00496,
+                "mouth": 0.0077,
+                "jawline": 0.01113
+            }
+        },
+        "face3_face4_40__face3_face4_88": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00689,
+                "brows": 0.009,
+                "nose": 0.00662,
+                "mouth": 0.01027,
+                "jawline": 0.01484
+            }
+        },
+        "face3_face4_52__face3_face4_64": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00172,
+                "brows": 0.00225,
+                "nose": 0.00165,
+                "mouth": 0.00257,
+                "jawline": 0.00371
+            }
+        },
+        "face3_face4_52__face3_face4_76": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00345,
+                "brows": 0.0045,
+                "nose": 0.00331,
+                "mouth": 0.00514,
+                "jawline": 0.00742
+            }
+        },
+        "face3_face4_52__face3_face4_88": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00517,
+                "brows": 0.00675,
+                "nose": 0.00496,
+                "mouth": 0.0077,
+                "jawline": 0.01113
+            }
+        },
+        "face3_face4_64__face3_face4_76": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00172,
+                "brows": 0.00225,
+                "nose": 0.00165,
+                "mouth": 0.00257,
+                "jawline": 0.00371
+            }
+        },
+        "face3_face4_64__face3_face4_88": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00345,
+                "brows": 0.0045,
+                "nose": 0.00331,
+                "mouth": 0.00514,
+                "jawline": 0.00742
+            }
+        },
+        "face3_face4_76__face3_face4_88": {
+            "topRegions": ["jawline"],
+            "scores": {
+                "eyes": 0.00172,
+                "brows": 0.00225,
+                "nose": 0.00165,
+                "mouth": 0.00257,
+                "jawline": 0.00371
+            }
+        },
+        "face5_face6_28__face5_face6_40": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00466,
+                "brows": 0.00416,
+                "nose": 0.00456,
+                "mouth": 0.00481,
+                "jawline": 0.00501
+            }
+        },
+        "face5_face6_28__face5_face6_52": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00931,
+                "brows": 0.00831,
+                "nose": 0.00912,
+                "mouth": 0.00963,
+                "jawline": 0.01003
+            }
+        },
+        "face5_face6_28__face5_face6_64": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.01397,
+                "brows": 0.01247,
+                "nose": 0.01367,
+                "mouth": 0.01444,
+                "jawline": 0.01504
+            }
+        },
+        "face5_face6_28__face5_face6_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.01863,
+                "brows": 0.01662,
+                "nose": 0.01823,
+                "mouth": 0.01925,
+                "jawline": 0.02005
+            }
+        },
+        "face5_face6_28__face5_face6_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.02328,
+                "brows": 0.02078,
+                "nose": 0.02279,
+                "mouth": 0.02406,
+                "jawline": 0.02507
+            }
+        },
+        "face5_face6_40__face5_face6_52": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00466,
+                "brows": 0.00416,
+                "nose": 0.00456,
+                "mouth": 0.00481,
+                "jawline": 0.00501
+            }
+        },
+        "face5_face6_40__face5_face6_64": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00931,
+                "brows": 0.00831,
+                "nose": 0.00912,
+                "mouth": 0.00963,
+                "jawline": 0.01003
+            }
+        },
+        "face5_face6_40__face5_face6_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.01397,
+                "brows": 0.01247,
+                "nose": 0.01367,
+                "mouth": 0.01444,
+                "jawline": 0.01504
+            }
+        },
+        "face5_face6_40__face5_face6_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.01863,
+                "brows": 0.01662,
+                "nose": 0.01823,
+                "mouth": 0.01925,
+                "jawline": 0.02005
+            }
+        },
+        "face5_face6_52__face5_face6_64": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00466,
+                "brows": 0.00416,
+                "nose": 0.00456,
+                "mouth": 0.00481,
+                "jawline": 0.00501
+            }
+        },
+        "face5_face6_52__face5_face6_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00931,
+                "brows": 0.00831,
+                "nose": 0.00912,
+                "mouth": 0.00963,
+                "jawline": 0.01003
+            }
+        },
+        "face5_face6_52__face5_face6_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.01397,
+                "brows": 0.01247,
+                "nose": 0.01367,
+                "mouth": 0.01444,
+                "jawline": 0.01504
+            }
+        },
+        "face5_face6_64__face5_face6_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00466,
+                "brows": 0.00416,
+                "nose": 0.00456,
+                "mouth": 0.00481,
+                "jawline": 0.00501
+            }
+        },
+        "face5_face6_64__face5_face6_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00931,
+                "brows": 0.00831,
+                "nose": 0.00912,
+                "mouth": 0.00963,
+                "jawline": 0.01003
+            }
+        },
+        "face5_face6_76__face5_face6_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00466,
+                "brows": 0.00416,
+                "nose": 0.00456,
+                "mouth": 0.00481,
+                "jawline": 0.00501
+            }
+        },
+        "face7_face8_28__face7_face8_40": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.01091,
+                "brows": 0.0109,
+                "nose": 0.01076,
+                "mouth": 0.0093,
+                "jawline": 0.00814
+            }
+        },
+        "face7_face8_28__face7_face8_52": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.02182,
+                "brows": 0.0218,
+                "nose": 0.02151,
+                "mouth": 0.0186,
+                "jawline": 0.01627
+            }
+        },
+        "face7_face8_28__face7_face8_64": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.03273,
+                "brows": 0.03269,
+                "nose": 0.03227,
+                "mouth": 0.02791,
+                "jawline": 0.02441
+            }
+        },
+        "face7_face8_28__face7_face8_76": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.04364,
+                "brows": 0.04359,
+                "nose": 0.04302,
+                "mouth": 0.03721,
+                "jawline": 0.03254
+            }
+        },
+        "face7_face8_28__face7_face8_88": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.05455,
+                "brows": 0.05449,
+                "nose": 0.05378,
+                "mouth": 0.04651,
+                "jawline": 0.04068
+            }
+        },
+        "face7_face8_40__face7_face8_52": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.01091,
+                "brows": 0.0109,
+                "nose": 0.01076,
+                "mouth": 0.0093,
+                "jawline": 0.00814
+            }
+        },
+        "face7_face8_40__face7_face8_64": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.02182,
+                "brows": 0.0218,
+                "nose": 0.02151,
+                "mouth": 0.0186,
+                "jawline": 0.01627
+            }
+        },
+        "face7_face8_40__face7_face8_76": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.03273,
+                "brows": 0.03269,
+                "nose": 0.03227,
+                "mouth": 0.02791,
+                "jawline": 0.02441
+            }
+        },
+        "face7_face8_40__face7_face8_88": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.04364,
+                "brows": 0.04359,
+                "nose": 0.04302,
+                "mouth": 0.03721,
+                "jawline": 0.03254
+            }
+        },
+        "face7_face8_52__face7_face8_64": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.01091,
+                "brows": 0.0109,
+                "nose": 0.01076,
+                "mouth": 0.0093,
+                "jawline": 0.00814
+            }
+        },
+        "face7_face8_52__face7_face8_76": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.02182,
+                "brows": 0.0218,
+                "nose": 0.02151,
+                "mouth": 0.0186,
+                "jawline": 0.01627
+            }
+        },
+        "face7_face8_52__face7_face8_88": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.03273,
+                "brows": 0.03269,
+                "nose": 0.03227,
+                "mouth": 0.02791,
+                "jawline": 0.02441
+            }
+        },
+        "face7_face8_64__face7_face8_76": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.01091,
+                "brows": 0.0109,
+                "nose": 0.01076,
+                "mouth": 0.0093,
+                "jawline": 0.00814
+            }
+        },
+        "face7_face8_64__face7_face8_88": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.02182,
+                "brows": 0.0218,
+                "nose": 0.02151,
+                "mouth": 0.0186,
+                "jawline": 0.01627
+            }
+        },
+        "face7_face8_76__face7_face8_88": {
+            "topRegions": ["eyes", "brows"],
+            "scores": {
+                "eyes": 0.01091,
+                "brows": 0.0109,
+                "nose": 0.01076,
+                "mouth": 0.0093,
+                "jawline": 0.00814
+            }
+        },
+        "face9_face10_28__face9_face10_40": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00275,
+                "brows": 0.00224,
+                "nose": 0.00405,
+                "mouth": 0.00528,
+                "jawline": 0.00459
+            }
+        },
+        "face9_face10_28__face9_face10_52": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00549,
+                "brows": 0.00449,
+                "nose": 0.0081,
+                "mouth": 0.01057,
+                "jawline": 0.00918
+            }
+        },
+        "face9_face10_28__face9_face10_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00824,
+                "brows": 0.00673,
+                "nose": 0.01216,
+                "mouth": 0.01585,
+                "jawline": 0.01377
+            }
+        },
+        "face9_face10_28__face9_face10_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01098,
+                "brows": 0.00898,
+                "nose": 0.01621,
+                "mouth": 0.02113,
+                "jawline": 0.01836
+            }
+        },
+        "face9_face10_28__face9_face10_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01373,
+                "brows": 0.01122,
+                "nose": 0.02026,
+                "mouth": 0.02641,
+                "jawline": 0.02295
+            }
+        },
+        "face9_face10_40__face9_face10_52": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00275,
+                "brows": 0.00224,
+                "nose": 0.00405,
+                "mouth": 0.00528,
+                "jawline": 0.00459
+            }
+        },
+        "face9_face10_40__face9_face10_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00549,
+                "brows": 0.00449,
+                "nose": 0.0081,
+                "mouth": 0.01057,
+                "jawline": 0.00918
+            }
+        },
+        "face9_face10_40__face9_face10_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00824,
+                "brows": 0.00673,
+                "nose": 0.01216,
+                "mouth": 0.01585,
+                "jawline": 0.01377
+            }
+        },
+        "face9_face10_40__face9_face10_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01098,
+                "brows": 0.00898,
+                "nose": 0.01621,
+                "mouth": 0.02113,
+                "jawline": 0.01836
+            }
+        },
+        "face9_face10_52__face9_face10_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00275,
+                "brows": 0.00224,
+                "nose": 0.00405,
+                "mouth": 0.00528,
+                "jawline": 0.00459
+            }
+        },
+        "face9_face10_52__face9_face10_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00549,
+                "brows": 0.00449,
+                "nose": 0.0081,
+                "mouth": 0.01057,
+                "jawline": 0.00918
+            }
+        },
+        "face9_face10_52__face9_face10_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00824,
+                "brows": 0.00673,
+                "nose": 0.01216,
+                "mouth": 0.01585,
+                "jawline": 0.01377
+            }
+        },
+        "face9_face10_64__face9_face10_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00275,
+                "brows": 0.00224,
+                "nose": 0.00405,
+                "mouth": 0.00528,
+                "jawline": 0.00459
+            }
+        },
+        "face9_face10_64__face9_face10_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00549,
+                "brows": 0.00449,
+                "nose": 0.0081,
+                "mouth": 0.01057,
+                "jawline": 0.00918
+            }
+        },
+        "face9_face10_76__face9_face10_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00275,
+                "brows": 0.00224,
+                "nose": 0.00405,
+                "mouth": 0.00528,
+                "jawline": 0.00459
+            }
+        },
+        "face11_face12_28__face11_face12_40": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00272,
+                "brows": 0.00413,
+                "nose": 0.00313,
+                "mouth": 0.0035,
+                "jawline": 0.00361
+            }
+        },
+        "face11_face12_28__face11_face12_52": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00544,
+                "brows": 0.00826,
+                "nose": 0.00626,
+                "mouth": 0.00699,
+                "jawline": 0.00722
+            }
+        },
+        "face11_face12_28__face11_face12_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00816,
+                "brows": 0.01239,
+                "nose": 0.00939,
+                "mouth": 0.01049,
+                "jawline": 0.01083
+            }
+        },
+        "face11_face12_28__face11_face12_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01088,
+                "brows": 0.01652,
+                "nose": 0.01252,
+                "mouth": 0.01399,
+                "jawline": 0.01444
+            }
+        },
+        "face11_face12_28__face11_face12_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.0136,
+                "brows": 0.02065,
+                "nose": 0.01565,
+                "mouth": 0.01748,
+                "jawline": 0.01805
+            }
+        },
+        "face11_face12_40__face11_face12_52": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00272,
+                "brows": 0.00413,
+                "nose": 0.00313,
+                "mouth": 0.0035,
+                "jawline": 0.00361
+            }
+        },
+        "face11_face12_40__face11_face12_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00544,
+                "brows": 0.00826,
+                "nose": 0.00626,
+                "mouth": 0.00699,
+                "jawline": 0.00722
+            }
+        },
+        "face11_face12_40__face11_face12_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00816,
+                "brows": 0.01239,
+                "nose": 0.00939,
+                "mouth": 0.01049,
+                "jawline": 0.01083
+            }
+        },
+        "face11_face12_40__face11_face12_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01088,
+                "brows": 0.01652,
+                "nose": 0.01252,
+                "mouth": 0.01399,
+                "jawline": 0.01444
+            }
+        },
+        "face11_face12_52__face11_face12_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00272,
+                "brows": 0.00413,
+                "nose": 0.00313,
+                "mouth": 0.0035,
+                "jawline": 0.00361
+            }
+        },
+        "face11_face12_52__face11_face12_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00544,
+                "brows": 0.00826,
+                "nose": 0.00626,
+                "mouth": 0.00699,
+                "jawline": 0.00722
+            }
+        },
+        "face11_face12_52__face11_face12_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00816,
+                "brows": 0.01239,
+                "nose": 0.00939,
+                "mouth": 0.01049,
+                "jawline": 0.01083
+            }
+        },
+        "face11_face12_64__face11_face12_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00272,
+                "brows": 0.00413,
+                "nose": 0.00313,
+                "mouth": 0.0035,
+                "jawline": 0.00361
+            }
+        },
+        "face11_face12_64__face11_face12_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00544,
+                "brows": 0.00826,
+                "nose": 0.00626,
+                "mouth": 0.00699,
+                "jawline": 0.00722
+            }
+        },
+        "face11_face12_76__face11_face12_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00272,
+                "brows": 0.00413,
+                "nose": 0.00313,
+                "mouth": 0.0035,
+                "jawline": 0.00361
+            }
+        },
+        "face13_face14_28__face13_face14_40": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0028,
+                "brows": 0.00322,
+                "nose": 0.00203,
+                "mouth": 0.00235,
+                "jawline": 0.00345
+            }
+        },
+        "face13_face14_28__face13_face14_52": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0056,
+                "brows": 0.00645,
+                "nose": 0.00406,
+                "mouth": 0.00471,
+                "jawline": 0.0069
+            }
+        },
+        "face13_face14_28__face13_face14_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00839,
+                "brows": 0.00967,
+                "nose": 0.00609,
+                "mouth": 0.00706,
+                "jawline": 0.01035
+            }
+        },
+        "face13_face14_28__face13_face14_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01119,
+                "brows": 0.01289,
+                "nose": 0.00811,
+                "mouth": 0.00942,
+                "jawline": 0.01381
+            }
+        },
+        "face13_face14_28__face13_face14_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01399,
+                "brows": 0.01612,
+                "nose": 0.01014,
+                "mouth": 0.01177,
+                "jawline": 0.01726
+            }
+        },
+        "face13_face14_40__face13_face14_52": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0028,
+                "brows": 0.00322,
+                "nose": 0.00203,
+                "mouth": 0.00235,
+                "jawline": 0.00345
+            }
+        },
+        "face13_face14_40__face13_face14_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0056,
+                "brows": 0.00645,
+                "nose": 0.00406,
+                "mouth": 0.00471,
+                "jawline": 0.0069
+            }
+        },
+        "face13_face14_40__face13_face14_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00839,
+                "brows": 0.00967,
+                "nose": 0.00609,
+                "mouth": 0.00706,
+                "jawline": 0.01035
+            }
+        },
+        "face13_face14_40__face13_face14_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01119,
+                "brows": 0.01289,
+                "nose": 0.00811,
+                "mouth": 0.00942,
+                "jawline": 0.01381
+            }
+        },
+        "face13_face14_52__face13_face14_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0028,
+                "brows": 0.00322,
+                "nose": 0.00203,
+                "mouth": 0.00235,
+                "jawline": 0.00345
+            }
+        },
+        "face13_face14_52__face13_face14_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0056,
+                "brows": 0.00645,
+                "nose": 0.00406,
+                "mouth": 0.00471,
+                "jawline": 0.0069
+            }
+        },
+        "face13_face14_52__face13_face14_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00839,
+                "brows": 0.00967,
+                "nose": 0.00609,
+                "mouth": 0.00706,
+                "jawline": 0.01035
+            }
+        },
+        "face13_face14_64__face13_face14_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0028,
+                "brows": 0.00322,
+                "nose": 0.00203,
+                "mouth": 0.00235,
+                "jawline": 0.00345
+            }
+        },
+        "face13_face14_64__face13_face14_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0056,
+                "brows": 0.00645,
+                "nose": 0.00406,
+                "mouth": 0.00471,
+                "jawline": 0.0069
+            }
+        },
+        "face13_face14_76__face13_face14_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0028,
+                "brows": 0.00322,
+                "nose": 0.00203,
+                "mouth": 0.00235,
+                "jawline": 0.00345
+            }
+        },
+        "face15_face16_28__face15_face16_40": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00415,
+                "nose": 0.00425,
+                "mouth": 0.00339,
+                "jawline": 0.00294
+            }
+        },
+        "face15_face16_28__face15_face16_52": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00898,
+                "brows": 0.0083,
+                "nose": 0.00851,
+                "mouth": 0.00678,
+                "jawline": 0.00587
+            }
+        },
+        "face15_face16_28__face15_face16_64": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01347,
+                "brows": 0.01245,
+                "nose": 0.01276,
+                "mouth": 0.01016,
+                "jawline": 0.00881
+            }
+        },
+        "face15_face16_28__face15_face16_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01796,
+                "brows": 0.0166,
+                "nose": 0.01702,
+                "mouth": 0.01355,
+                "jawline": 0.01175
+            }
+        },
+        "face15_face16_28__face15_face16_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.02245,
+                "brows": 0.02074,
+                "nose": 0.02127,
+                "mouth": 0.01694,
+                "jawline": 0.01468
+            }
+        },
+        "face15_face16_40__face15_face16_52": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00415,
+                "nose": 0.00425,
+                "mouth": 0.00339,
+                "jawline": 0.00294
+            }
+        },
+        "face15_face16_40__face15_face16_64": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00898,
+                "brows": 0.0083,
+                "nose": 0.00851,
+                "mouth": 0.00678,
+                "jawline": 0.00587
+            }
+        },
+        "face15_face16_40__face15_face16_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01347,
+                "brows": 0.01245,
+                "nose": 0.01276,
+                "mouth": 0.01016,
+                "jawline": 0.00881
+            }
+        },
+        "face15_face16_40__face15_face16_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01796,
+                "brows": 0.0166,
+                "nose": 0.01702,
+                "mouth": 0.01355,
+                "jawline": 0.01175
+            }
+        },
+        "face15_face16_52__face15_face16_64": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00415,
+                "nose": 0.00425,
+                "mouth": 0.00339,
+                "jawline": 0.00294
+            }
+        },
+        "face15_face16_52__face15_face16_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00898,
+                "brows": 0.0083,
+                "nose": 0.00851,
+                "mouth": 0.00678,
+                "jawline": 0.00587
+            }
+        },
+        "face15_face16_52__face15_face16_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01347,
+                "brows": 0.01245,
+                "nose": 0.01276,
+                "mouth": 0.01016,
+                "jawline": 0.00881
+            }
+        },
+        "face15_face16_64__face15_face16_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00415,
+                "nose": 0.00425,
+                "mouth": 0.00339,
+                "jawline": 0.00294
+            }
+        },
+        "face15_face16_64__face15_face16_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00898,
+                "brows": 0.0083,
+                "nose": 0.00851,
+                "mouth": 0.00678,
+                "jawline": 0.00587
+            }
+        },
+        "face15_face16_76__face15_face16_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00415,
+                "nose": 0.00425,
+                "mouth": 0.00339,
+                "jawline": 0.00294
+            }
+        },
+        "face17_face18_28__face17_face18_40": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00744,
+                "brows": 0.00493,
+                "nose": 0.01006,
+                "mouth": 0.01123,
+                "jawline": 0.00662
+            }
+        },
+        "face17_face18_28__face17_face18_52": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01487,
+                "brows": 0.00986,
+                "nose": 0.02012,
+                "mouth": 0.02247,
+                "jawline": 0.01324
+            }
+        },
+        "face17_face18_28__face17_face18_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02231,
+                "brows": 0.01479,
+                "nose": 0.03018,
+                "mouth": 0.0337,
+                "jawline": 0.01986
+            }
+        },
+        "face17_face18_28__face17_face18_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02975,
+                "brows": 0.01972,
+                "nose": 0.04024,
+                "mouth": 0.04494,
+                "jawline": 0.02648
+            }
+        },
+        "face17_face18_28__face17_face18_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.03718,
+                "brows": 0.02465,
+                "nose": 0.0503,
+                "mouth": 0.05617,
+                "jawline": 0.0331
+            }
+        },
+        "face17_face18_40__face17_face18_52": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00744,
+                "brows": 0.00493,
+                "nose": 0.01006,
+                "mouth": 0.01123,
+                "jawline": 0.00662
+            }
+        },
+        "face17_face18_40__face17_face18_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01487,
+                "brows": 0.00986,
+                "nose": 0.02012,
+                "mouth": 0.02247,
+                "jawline": 0.01324
+            }
+        },
+        "face17_face18_40__face17_face18_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02231,
+                "brows": 0.01479,
+                "nose": 0.03018,
+                "mouth": 0.0337,
+                "jawline": 0.01986
+            }
+        },
+        "face17_face18_40__face17_face18_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02975,
+                "brows": 0.01972,
+                "nose": 0.04024,
+                "mouth": 0.04494,
+                "jawline": 0.02648
+            }
+        },
+        "face17_face18_52__face17_face18_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00744,
+                "brows": 0.00493,
+                "nose": 0.01006,
+                "mouth": 0.01123,
+                "jawline": 0.00662
+            }
+        },
+        "face17_face18_52__face17_face18_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01487,
+                "brows": 0.00986,
+                "nose": 0.02012,
+                "mouth": 0.02247,
+                "jawline": 0.01324
+            }
+        },
+        "face17_face18_52__face17_face18_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02231,
+                "brows": 0.01479,
+                "nose": 0.03018,
+                "mouth": 0.0337,
+                "jawline": 0.01986
+            }
+        },
+        "face17_face18_64__face17_face18_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00744,
+                "brows": 0.00493,
+                "nose": 0.01006,
+                "mouth": 0.01123,
+                "jawline": 0.00662
+            }
+        },
+        "face17_face18_64__face17_face18_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01487,
+                "brows": 0.00986,
+                "nose": 0.02012,
+                "mouth": 0.02247,
+                "jawline": 0.01324
+            }
+        },
+        "face17_face18_76__face17_face18_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00744,
+                "brows": 0.00493,
+                "nose": 0.01006,
+                "mouth": 0.01123,
+                "jawline": 0.00662
+            }
+        },
+        "face19_face20_28__face19_face20_40": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00403,
+                "nose": 0.00524,
+                "mouth": 0.00409,
+                "jawline": 0.00346
+            }
+        },
+        "face19_face20_28__face19_face20_52": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00899,
+                "brows": 0.00806,
+                "nose": 0.01047,
+                "mouth": 0.00818,
+                "jawline": 0.00691
+            }
+        },
+        "face19_face20_28__face19_face20_64": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.01348,
+                "brows": 0.01209,
+                "nose": 0.01571,
+                "mouth": 0.01228,
+                "jawline": 0.01037
+            }
+        },
+        "face19_face20_28__face19_face20_76": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.01797,
+                "brows": 0.01612,
+                "nose": 0.02095,
+                "mouth": 0.01637,
+                "jawline": 0.01382
+            }
+        },
+        "face19_face20_28__face19_face20_88": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.02246,
+                "brows": 0.02015,
+                "nose": 0.02618,
+                "mouth": 0.02046,
+                "jawline": 0.01728
+            }
+        },
+        "face19_face20_40__face19_face20_52": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00403,
+                "nose": 0.00524,
+                "mouth": 0.00409,
+                "jawline": 0.00346
+            }
+        },
+        "face19_face20_40__face19_face20_64": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00899,
+                "brows": 0.00806,
+                "nose": 0.01047,
+                "mouth": 0.00818,
+                "jawline": 0.00691
+            }
+        },
+        "face19_face20_40__face19_face20_76": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.01348,
+                "brows": 0.01209,
+                "nose": 0.01571,
+                "mouth": 0.01228,
+                "jawline": 0.01037
+            }
+        },
+        "face19_face20_40__face19_face20_88": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.01797,
+                "brows": 0.01612,
+                "nose": 0.02095,
+                "mouth": 0.01637,
+                "jawline": 0.01382
+            }
+        },
+        "face19_face20_52__face19_face20_64": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00403,
+                "nose": 0.00524,
+                "mouth": 0.00409,
+                "jawline": 0.00346
+            }
+        },
+        "face19_face20_52__face19_face20_76": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00899,
+                "brows": 0.00806,
+                "nose": 0.01047,
+                "mouth": 0.00818,
+                "jawline": 0.00691
+            }
+        },
+        "face19_face20_52__face19_face20_88": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.01348,
+                "brows": 0.01209,
+                "nose": 0.01571,
+                "mouth": 0.01228,
+                "jawline": 0.01037
+            }
+        },
+        "face19_face20_64__face19_face20_76": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00403,
+                "nose": 0.00524,
+                "mouth": 0.00409,
+                "jawline": 0.00346
+            }
+        },
+        "face19_face20_64__face19_face20_88": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00899,
+                "brows": 0.00806,
+                "nose": 0.01047,
+                "mouth": 0.00818,
+                "jawline": 0.00691
+            }
+        },
+        "face19_face20_76__face19_face20_88": {
+            "topRegions": ["nose", "eyes"],
+            "scores": {
+                "eyes": 0.00449,
+                "brows": 0.00403,
+                "nose": 0.00524,
+                "mouth": 0.00409,
+                "jawline": 0.00346
+            }
+        },
+        "face21_face22_28__face21_face22_40": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00708,
+                "brows": 0.00597,
+                "nose": 0.00924,
+                "mouth": 0.01119,
+                "jawline": 0.00757
+            }
+        },
+        "face21_face22_28__face21_face22_52": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01415,
+                "brows": 0.01193,
+                "nose": 0.01848,
+                "mouth": 0.02238,
+                "jawline": 0.01515
+            }
+        },
+        "face21_face22_28__face21_face22_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02123,
+                "brows": 0.0179,
+                "nose": 0.02772,
+                "mouth": 0.03356,
+                "jawline": 0.02272
+            }
+        },
+        "face21_face22_28__face21_face22_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02831,
+                "brows": 0.02387,
+                "nose": 0.03696,
+                "mouth": 0.04475,
+                "jawline": 0.03029
+            }
+        },
+        "face21_face22_28__face21_face22_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.03538,
+                "brows": 0.02983,
+                "nose": 0.0462,
+                "mouth": 0.05594,
+                "jawline": 0.03786
+            }
+        },
+        "face21_face22_40__face21_face22_52": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00708,
+                "brows": 0.00597,
+                "nose": 0.00924,
+                "mouth": 0.01119,
+                "jawline": 0.00757
+            }
+        },
+        "face21_face22_40__face21_face22_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01415,
+                "brows": 0.01193,
+                "nose": 0.01848,
+                "mouth": 0.02238,
+                "jawline": 0.01515
+            }
+        },
+        "face21_face22_40__face21_face22_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02123,
+                "brows": 0.0179,
+                "nose": 0.02772,
+                "mouth": 0.03356,
+                "jawline": 0.02272
+            }
+        },
+        "face21_face22_40__face21_face22_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02831,
+                "brows": 0.02387,
+                "nose": 0.03696,
+                "mouth": 0.04475,
+                "jawline": 0.03029
+            }
+        },
+        "face21_face22_52__face21_face22_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00708,
+                "brows": 0.00597,
+                "nose": 0.00924,
+                "mouth": 0.01119,
+                "jawline": 0.00757
+            }
+        },
+        "face21_face22_52__face21_face22_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01415,
+                "brows": 0.01193,
+                "nose": 0.01848,
+                "mouth": 0.02238,
+                "jawline": 0.01515
+            }
+        },
+        "face21_face22_52__face21_face22_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02123,
+                "brows": 0.0179,
+                "nose": 0.02772,
+                "mouth": 0.03356,
+                "jawline": 0.02272
+            }
+        },
+        "face21_face22_64__face21_face22_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00708,
+                "brows": 0.00597,
+                "nose": 0.00924,
+                "mouth": 0.01119,
+                "jawline": 0.00757
+            }
+        },
+        "face21_face22_64__face21_face22_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01415,
+                "brows": 0.01193,
+                "nose": 0.01848,
+                "mouth": 0.02238,
+                "jawline": 0.01515
+            }
+        },
+        "face21_face22_76__face21_face22_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00708,
+                "brows": 0.00597,
+                "nose": 0.00924,
+                "mouth": 0.01119,
+                "jawline": 0.00757
+            }
+        },
+        "face23_face24_28__face23_face24_40": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00341,
+                "brows": 0.0029,
+                "nose": 0.00332,
+                "mouth": 0.00255,
+                "jawline": 0.00269
+            }
+        },
+        "face23_face24_28__face23_face24_52": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00682,
+                "brows": 0.0058,
+                "nose": 0.00663,
+                "mouth": 0.00509,
+                "jawline": 0.00537
+            }
+        },
+        "face23_face24_28__face23_face24_64": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01023,
+                "brows": 0.00869,
+                "nose": 0.00995,
+                "mouth": 0.00764,
+                "jawline": 0.00806
+            }
+        },
+        "face23_face24_28__face23_face24_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01364,
+                "brows": 0.01159,
+                "nose": 0.01327,
+                "mouth": 0.01018,
+                "jawline": 0.01074
+            }
+        },
+        "face23_face24_28__face23_face24_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01705,
+                "brows": 0.01449,
+                "nose": 0.01658,
+                "mouth": 0.01273,
+                "jawline": 0.01343
+            }
+        },
+        "face23_face24_40__face23_face24_52": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00341,
+                "brows": 0.0029,
+                "nose": 0.00332,
+                "mouth": 0.00255,
+                "jawline": 0.00269
+            }
+        },
+        "face23_face24_40__face23_face24_64": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00682,
+                "brows": 0.0058,
+                "nose": 0.00663,
+                "mouth": 0.00509,
+                "jawline": 0.00537
+            }
+        },
+        "face23_face24_40__face23_face24_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01023,
+                "brows": 0.00869,
+                "nose": 0.00995,
+                "mouth": 0.00764,
+                "jawline": 0.00806
+            }
+        },
+        "face23_face24_40__face23_face24_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01364,
+                "brows": 0.01159,
+                "nose": 0.01327,
+                "mouth": 0.01018,
+                "jawline": 0.01074
+            }
+        },
+        "face23_face24_52__face23_face24_64": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00341,
+                "brows": 0.0029,
+                "nose": 0.00332,
+                "mouth": 0.00255,
+                "jawline": 0.00269
+            }
+        },
+        "face23_face24_52__face23_face24_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00682,
+                "brows": 0.0058,
+                "nose": 0.00663,
+                "mouth": 0.00509,
+                "jawline": 0.00537
+            }
+        },
+        "face23_face24_52__face23_face24_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.01023,
+                "brows": 0.00869,
+                "nose": 0.00995,
+                "mouth": 0.00764,
+                "jawline": 0.00806
+            }
+        },
+        "face23_face24_64__face23_face24_76": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00341,
+                "brows": 0.0029,
+                "nose": 0.00332,
+                "mouth": 0.00255,
+                "jawline": 0.00269
+            }
+        },
+        "face23_face24_64__face23_face24_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00682,
+                "brows": 0.0058,
+                "nose": 0.00663,
+                "mouth": 0.00509,
+                "jawline": 0.00537
+            }
+        },
+        "face23_face24_76__face23_face24_88": {
+            "topRegions": ["eyes", "nose"],
+            "scores": {
+                "eyes": 0.00341,
+                "brows": 0.0029,
+                "nose": 0.00332,
+                "mouth": 0.00255,
+                "jawline": 0.00269
+            }
+        },
+        "face25_face26_28__face25_face26_40": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00617,
+                "brows": 0.00692,
+                "nose": 0.0049,
+                "mouth": 0.0046,
+                "jawline": 0.00736
+            }
+        },
+        "face25_face26_28__face25_face26_52": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01233,
+                "brows": 0.01383,
+                "nose": 0.00981,
+                "mouth": 0.0092,
+                "jawline": 0.01472
+            }
+        },
+        "face25_face26_28__face25_face26_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0185,
+                "brows": 0.02075,
+                "nose": 0.01471,
+                "mouth": 0.01381,
+                "jawline": 0.02209
+            }
+        },
+        "face25_face26_28__face25_face26_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.02466,
+                "brows": 0.02767,
+                "nose": 0.01962,
+                "mouth": 0.01841,
+                "jawline": 0.02945
+            }
+        },
+        "face25_face26_28__face25_face26_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.03083,
+                "brows": 0.03458,
+                "nose": 0.02452,
+                "mouth": 0.02301,
+                "jawline": 0.03681
+            }
+        },
+        "face25_face26_40__face25_face26_52": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00617,
+                "brows": 0.00692,
+                "nose": 0.0049,
+                "mouth": 0.0046,
+                "jawline": 0.00736
+            }
+        },
+        "face25_face26_40__face25_face26_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01233,
+                "brows": 0.01383,
+                "nose": 0.00981,
+                "mouth": 0.0092,
+                "jawline": 0.01472
+            }
+        },
+        "face25_face26_40__face25_face26_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0185,
+                "brows": 0.02075,
+                "nose": 0.01471,
+                "mouth": 0.01381,
+                "jawline": 0.02209
+            }
+        },
+        "face25_face26_40__face25_face26_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.02466,
+                "brows": 0.02767,
+                "nose": 0.01962,
+                "mouth": 0.01841,
+                "jawline": 0.02945
+            }
+        },
+        "face25_face26_52__face25_face26_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00617,
+                "brows": 0.00692,
+                "nose": 0.0049,
+                "mouth": 0.0046,
+                "jawline": 0.00736
+            }
+        },
+        "face25_face26_52__face25_face26_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01233,
+                "brows": 0.01383,
+                "nose": 0.00981,
+                "mouth": 0.0092,
+                "jawline": 0.01472
+            }
+        },
+        "face25_face26_52__face25_face26_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0185,
+                "brows": 0.02075,
+                "nose": 0.01471,
+                "mouth": 0.01381,
+                "jawline": 0.02209
+            }
+        },
+        "face25_face26_64__face25_face26_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00617,
+                "brows": 0.00692,
+                "nose": 0.0049,
+                "mouth": 0.0046,
+                "jawline": 0.00736
+            }
+        },
+        "face25_face26_64__face25_face26_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01233,
+                "brows": 0.01383,
+                "nose": 0.00981,
+                "mouth": 0.0092,
+                "jawline": 0.01472
+            }
+        },
+        "face25_face26_76__face25_face26_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00617,
+                "brows": 0.00692,
+                "nose": 0.0049,
+                "mouth": 0.0046,
+                "jawline": 0.00736
+            }
+        },
+        "face27_face28_28__face27_face28_40": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00255,
+                "brows": 0.00349,
+                "nose": 0.00246,
+                "mouth": 0.00485,
+                "jawline": 0.00637
+            }
+        },
+        "face27_face28_28__face27_face28_52": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.0051,
+                "brows": 0.00698,
+                "nose": 0.00491,
+                "mouth": 0.0097,
+                "jawline": 0.01274
+            }
+        },
+        "face27_face28_28__face27_face28_64": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00765,
+                "brows": 0.01047,
+                "nose": 0.00737,
+                "mouth": 0.01455,
+                "jawline": 0.01911
+            }
+        },
+        "face27_face28_28__face27_face28_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.0102,
+                "brows": 0.01396,
+                "nose": 0.00982,
+                "mouth": 0.0194,
+                "jawline": 0.02548
+            }
+        },
+        "face27_face28_28__face27_face28_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.01276,
+                "brows": 0.01745,
+                "nose": 0.01228,
+                "mouth": 0.02425,
+                "jawline": 0.03184
+            }
+        },
+        "face27_face28_40__face27_face28_52": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00255,
+                "brows": 0.00349,
+                "nose": 0.00246,
+                "mouth": 0.00485,
+                "jawline": 0.00637
+            }
+        },
+        "face27_face28_40__face27_face28_64": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.0051,
+                "brows": 0.00698,
+                "nose": 0.00491,
+                "mouth": 0.0097,
+                "jawline": 0.01274
+            }
+        },
+        "face27_face28_40__face27_face28_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00765,
+                "brows": 0.01047,
+                "nose": 0.00737,
+                "mouth": 0.01455,
+                "jawline": 0.01911
+            }
+        },
+        "face27_face28_40__face27_face28_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.0102,
+                "brows": 0.01396,
+                "nose": 0.00982,
+                "mouth": 0.0194,
+                "jawline": 0.02548
+            }
+        },
+        "face27_face28_52__face27_face28_64": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00255,
+                "brows": 0.00349,
+                "nose": 0.00246,
+                "mouth": 0.00485,
+                "jawline": 0.00637
+            }
+        },
+        "face27_face28_52__face27_face28_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.0051,
+                "brows": 0.00698,
+                "nose": 0.00491,
+                "mouth": 0.0097,
+                "jawline": 0.01274
+            }
+        },
+        "face27_face28_52__face27_face28_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00765,
+                "brows": 0.01047,
+                "nose": 0.00737,
+                "mouth": 0.01455,
+                "jawline": 0.01911
+            }
+        },
+        "face27_face28_64__face27_face28_76": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00255,
+                "brows": 0.00349,
+                "nose": 0.00246,
+                "mouth": 0.00485,
+                "jawline": 0.00637
+            }
+        },
+        "face27_face28_64__face27_face28_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.0051,
+                "brows": 0.00698,
+                "nose": 0.00491,
+                "mouth": 0.0097,
+                "jawline": 0.01274
+            }
+        },
+        "face27_face28_76__face27_face28_88": {
+            "topRegions": ["jawline", "mouth"],
+            "scores": {
+                "eyes": 0.00255,
+                "brows": 0.00349,
+                "nose": 0.00246,
+                "mouth": 0.00485,
+                "jawline": 0.00637
+            }
+        },
+        "face29_face30_28__face29_face30_40": {
+            "topRegions": ["mouth", "brows"],
+            "scores": {
+                "eyes": 0.00245,
+                "brows": 0.00275,
+                "nose": 0.00228,
+                "mouth": 0.00319,
+                "jawline": 0.00275
+            }
+        },
+        "face29_face30_28__face29_face30_52": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00491,
+                "brows": 0.0055,
+                "nose": 0.00457,
+                "mouth": 0.00638,
+                "jawline": 0.00551
+            }
+        },
+        "face29_face30_28__face29_face30_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00825,
+                "nose": 0.00685,
+                "mouth": 0.00957,
+                "jawline": 0.00826
+            }
+        },
+        "face29_face30_28__face29_face30_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00981,
+                "brows": 0.011,
+                "nose": 0.00914,
+                "mouth": 0.01276,
+                "jawline": 0.01101
+            }
+        },
+        "face29_face30_28__face29_face30_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01226,
+                "brows": 0.01375,
+                "nose": 0.01142,
+                "mouth": 0.01595,
+                "jawline": 0.01376
+            }
+        },
+        "face29_face30_40__face29_face30_52": {
+            "topRegions": ["mouth", "brows"],
+            "scores": {
+                "eyes": 0.00245,
+                "brows": 0.00275,
+                "nose": 0.00228,
+                "mouth": 0.00319,
+                "jawline": 0.00275
+            }
+        },
+        "face29_face30_40__face29_face30_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00491,
+                "brows": 0.0055,
+                "nose": 0.00457,
+                "mouth": 0.00638,
+                "jawline": 0.00551
+            }
+        },
+        "face29_face30_40__face29_face30_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00825,
+                "nose": 0.00685,
+                "mouth": 0.00957,
+                "jawline": 0.00826
+            }
+        },
+        "face29_face30_40__face29_face30_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00981,
+                "brows": 0.011,
+                "nose": 0.00914,
+                "mouth": 0.01276,
+                "jawline": 0.01101
+            }
+        },
+        "face29_face30_52__face29_face30_64": {
+            "topRegions": ["mouth", "brows"],
+            "scores": {
+                "eyes": 0.00245,
+                "brows": 0.00275,
+                "nose": 0.00228,
+                "mouth": 0.00319,
+                "jawline": 0.00275
+            }
+        },
+        "face29_face30_52__face29_face30_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00491,
+                "brows": 0.0055,
+                "nose": 0.00457,
+                "mouth": 0.00638,
+                "jawline": 0.00551
+            }
+        },
+        "face29_face30_52__face29_face30_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00825,
+                "nose": 0.00685,
+                "mouth": 0.00957,
+                "jawline": 0.00826
+            }
+        },
+        "face29_face30_64__face29_face30_76": {
+            "topRegions": ["mouth", "brows"],
+            "scores": {
+                "eyes": 0.00245,
+                "brows": 0.00275,
+                "nose": 0.00228,
+                "mouth": 0.00319,
+                "jawline": 0.00275
+            }
+        },
+        "face29_face30_64__face29_face30_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00491,
+                "brows": 0.0055,
+                "nose": 0.00457,
+                "mouth": 0.00638,
+                "jawline": 0.00551
+            }
+        },
+        "face29_face30_76__face29_face30_88": {
+            "topRegions": ["mouth", "brows"],
+            "scores": {
+                "eyes": 0.00245,
+                "brows": 0.00275,
+                "nose": 0.00228,
+                "mouth": 0.00319,
+                "jawline": 0.00275
+            }
+        },
+        "face31_face32_28__face31_face32_40": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00368,
+                "brows": 0.00393,
+                "nose": 0.00382,
+                "mouth": 0.0036,
+                "jawline": 0.0043
+            }
+        },
+        "face31_face32_28__face31_face32_52": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00785,
+                "nose": 0.00763,
+                "mouth": 0.00721,
+                "jawline": 0.0086
+            }
+        },
+        "face31_face32_28__face31_face32_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01104,
+                "brows": 0.01178,
+                "nose": 0.01145,
+                "mouth": 0.01081,
+                "jawline": 0.01289
+            }
+        },
+        "face31_face32_28__face31_face32_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01472,
+                "brows": 0.01571,
+                "nose": 0.01527,
+                "mouth": 0.01442,
+                "jawline": 0.01719
+            }
+        },
+        "face31_face32_28__face31_face32_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.0184,
+                "brows": 0.01963,
+                "nose": 0.01909,
+                "mouth": 0.01802,
+                "jawline": 0.02149
+            }
+        },
+        "face31_face32_40__face31_face32_52": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00368,
+                "brows": 0.00393,
+                "nose": 0.00382,
+                "mouth": 0.0036,
+                "jawline": 0.0043
+            }
+        },
+        "face31_face32_40__face31_face32_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00785,
+                "nose": 0.00763,
+                "mouth": 0.00721,
+                "jawline": 0.0086
+            }
+        },
+        "face31_face32_40__face31_face32_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01104,
+                "brows": 0.01178,
+                "nose": 0.01145,
+                "mouth": 0.01081,
+                "jawline": 0.01289
+            }
+        },
+        "face31_face32_40__face31_face32_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01472,
+                "brows": 0.01571,
+                "nose": 0.01527,
+                "mouth": 0.01442,
+                "jawline": 0.01719
+            }
+        },
+        "face31_face32_52__face31_face32_64": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00368,
+                "brows": 0.00393,
+                "nose": 0.00382,
+                "mouth": 0.0036,
+                "jawline": 0.0043
+            }
+        },
+        "face31_face32_52__face31_face32_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00785,
+                "nose": 0.00763,
+                "mouth": 0.00721,
+                "jawline": 0.0086
+            }
+        },
+        "face31_face32_52__face31_face32_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.01104,
+                "brows": 0.01178,
+                "nose": 0.01145,
+                "mouth": 0.01081,
+                "jawline": 0.01289
+            }
+        },
+        "face31_face32_64__face31_face32_76": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00368,
+                "brows": 0.00393,
+                "nose": 0.00382,
+                "mouth": 0.0036,
+                "jawline": 0.0043
+            }
+        },
+        "face31_face32_64__face31_face32_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00736,
+                "brows": 0.00785,
+                "nose": 0.00763,
+                "mouth": 0.00721,
+                "jawline": 0.0086
+            }
+        },
+        "face31_face32_76__face31_face32_88": {
+            "topRegions": ["jawline", "brows"],
+            "scores": {
+                "eyes": 0.00368,
+                "brows": 0.00393,
+                "nose": 0.00382,
+                "mouth": 0.0036,
+                "jawline": 0.0043
+            }
+        },
+        "face33_face34_28__face33_face34_40": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00526,
+                "brows": 0.00526,
+                "nose": 0.00686,
+                "mouth": 0.00721,
+                "jawline": 0.00442
+            }
+        },
+        "face33_face34_28__face33_face34_52": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01051,
+                "brows": 0.01051,
+                "nose": 0.01372,
+                "mouth": 0.01442,
+                "jawline": 0.00883
+            }
+        },
+        "face33_face34_28__face33_face34_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01577,
+                "brows": 0.01577,
+                "nose": 0.02058,
+                "mouth": 0.02163,
+                "jawline": 0.01325
+            }
+        },
+        "face33_face34_28__face33_face34_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02102,
+                "brows": 0.02102,
+                "nose": 0.02744,
+                "mouth": 0.02885,
+                "jawline": 0.01766
+            }
+        },
+        "face33_face34_28__face33_face34_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02628,
+                "brows": 0.02628,
+                "nose": 0.0343,
+                "mouth": 0.03606,
+                "jawline": 0.02208
+            }
+        },
+        "face33_face34_40__face33_face34_52": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00526,
+                "brows": 0.00526,
+                "nose": 0.00686,
+                "mouth": 0.00721,
+                "jawline": 0.00442
+            }
+        },
+        "face33_face34_40__face33_face34_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01051,
+                "brows": 0.01051,
+                "nose": 0.01372,
+                "mouth": 0.01442,
+                "jawline": 0.00883
+            }
+        },
+        "face33_face34_40__face33_face34_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01577,
+                "brows": 0.01577,
+                "nose": 0.02058,
+                "mouth": 0.02163,
+                "jawline": 0.01325
+            }
+        },
+        "face33_face34_40__face33_face34_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.02102,
+                "brows": 0.02102,
+                "nose": 0.02744,
+                "mouth": 0.02885,
+                "jawline": 0.01766
+            }
+        },
+        "face33_face34_52__face33_face34_64": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00526,
+                "brows": 0.00526,
+                "nose": 0.00686,
+                "mouth": 0.00721,
+                "jawline": 0.00442
+            }
+        },
+        "face33_face34_52__face33_face34_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01051,
+                "brows": 0.01051,
+                "nose": 0.01372,
+                "mouth": 0.01442,
+                "jawline": 0.00883
+            }
+        },
+        "face33_face34_52__face33_face34_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01577,
+                "brows": 0.01577,
+                "nose": 0.02058,
+                "mouth": 0.02163,
+                "jawline": 0.01325
+            }
+        },
+        "face33_face34_64__face33_face34_76": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00526,
+                "brows": 0.00526,
+                "nose": 0.00686,
+                "mouth": 0.00721,
+                "jawline": 0.00442
+            }
+        },
+        "face33_face34_64__face33_face34_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.01051,
+                "brows": 0.01051,
+                "nose": 0.01372,
+                "mouth": 0.01442,
+                "jawline": 0.00883
+            }
+        },
+        "face33_face34_76__face33_face34_88": {
+            "topRegions": ["mouth", "nose"],
+            "scores": {
+                "eyes": 0.00526,
+                "brows": 0.00526,
+                "nose": 0.00686,
+                "mouth": 0.00721,
+                "jawline": 0.00442
+            }
+        },
+        "face35_face36_28__face35_face36_40": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00417,
+                "brows": 0.00502,
+                "nose": 0.00464,
+                "mouth": 0.00485,
+                "jawline": 0.00496
+            }
+        },
+        "face35_face36_28__face35_face36_52": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00834,
+                "brows": 0.01005,
+                "nose": 0.00927,
+                "mouth": 0.00971,
+                "jawline": 0.00993
+            }
+        },
+        "face35_face36_28__face35_face36_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01252,
+                "brows": 0.01507,
+                "nose": 0.01391,
+                "mouth": 0.01456,
+                "jawline": 0.01489
+            }
+        },
+        "face35_face36_28__face35_face36_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01669,
+                "brows": 0.02009,
+                "nose": 0.01854,
+                "mouth": 0.01941,
+                "jawline": 0.01985
+            }
+        },
+        "face35_face36_28__face35_face36_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.02086,
+                "brows": 0.02511,
+                "nose": 0.02318,
+                "mouth": 0.02427,
+                "jawline": 0.02481
+            }
+        },
+        "face35_face36_40__face35_face36_52": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00417,
+                "brows": 0.00502,
+                "nose": 0.00464,
+                "mouth": 0.00485,
+                "jawline": 0.00496
+            }
+        },
+        "face35_face36_40__face35_face36_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00834,
+                "brows": 0.01005,
+                "nose": 0.00927,
+                "mouth": 0.00971,
+                "jawline": 0.00993
+            }
+        },
+        "face35_face36_40__face35_face36_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01252,
+                "brows": 0.01507,
+                "nose": 0.01391,
+                "mouth": 0.01456,
+                "jawline": 0.01489
+            }
+        },
+        "face35_face36_40__face35_face36_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01669,
+                "brows": 0.02009,
+                "nose": 0.01854,
+                "mouth": 0.01941,
+                "jawline": 0.01985
+            }
+        },
+        "face35_face36_52__face35_face36_64": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00417,
+                "brows": 0.00502,
+                "nose": 0.00464,
+                "mouth": 0.00485,
+                "jawline": 0.00496
+            }
+        },
+        "face35_face36_52__face35_face36_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00834,
+                "brows": 0.01005,
+                "nose": 0.00927,
+                "mouth": 0.00971,
+                "jawline": 0.00993
+            }
+        },
+        "face35_face36_52__face35_face36_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.01252,
+                "brows": 0.01507,
+                "nose": 0.01391,
+                "mouth": 0.01456,
+                "jawline": 0.01489
+            }
+        },
+        "face35_face36_64__face35_face36_76": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00417,
+                "brows": 0.00502,
+                "nose": 0.00464,
+                "mouth": 0.00485,
+                "jawline": 0.00496
+            }
+        },
+        "face35_face36_64__face35_face36_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00834,
+                "brows": 0.01005,
+                "nose": 0.00927,
+                "mouth": 0.00971,
+                "jawline": 0.00993
+            }
+        },
+        "face35_face36_76__face35_face36_88": {
+            "topRegions": ["brows", "jawline"],
+            "scores": {
+                "eyes": 0.00417,
+                "brows": 0.00502,
+                "nose": 0.00464,
+                "mouth": 0.00485,
+                "jawline": 0.00496
+            }
+        },
+        "face37_face38_28__face37_face38_40": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00364,
+                "brows": 0.00349,
+                "nose": 0.00582,
+                "mouth": 0.00786,
+                "jawline": 0.00618
+            }
+        },
+        "face37_face38_28__face37_face38_52": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00728,
+                "brows": 0.00697,
+                "nose": 0.01164,
+                "mouth": 0.01571,
+                "jawline": 0.01236
+            }
+        },
+        "face37_face38_28__face37_face38_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01092,
+                "brows": 0.01046,
+                "nose": 0.01747,
+                "mouth": 0.02357,
+                "jawline": 0.01854
+            }
+        },
+        "face37_face38_28__face37_face38_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01455,
+                "brows": 0.01395,
+                "nose": 0.02329,
+                "mouth": 0.03143,
+                "jawline": 0.02472
+            }
+        },
+        "face37_face38_28__face37_face38_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01819,
+                "brows": 0.01744,
+                "nose": 0.02911,
+                "mouth": 0.03928,
+                "jawline": 0.0309
+            }
+        },
+        "face37_face38_40__face37_face38_52": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00364,
+                "brows": 0.00349,
+                "nose": 0.00582,
+                "mouth": 0.00786,
+                "jawline": 0.00618
+            }
+        },
+        "face37_face38_40__face37_face38_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00728,
+                "brows": 0.00697,
+                "nose": 0.01164,
+                "mouth": 0.01571,
+                "jawline": 0.01236
+            }
+        },
+        "face37_face38_40__face37_face38_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01092,
+                "brows": 0.01046,
+                "nose": 0.01747,
+                "mouth": 0.02357,
+                "jawline": 0.01854
+            }
+        },
+        "face37_face38_40__face37_face38_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01455,
+                "brows": 0.01395,
+                "nose": 0.02329,
+                "mouth": 0.03143,
+                "jawline": 0.02472
+            }
+        },
+        "face37_face38_52__face37_face38_64": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00364,
+                "brows": 0.00349,
+                "nose": 0.00582,
+                "mouth": 0.00786,
+                "jawline": 0.00618
+            }
+        },
+        "face37_face38_52__face37_face38_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00728,
+                "brows": 0.00697,
+                "nose": 0.01164,
+                "mouth": 0.01571,
+                "jawline": 0.01236
+            }
+        },
+        "face37_face38_52__face37_face38_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.01092,
+                "brows": 0.01046,
+                "nose": 0.01747,
+                "mouth": 0.02357,
+                "jawline": 0.01854
+            }
+        },
+        "face37_face38_64__face37_face38_76": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00364,
+                "brows": 0.00349,
+                "nose": 0.00582,
+                "mouth": 0.00786,
+                "jawline": 0.00618
+            }
+        },
+        "face37_face38_64__face37_face38_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00728,
+                "brows": 0.00697,
+                "nose": 0.01164,
+                "mouth": 0.01571,
+                "jawline": 0.01236
+            }
+        },
+        "face37_face38_76__face37_face38_88": {
+            "topRegions": ["mouth", "jawline"],
+            "scores": {
+                "eyes": 0.00364,
+                "brows": 0.00349,
+                "nose": 0.00582,
+                "mouth": 0.00786,
+                "jawline": 0.00618
+            }
+        },
+        "face39_face40_28__face39_face40_40": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.00811,
+                "brows": 0.00958,
+                "nose": 0.00776,
+                "mouth": 0.00656,
+                "jawline": 0.00581
+            }
+        },
+        "face39_face40_28__face39_face40_52": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.01623,
+                "brows": 0.01915,
+                "nose": 0.01553,
+                "mouth": 0.01312,
+                "jawline": 0.01162
+            }
+        },
+        "face39_face40_28__face39_face40_64": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.02434,
+                "brows": 0.02873,
+                "nose": 0.02329,
+                "mouth": 0.01968,
+                "jawline": 0.01743
+            }
+        },
+        "face39_face40_28__face39_face40_76": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.03245,
+                "brows": 0.03831,
+                "nose": 0.03105,
+                "mouth": 0.02623,
+                "jawline": 0.02324
+            }
+        },
+        "face39_face40_28__face39_face40_88": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.04056,
+                "brows": 0.04789,
+                "nose": 0.03882,
+                "mouth": 0.03279,
+                "jawline": 0.02905
+            }
+        },
+        "face39_face40_40__face39_face40_52": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.00811,
+                "brows": 0.00958,
+                "nose": 0.00776,
+                "mouth": 0.00656,
+                "jawline": 0.00581
+            }
+        },
+        "face39_face40_40__face39_face40_64": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.01623,
+                "brows": 0.01915,
+                "nose": 0.01553,
+                "mouth": 0.01312,
+                "jawline": 0.01162
+            }
+        },
+        "face39_face40_40__face39_face40_76": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.02434,
+                "brows": 0.02873,
+                "nose": 0.02329,
+                "mouth": 0.01968,
+                "jawline": 0.01743
+            }
+        },
+        "face39_face40_40__face39_face40_88": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.03245,
+                "brows": 0.03831,
+                "nose": 0.03105,
+                "mouth": 0.02623,
+                "jawline": 0.02324
+            }
+        },
+        "face39_face40_52__face39_face40_64": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.00811,
+                "brows": 0.00958,
+                "nose": 0.00776,
+                "mouth": 0.00656,
+                "jawline": 0.00581
+            }
+        },
+        "face39_face40_52__face39_face40_76": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.01623,
+                "brows": 0.01915,
+                "nose": 0.01553,
+                "mouth": 0.01312,
+                "jawline": 0.01162
+            }
+        },
+        "face39_face40_52__face39_face40_88": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.02434,
+                "brows": 0.02873,
+                "nose": 0.02329,
+                "mouth": 0.01968,
+                "jawline": 0.01743
+            }
+        },
+        "face39_face40_64__face39_face40_76": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.00811,
+                "brows": 0.00958,
+                "nose": 0.00776,
+                "mouth": 0.00656,
+                "jawline": 0.00581
+            }
+        },
+        "face39_face40_64__face39_face40_88": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.01623,
+                "brows": 0.01915,
+                "nose": 0.01553,
+                "mouth": 0.01312,
+                "jawline": 0.01162
+            }
+        },
+        "face39_face40_76__face39_face40_88": {
+            "topRegions": ["brows", "eyes"],
+            "scores": {
+                "eyes": 0.00811,
+                "brows": 0.00958,
+                "nose": 0.00776,
+                "mouth": 0.00656,
+                "jawline": 0.00581
+            }
+        }
+    }
+}
