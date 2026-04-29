@@ -142,7 +142,7 @@
             ></div>
         </div>
     {:else if phase === 'choice'}
-        <div class="phase-instruction">Which face did you see?</div>
+        <div class="phase-instruction">Which image exactly matches the one you saw?</div>
         <div class="choices-display">
             {#each faces.choiceFaceIds as faceId, index}
                 <FaceDisplay

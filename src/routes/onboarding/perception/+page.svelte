@@ -114,9 +114,7 @@
             {#if !isTestComplete}
                 <div class="header">
                     <h1 class="title">Face Perception Test</h1>
-                    <p class="subtitle">
-                        Study the face carefully, then identify it among the choices.
-                    </p>
+                    <p class="subtitle">Study the image carefully, then choose the exact match.</p>
                 </div>
 
                 <div class="progress-section">
@@ -144,7 +142,9 @@
                             <div class="mask"></div>
                         </div>
                     {:else if phase === 'choice'}
-                        <div class="phase-instruction">Which face did you see?</div>
+                        <div class="phase-instruction">
+                            Which image exactly matches the one you saw?
+                        </div>
                         <div class="choices-display">
                             {#each choiceFaceUrls as faceUrl, index}
                                 <button
