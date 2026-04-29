@@ -18,7 +18,7 @@
         "format:check": "prettier --check .",
         "typecheck": "svelte-check --tsconfig ./tsconfig.json",
         "knip": "knip",
-        "check": "npm run typecheck && npm run lint && npm run format:check && npm run knip && npm run test:run",
+        "check": "npm run typecheck && npm run lint && npm run format:check && npm run knip && npm run verify-faces && npm run test:run",
         "prepare": "husky",
         "convert-faces": "node scripts/convert-to-webp.js",
         "verify-faces": "node scripts/verify-faces.js",

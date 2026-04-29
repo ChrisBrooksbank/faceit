@@ -1,0 +1,152 @@
+{
+    "version": "1.0",
+    "selectionSeed": "faceit-london-set-v5-2026-04",
+    "selectionRules": [
+        "Use only neutral-front source images with matching template files.",
+        "Prefer same self-reported gender and ethnicity groups.",
+        "Within each group, prefer closest self-reported age.",
+        "Round-robin across available groups to avoid selecting only the largest group."
+    ],
+    "pairs": [
+        {
+            "id": 1,
+            "faceA": "face1",
+            "faceB": "face2",
+            "sourceFaceA": "001",
+            "sourceFaceB": "002"
+        },
+        {
+            "id": 2,
+            "faceA": "face3",
+            "faceB": "face4",
+            "sourceFaceA": "012",
+            "sourceFaceB": "026"
+        },
+        {
+            "id": 3,
+            "faceA": "face5",
+            "faceB": "face6",
+            "sourceFaceA": "043",
+            "sourceFaceB": "082"
+        },
+        {
+            "id": 4,
+            "faceA": "face7",
+            "faceB": "face8",
+            "sourceFaceA": "025",
+            "sourceFaceB": "129"
+        },
+        {
+            "id": 5,
+            "faceA": "face9",
+            "faceB": "face10",
+            "sourceFaceA": "066",
+            "sourceFaceB": "064"
+        },
+        {
+            "id": 6,
+            "faceA": "face11",
+            "faceB": "face12",
+            "sourceFaceA": "005",
+            "sourceFaceB": "067"
+        },
+        {
+            "id": 7,
+            "faceA": "face13",
+            "faceB": "face14",
+            "sourceFaceA": "008",
+            "sourceFaceB": "115"
+        },
+        {
+            "id": 8,
+            "faceA": "face15",
+            "faceB": "face16",
+            "sourceFaceA": "030",
+            "sourceFaceB": "034"
+        },
+        {
+            "id": 9,
+            "faceA": "face17",
+            "faceB": "face18",
+            "sourceFaceA": "007",
+            "sourceFaceB": "083"
+        },
+        {
+            "id": 10,
+            "faceA": "face19",
+            "faceB": "face20",
+            "sourceFaceA": "017",
+            "sourceFaceB": "121"
+        },
+        {
+            "id": 11,
+            "faceA": "face21",
+            "faceB": "face22",
+            "sourceFaceA": "044",
+            "sourceFaceB": "096"
+        },
+        {
+            "id": 12,
+            "faceA": "face23",
+            "faceB": "face24",
+            "sourceFaceA": "099",
+            "sourceFaceB": "126"
+        },
+        {
+            "id": 13,
+            "faceA": "face25",
+            "faceB": "face26",
+            "sourceFaceA": "006",
+            "sourceFaceB": "038"
+        },
+        {
+            "id": 14,
+            "faceA": "face27",
+            "faceB": "face28",
+            "sourceFaceA": "119",
+            "sourceFaceB": "024"
+        },
+        {
+            "id": 15,
+            "faceA": "face29",
+            "faceB": "face30",
+            "sourceFaceA": "142",
+            "sourceFaceB": "070"
+        },
+        {
+            "id": 16,
+            "faceA": "face31",
+            "faceB": "face32",
+            "sourceFaceA": "127",
+            "sourceFaceB": "087"
+        },
+        {
+            "id": 17,
+            "faceA": "face33",
+            "faceB": "face34",
+            "sourceFaceA": "009",
+            "sourceFaceB": "118"
+        },
+        {
+            "id": 18,
+            "faceA": "face35",
+            "faceB": "face36",
+            "sourceFaceA": "018",
+            "sourceFaceB": "063"
+        },
+        {
+            "id": 19,
+            "faceA": "face37",
+            "faceB": "face38",
+            "sourceFaceA": "114",
+            "sourceFaceB": "042"
+        },
+        {
+            "id": 20,
+            "faceA": "face39",
+            "faceB": "face40",
+            "sourceFaceA": "010",
+            "sourceFaceB": "013"
+        }
+    ]
+}

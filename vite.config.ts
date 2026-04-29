@@ -8,7 +8,7 @@ export default defineConfig({
         SvelteKitPWA({
             registerType: 'autoUpdate',
             workbox: {
-                globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,webp}'],
+                globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,json,woff2,webp}'],
             },
             manifest: {
                 name: 'FaceIt - Face Recognition Training',

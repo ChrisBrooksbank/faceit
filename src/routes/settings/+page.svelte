@@ -2,6 +2,7 @@
     import { userProfile, setUserProfile } from '$lib/stores';
     import { saveUserProfile, getAllSessions, getAllAssessments, deleteAllData } from '$lib/db';
     import { Button, Card } from '$lib/components';
+    import { FACE_SOURCE } from '$lib/core/faces';
     import { logger } from '$lib/utils/logger';
 
     // Local state for settings
@@ -208,6 +209,13 @@
                 <p class="about-item">
                     <strong>Research:</strong> Based on evidence-based perceptual discrimination training
                     protocols.
+                </p>
+                <p class="about-item">
+                    <strong>Face stimuli:</strong>
+                    <a href={FACE_SOURCE.url} target="_blank" rel="noreferrer">
+                        {FACE_SOURCE.name}
+                    </a>
+                    ({FACE_SOURCE.license}, DOI {FACE_SOURCE.doi})
                 </p>
             </div>
         </Card>

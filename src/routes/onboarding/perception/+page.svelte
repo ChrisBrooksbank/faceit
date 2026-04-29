@@ -2,6 +2,7 @@
     import { Button, Card, ProgressBar } from '$lib/components';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
+    import { buildPerceptionTrial } from '$lib/core/faces';
     import { setPerceptionScore } from '$lib/stores/onboarding';
 
     // Trial configuration: 6 trials at fixed difficulty levels
@@ -30,25 +31,10 @@
         }
 
         const morphLevel = MORPH_LEVELS[currentTrialIndex];
-        const pairIndex = currentTrialIndex % 20; // Use first 6 pairs
-
-        // Use face pairs from metadata
-        const faceA = `face${pairIndex * 2 + 1}`;
-        const faceB = `face${pairIndex * 2 + 2}`;
-
-        // Target is the morphed face
-        targetFaceUrl = `/faces/${faceA}_${faceB}_${morphLevel}.jpg`;
-
-        // Choices: target + 2 distractors
-        // For simplicity, use the two original faces as distractors
-        correctPosition = Math.floor(Math.random() * 3);
-        const distractor1 = `/faces/${faceA}_${faceB}_28.jpg`;
-        const distractor2 = `/faces/${faceA}_${faceB}_88.jpg`;
-
-        const distractors = [distractor1, distractor2];
-        choiceFaceUrls = Array.from({ length: 3 }, (_, index) =>
-            index === correctPosition ? targetFaceUrl : (distractors.shift() ?? distractor1)
-        );
+        const trial = buildPerceptionTrial(currentTrialIndex, morphLevel);
+        targetFaceUrl = trial.target;
+        choiceFaceUrls = trial.choices;
+        correctPosition = trial.correct;
 
         selectedPosition = -1;
     }

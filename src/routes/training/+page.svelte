@@ -9,17 +9,11 @@
     import { Button, Card, ProgressBar, TrialDisplay } from '$lib/components';
     import { userProfile, setCurrentSession, setProgressMetrics } from '$lib/stores';
     import { createStaircaseState, updateStaircase, calculateThreshold } from '$lib/core/staircase';
+    import { buildTrainingTrial, findClosestMorphLevel } from '$lib/core/faces';
     import { updateProgressMetrics as recalculateProgressMetrics } from '$lib/core/progress';
     import { saveSession } from '$lib/db';
     import { logger } from '$lib/utils/logger';
     import type { Trial, TrainingSession, StaircaseState } from '$lib/types';
-
-    // ============================================
-    // Constants
-    // ============================================
-
-    const FACE_PAIRS = 20; // 20 unique face pairs (face1-face40)
-    const MORPH_LEVELS = [28, 40, 52, 64, 76, 88];
 
     // ============================================
     // State
@@ -88,7 +82,7 @@
 
         // Generate trial at current difficulty
         const morphLevel = findClosestMorphLevel(staircaseState.currentMorphLevel);
-        const { target, choices, correct } = generateTrialFaces(morphLevel);
+        const { target, choices, correct } = buildTrainingTrial(morphLevel);
 
         targetFaceId = target;
         choiceFaceIds = choices;
@@ -140,77 +134,6 @@
                 startNextTrial();
             }, 1000);
         }
-    }
-
-    // ============================================
-    // Face Generation
-    // ============================================
-
-    /**
-     * Find the closest available morph level to the target
-     */
-    function findClosestMorphLevel(target: number): number {
-        return MORPH_LEVELS.reduce((prev, curr) =>
-            Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev
-        );
-    }
-
-    /**
-     * Generate faces for a trial at the given morph level
-     * Returns target face, 3 choice faces, and correct position
-     */
-    function generateTrialFaces(morphLevel: number): {
-        target: string;
-        choices: string[];
-        correct: number;
-    } {
-        // Select random face pair
-        const pairIndex = Math.floor(Math.random() * FACE_PAIRS);
-        const faceA = pairIndex * 2 + 1;
-        const faceB = faceA + 1;
-
-        // Morph filename
-        const morphFaceId = `face${faceA}_face${faceB}_${morphLevel}`;
-
-        // Select random distractor pair (different from target pair)
-        let distractorPairIndex = Math.floor(Math.random() * (FACE_PAIRS - 1));
-        if (distractorPairIndex >= pairIndex) {
-            distractorPairIndex++;
-        }
-
-        const distractorA = distractorPairIndex * 2 + 1;
-        const distractorB = distractorA + 1;
-
-        // Use two different morph levels for distractors to add variety
-        const distractorMorph1 = MORPH_LEVELS[Math.floor(Math.random() * MORPH_LEVELS.length)];
-        const distractorMorph2 = MORPH_LEVELS[Math.floor(Math.random() * MORPH_LEVELS.length)];
-
-        let distractor2PairIndex = Math.floor(Math.random() * (FACE_PAIRS - 2));
-        const excludedPairs = [pairIndex, distractorPairIndex].sort((a, b) => a - b);
-        for (const excludedPair of excludedPairs) {
-            if (distractor2PairIndex >= excludedPair) {
-                distractor2PairIndex++;
-            }
-        }
-
-        const distractor2A = distractor2PairIndex * 2 + 1;
-        const distractor2B = distractor2A + 1;
-
-        const distractor1 = `face${distractorA}_face${distractorB}_${distractorMorph1}`;
-        const distractor2 = `face${distractor2A}_face${distractor2B}_${distractorMorph2}`;
-
-        // Randomize position of correct answer
-        const correctPos = Math.floor(Math.random() * 3);
-        const distractors = [distractor1, distractor2];
-        const choices = Array.from({ length: 3 }, (_, index) =>
-            index === correctPos ? morphFaceId : (distractors.shift() ?? distractor1)
-        );
-
-        return {
-            target: morphFaceId,
-            choices,
-            correct: correctPos,
-        };
     }
 
     function serializeTrial(trial: Trial): Trial {

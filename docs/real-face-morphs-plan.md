@@ -1,8 +1,10 @@
-# Real Face Morphs Plan
+# Real Face Morphs Implementation Plan
 
 ## Goal
 
-Replace the current generated JPG placeholders with licensed, research-appropriate morphed face stimuli, while preserving the app's privacy-first offline model and the current file contract used by onboarding and training.
+Replace the generated placeholders with licensed, research-appropriate morphed face stimuli, while preserving the app's privacy-first offline model and the file contract used by onboarding and training.
+
+Status: implemented. The active app now uses generated London Set JPEG morphs, metadata-driven trial generation, production asset verification, and in-app attribution.
 
 ## Source Dataset
 
@@ -14,7 +16,7 @@ Primary candidate: Face Research Lab London Set, Version 5.
 - Contents: 102 adult faces, 1350 x 1350 color images, plus template coordinate files for Psychomorph/WebMorph.
 - Consent note from dataset page: participants consented to use in lab-based and web-based studies, including altered forms.
 
-Keep the current placeholder assets available until the full morph set is generated and verified.
+Raw source files stay outside git in `.face-source/`. Only generated app-ready stimuli and reproducible scripts are checked in.
 
 ## Target Asset Contract
 
@@ -43,50 +45,23 @@ Required output:
 
 ### Phase 1: Licensing And Attribution
 
-1. Add `static/faces/ATTRIBUTION.md`.
-2. Include dataset title, authors, DOI, version, license, and source URL.
-3. Add a short in-app About entry linking to attribution.
-4. Decide whether source images are stored outside git and only generated morph outputs are committed. Preferred: keep raw source images out of git and document the download path.
+Done.
 
 ### Phase 2: Deterministic Pair Selection
 
-1. Write `scripts/select-face-pairs.py`.
-2. Read only dataset-provided metadata; do not infer demographics from images.
-3. Select 20 stable pairs using a checked-in seed.
-4. Persist the chosen source IDs to `static/faces/source-pairs.json`.
-5. Reserve additional pairs for validation/holdout so later tests can use unseen identities.
+Done in `scripts/generate-face-morphs.py`. Pairing reads only dataset-provided age, gender, and ethnicity metadata, then writes `static/faces/source-pairs.json`.
 
 ### Phase 3: Morph Generation Pipeline
 
-1. Prefer the London Set template coordinate files over runtime landmark detection.
-2. Implement or update `scripts/generate-face-morphs.py` to:
-    - Load two aligned source images and their template coordinates.
-    - Interpolate shape coordinates per morph level.
-    - Warp each source image into the interpolated shape.
-    - Alpha-blend texture according to the morph level.
-    - Crop/resize consistently.
-    - Write optimized JPG outputs.
-3. Generate `metadata.json` from the same script so filenames and metadata cannot drift.
-4. Keep the script idempotent: same inputs and seed produce byte-stable or visually stable outputs.
+Done. The generator uses the London Set `.tem` landmark files for piecewise-affine shape morphing, blends texture at each morph level, writes optimized 400 x 400 JPEGs, and regenerates `metadata.json`.
 
 ### Phase 4: Verification Tools
 
-1. Extend `npm run verify-faces` or add `scripts/verify-face-assets.js`.
-2. Checks:
-    - All files referenced by metadata exist.
-    - No placeholder flag remains for production assets.
-    - Every image is loadable, correct dimensions, and nonblank.
-    - Every pair has all required morph levels.
-    - No duplicate output files by hash within the same pair.
-3. Add the verifier to `npm run check` once it is stable.
+Done. `npm run verify-faces` is included in `npm run check` and validates metadata, dimensions, loadability, entropy, and within-pair duplicate hashes.
 
 ### Phase 5: App Integration
 
-1. Replace hard-coded `FACE_PAIRS = 20` with metadata-driven face pair loading.
-2. Keep the static path format so PWA caching remains simple.
-3. Update onboarding perception and training trial generation to draw from metadata rather than numeric assumptions.
-4. Ensure the service worker precaches the generated assets.
-5. Show dataset attribution in Settings/About.
+Done. `src/lib/core/faces.ts` centralizes the metadata-driven face contract for onboarding and training, and the PWA cache now includes JPEG and JSON assets.
 
 ### Phase 6: QA And Release Gate
 
