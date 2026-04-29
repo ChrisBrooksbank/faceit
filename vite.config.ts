@@ -17,6 +17,9 @@ export default defineConfig({
                     'A Progressive Web App to help people with prosopagnosia improve face recognition through evidence-based training',
                 theme_color: '#2563eb',
                 background_color: '#f5f5f5',
+                id: '/',
+                start_url: '/',
+                scope: '/',
                 display: 'standalone',
                 orientation: 'portrait',
                 icons: [
@@ -24,11 +27,13 @@ export default defineConfig({
                         src: '/icons/icon-192.png',
                         sizes: '192x192',
                         type: 'image/png',
+                        purpose: 'any maskable',
                     },
                     {
                         src: '/icons/icon-512.png',
                         sizes: '512x512',
                         type: 'image/png',
+                        purpose: 'any maskable',
                     },
                 ],
             },

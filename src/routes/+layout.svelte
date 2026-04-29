@@ -29,6 +29,7 @@
     let installPrompt = $state<BeforeInstallPromptEvent | null>(null);
     let updateServiceWorker = $state<((reloadPage?: boolean) => Promise<void>) | null>(null);
     const canShowInstall = $derived(!isInstalled);
+    const installButtonLabel = $derived(installPrompt ? 'Install app' : 'How to install');
 
     function isAppInstalled(): boolean {
         const navigatorWithStandalone = navigator as Navigator & { standalone?: boolean };
@@ -119,7 +120,9 @@
             {/if}
 
             {#if canShowInstall}
-                <button class="pwa-button" type="button" onclick={installApp}>Install app</button>
+                <button class="pwa-button" type="button" onclick={installApp}>
+                    {installButtonLabel}
+                </button>
             {/if}
 
             {#if hasUpdate}
