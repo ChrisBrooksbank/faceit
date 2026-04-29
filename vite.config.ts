@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         sveltekit(),
         SvelteKitPWA({
-            registerType: 'autoUpdate',
+            registerType: 'prompt',
             workbox: {
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,json,woff2,webp}'],
             },
