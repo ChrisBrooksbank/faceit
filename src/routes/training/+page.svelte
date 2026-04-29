@@ -35,6 +35,8 @@
     // Session configuration
     let trialsTotal = $state<number>(60);
     let sessionId = $state<string>('');
+    const CORRECT_TRIAL_DELAY = 800;
+    const WRONG_FEEDBACK_DELAY = 5000;
 
     // ============================================
     // Derived values
@@ -129,10 +131,13 @@
         if (currentTrialNumber >= trialsTotal) {
             completeSession();
         } else {
-            // Small delay before next trial for feedback
-            setTimeout(() => {
-                startNextTrial();
-            }, 1000);
+            // Give wrong answers enough time for comparison feedback.
+            setTimeout(
+                () => {
+                    startNextTrial();
+                },
+                correct ? CORRECT_TRIAL_DELAY : WRONG_FEEDBACK_DELAY
+            );
         }
     }
 

@@ -11,7 +11,9 @@
     const MASK_TIME = 500; // 500ms
 
     // Trial state
-    type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'complete';
+    type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'feedback' | 'complete';
+    const CORRECT_DELAY = 500;
+    const WRONG_FEEDBACK_DELAY = 4500;
     let currentTrialIndex = $state(0);
     let phase = $state<TrialPhase>('target');
     let correctCount = $state(0);
@@ -65,16 +67,22 @@
         if (phase !== 'choice' || selectedPosition !== -1) return;
 
         selectedPosition = position;
+        const isCorrect = position === correctPosition;
 
-        if (position === correctPosition) {
+        if (isCorrect) {
             correctCount++;
+        } else {
+            phase = 'feedback';
         }
 
         // Move to next trial after brief delay
-        setTimeout(() => {
-            currentTrialIndex++;
-            void startTrial();
-        }, 500);
+        setTimeout(
+            () => {
+                currentTrialIndex++;
+                void startTrial();
+            },
+            isCorrect ? CORRECT_DELAY : WRONG_FEEDBACK_DELAY
+        );
     }
 
     // Handle completion
@@ -160,6 +168,30 @@
                                 </button>
                             {/each}
                         </div>
+                    {:else if phase === 'feedback'}
+                        <div class="phase-instruction">Look again at the differences</div>
+                        <div class="feedback-display" aria-live="polite">
+                            <div class="feedback-face">
+                                <div class="feedback-label">Your choice</div>
+                                <img
+                                    src={choiceFaceUrls[selectedPosition]}
+                                    alt="Your selected choice"
+                                    class="face-image"
+                                />
+                            </div>
+                            <div class="feedback-face">
+                                <div class="feedback-label">Exact match</div>
+                                <img
+                                    src={choiceFaceUrls[correctPosition]}
+                                    alt="Correct match"
+                                    class="face-image correct-image"
+                                />
+                            </div>
+                        </div>
+                        <p class="feedback-hint">
+                            Compare the eye spacing, brow line, nose width, mouth shape, and
+                            jawline.
+                        </p>
                     {/if}
                 </div>
             {:else}
@@ -287,6 +319,40 @@
 
     .choice-button:active:not(:disabled) {
         transform: scale(0.98);
+    }
+
+    .feedback-display {
+        display: flex;
+        gap: var(--spacing-lg);
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .feedback-face {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .feedback-label {
+        font-size: var(--font-size-sm);
+        font-weight: 600;
+        color: var(--color-text-muted);
+    }
+
+    .correct-image {
+        outline: 3px solid var(--color-success);
+        outline-offset: 4px;
+    }
+
+    .feedback-hint {
+        max-width: 520px;
+        margin: var(--spacing-lg) auto 0;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        text-align: center;
     }
 
     .complete-screen {

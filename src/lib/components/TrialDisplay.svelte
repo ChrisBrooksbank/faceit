@@ -10,7 +10,7 @@
 
     import FaceDisplay from './FaceDisplay.svelte';
 
-    type TrialPhase = 'loading' | 'target' | 'mask' | 'choice';
+    type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'feedback';
 
     interface TrialFaces {
         targetFaceId: string;
@@ -101,6 +101,9 @@
 
         selectedPosition = position;
         const correct = position === faces.correctPosition;
+        if (!correct) {
+            phase = 'feedback';
+        }
         onSelect(position, correct);
     }
 
@@ -155,6 +158,31 @@
                 />
             {/each}
         </div>
+    {:else if phase === 'feedback'}
+        <div class="phase-instruction">Look again at the differences</div>
+        <div class="feedback-display" aria-live="polite">
+            <div class="feedback-face">
+                <div class="feedback-label">Your choice</div>
+                <FaceDisplay
+                    faceId={faces.choiceFaceIds[selectedPosition]}
+                    {size}
+                    ariaLabel="Your selected image"
+                />
+            </div>
+            <div class="feedback-face">
+                <div class="feedback-label">Exact match</div>
+                <div class="correct-frame">
+                    <FaceDisplay
+                        faceId={faces.choiceFaceIds[faces.correctPosition]}
+                        {size}
+                        ariaLabel="Correct matching image"
+                    />
+                </div>
+            </div>
+        </div>
+        <p class="feedback-hint">
+            Compare the eye spacing, brow line, nose width, mouth shape, and jawline.
+        </p>
     {/if}
 </div>
 
@@ -214,5 +242,40 @@
         gap: var(--spacing-lg);
         justify-content: center;
         flex-wrap: wrap;
+    }
+
+    .feedback-display {
+        display: flex;
+        gap: var(--spacing-lg);
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .feedback-face {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .feedback-label {
+        font-size: var(--font-size-sm);
+        font-weight: 600;
+        color: var(--color-text-muted);
+    }
+
+    .correct-frame {
+        border-radius: var(--radius-md);
+        outline: 3px solid var(--color-success);
+        outline-offset: 4px;
+    }
+
+    .feedback-hint {
+        max-width: 560px;
+        margin: var(--spacing-lg) auto 0;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        text-align: center;
     }
 </style>
