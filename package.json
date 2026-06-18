@@ -1,6 +1,7 @@
 {
     "name": "faceit",
     "version": "1.0.0",
+    "license": "MIT",
     "description": "A Progressive Web App to help people with prosopagnosia improve face recognition through evidence-based training",
     "type": "module",
     "scripts": {
