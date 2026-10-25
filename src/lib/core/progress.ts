@@ -6,6 +6,14 @@
 import type { TrainingSession, ProgressMetrics } from '$lib/types';
 import { getSessionsByDate, getProgressMetrics, saveProgressMetrics } from '$lib/db';
 
+/** Difficulty definition: 2 = morph gap between target and wrong answers (PR #1 onwards) */
+export const CURRENT_DIFFICULTY_VERSION = 2;
+
+/** Sessions saved before the difficulty rework have no version and aren't comparable */
+export function isLegacySession(session: TrainingSession): boolean {
+    return (session.difficultyVersion ?? 1) < CURRENT_DIFFICULTY_VERSION;
+}
+
 /**
  * Calculate consecutive day streak from sessions
  * @param sessions - All training sessions sorted by date (oldest first)
@@ -125,17 +133,20 @@ export async function updateProgressMetrics(userId: string): Promise<ProgressMet
     const totalSessions = completedSessions.length;
     const totalTrainingTime = completedSessions.reduce((sum, s) => sum + s.duration, 0);
 
+    // Thresholds are only comparable within the current difficulty definition
+    const comparableSessions = completedSessions.filter(s => !isLegacySession(s));
+
     // Calculate best (lowest) threshold
     const bestThreshold =
-        completedSessions.length > 0
-            ? Math.min(...completedSessions.map(s => s.thresholdLevel))
+        comparableSessions.length > 0
+            ? Math.min(...comparableSessions.map(s => s.thresholdLevel))
             : currentMetrics.bestThreshold;
 
     // Calculate average threshold
     const avgThreshold =
-        completedSessions.length > 0
-            ? completedSessions.reduce((sum, s) => sum + s.thresholdLevel, 0) /
-              completedSessions.length
+        comparableSessions.length > 0
+            ? comparableSessions.reduce((sum, s) => sum + s.thresholdLevel, 0) /
+              comparableSessions.length
             : 0;
 
     // Calculate average accuracy
@@ -144,7 +155,7 @@ export async function updateProgressMetrics(userId: string): Promise<ProgressMet
             ? completedSessions.reduce((sum, s) => sum + s.accuracy, 0) / completedSessions.length
             : 0;
 
-    const improvementRate = improvementFromTrainingBaseline(completedSessions);
+    const improvementRate = improvementFromTrainingBaseline(comparableSessions);
 
     // Get last session date
     const lastSessionDate =

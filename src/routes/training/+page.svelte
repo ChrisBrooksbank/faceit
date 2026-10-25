@@ -26,7 +26,10 @@
         type ImageVariation,
     } from '$lib/core/image-variation';
     import { buildTrainingTrial, findClosestMorphLevel } from '$lib/core/faces';
-    import { updateProgressMetrics as recalculateProgressMetrics } from '$lib/core/progress';
+    import {
+        updateProgressMetrics as recalculateProgressMetrics,
+        CURRENT_DIFFICULTY_VERSION,
+    } from '$lib/core/progress';
     import { saveSession, saveUserProfile } from '$lib/db';
     import { logger } from '$lib/utils/logger';
     import type { Trial, TrainingSession, StaircaseState } from '$lib/types';
@@ -230,6 +233,7 @@
             thresholdHistory: [...staircaseState.reversals],
             trials: completedTrials,
             completed: true,
+            difficultyVersion: CURRENT_DIFFICULTY_VERSION,
         };
 
         try {
@@ -314,6 +318,7 @@
                 thresholdHistory: [...staircaseState.reversals],
                 trials: partialTrials,
                 completed: false,
+                difficultyVersion: CURRENT_DIFFICULTY_VERSION,
             };
 
             try {

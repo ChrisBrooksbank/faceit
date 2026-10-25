@@ -1,5 +1,11 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { calculateStreak, calculateImprovement, updateProgressMetrics } from './progress';
+import {
+    calculateStreak,
+    calculateImprovement,
+    updateProgressMetrics,
+    isLegacySession,
+    CURRENT_DIFFICULTY_VERSION,
+} from './progress';
 import type { TrainingSession, ProgressMetrics } from '$lib/types';
 import * as db from '$lib/db';
 
@@ -367,6 +373,35 @@ describe('updateProgressMetrics', () => {
     });
 });
 
+describe('legacy sessions', () => {
+    afterEach(() => {
+        vi.useRealTimers();
+    });
+
+    it('treats sessions without a difficulty version as legacy', () => {
+        const legacy = { ...createSession('2026-01-10', true), difficultyVersion: undefined };
+        expect(isLegacySession(legacy)).toBe(true);
+        expect(isLegacySession(createSession('2026-01-10', true))).toBe(false);
+    });
+
+    it('excludes legacy sessions from threshold metrics but keeps them in totals', async () => {
+        vi.setSystemTime(new Date('2026-01-20T12:00:00Z'));
+        const legacy = { ...createSession('2026-01-19', true, 20), difficultyVersion: undefined };
+        const current = createSession('2026-01-20', true, 50);
+
+        vi.mocked(db.getSessionsByDate).mockResolvedValue([legacy, current]);
+        vi.mocked(db.getProgressMetrics).mockResolvedValue(createProgressMetrics('user-1'));
+        vi.mocked(db.saveProgressMetrics).mockResolvedValue();
+
+        const updated = await updateProgressMetrics('user-1');
+
+        expect(updated.totalSessions).toBe(2);
+        expect(updated.currentStreak).toBe(2);
+        expect(updated.bestThreshold).toBe(50);
+        expect(updated.avgThreshold).toBe(50);
+    });
+});
+
 // Helper functions
 function createSession(
     dateStr: string,
@@ -385,6 +420,7 @@ function createSession(
         thresholdHistory: [60, 58, 56],
         trials: [],
         completed,
+        difficultyVersion: CURRENT_DIFFICULTY_VERSION,
     };
 }
 

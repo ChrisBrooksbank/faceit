@@ -50,6 +50,8 @@ export interface TrainingSession {
     thresholdHistory: number[];
     trials: Trial[];
     completed: boolean;
+    /** Difficulty definition used (see CURRENT_DIFFICULTY_VERSION). Missing means legacy. */
+    difficultyVersion?: number;
 }
 
 // ============================================

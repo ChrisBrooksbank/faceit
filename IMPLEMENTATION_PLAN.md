@@ -472,7 +472,7 @@ Progress and measurement:
 
 - [x] **Improvement metric.** `updateProgressMetrics` now uses the average of the first 3 training sessions as the baseline (not a single session, and not the noisy 6-trial onboarding test) and compares it with the later sessions (last 7). It reports 0 until a session exists beyond the baseline ones (`improvementFromTrainingBaseline` in `src/lib/core/progress.ts`).
     - Not done: the threshold still falls back to the last level when there are fewer than 6 reversals.
-- [ ] **Legacy sessions.** Sessions saved before PR #1 used the old difficulty definition, so their thresholds are not comparable. Mark them as legacy or exclude them from trends.
+- [x] **Legacy sessions.** Sessions saved before PR #1 used the old difficulty definition, so their thresholds are not comparable. New sessions carry `difficultyVersion` (`CURRENT_DIFFICULTY_VERSION` in `src/lib/core/progress.ts`); sessions without it are legacy (`isLegacySession`) and are excluded from threshold stats, improvement, the progress charts and the summary trend. They still count toward streak, totals and training time.
 
 Bugs and cleanup:
 

@@ -3,6 +3,7 @@
     import { progressMetrics } from '$lib/stores';
     import { getSessionsByDate, getAllAssessments } from '$lib/db';
     import { Button, Card } from '$lib/components';
+    import { isLegacySession } from '$lib/core/progress';
     import { logger } from '$lib/utils/logger';
     import type { TrainingSession, Assessment } from '$lib/types';
 
@@ -16,7 +17,7 @@
                 getSessionsByDate(),
                 getAllAssessments(),
             ]);
-            sessions = fetchedSessions.filter(s => s.completed);
+            sessions = fetchedSessions.filter(s => s.completed && !isLegacySession(s));
             assessments = fetchedAssessments;
         } catch (error) {
             logger.error('Failed to load progress data', { error });

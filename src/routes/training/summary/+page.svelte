@@ -9,6 +9,7 @@
     import { Button, Card } from '$lib/components';
     import { currentSession, currentStreak } from '$lib/stores';
     import { getSessionsByDate } from '$lib/db';
+    import { isLegacySession } from '$lib/core/progress';
     import { logger } from '$lib/utils/logger';
 
     // ============================================
@@ -40,7 +41,9 @@
         // Get previous sessions to calculate trend
         try {
             const sessions = await getSessionsByDate();
-            const completedSessions = sessions.filter(s => s.completed && s.id !== session.id);
+            const completedSessions = sessions.filter(
+                s => s.completed && s.id !== session.id && !isLegacySession(s)
+            );
 
             if (completedSessions.length > 0) {
                 // Get most recent completed session
