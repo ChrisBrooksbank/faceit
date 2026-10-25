@@ -26,7 +26,6 @@ test.describe('Progress and settings', () => {
         await page.goto('/settings');
 
         await expect(page.getByRole('heading', { name: 'Settings' })).toBeVisible();
-        await expect(page.getByRole('heading', { name: 'Notifications' })).toBeVisible();
         await expect(page.getByRole('heading', { name: 'Training Sessions' })).toBeVisible();
         await expect(page.getByRole('heading', { name: 'Data' })).toBeVisible();
 

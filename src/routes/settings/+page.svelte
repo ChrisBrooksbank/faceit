@@ -6,8 +6,6 @@
     import { logger } from '$lib/utils/logger';
 
     // Local state for settings
-    let reminderEnabled = $state($userProfile?.settings.reminderEnabled ?? false);
-    let reminderTime = $state($userProfile?.settings.reminderTime ?? '09:00');
     let trialsPerSession = $state($userProfile?.settings.trialsPerSession ?? 60);
 
     // Confirmation dialog state
@@ -15,10 +13,7 @@
 
     // Track if settings have changed
     const hasChanges = $derived(
-        $userProfile &&
-            (reminderEnabled !== $userProfile.settings.reminderEnabled ||
-                reminderTime !== $userProfile.settings.reminderTime ||
-                trialsPerSession !== $userProfile.settings.trialsPerSession)
+        $userProfile && trialsPerSession !== $userProfile.settings.trialsPerSession
     );
 
     /**
@@ -34,8 +29,7 @@
             const updatedProfile = {
                 ...$userProfile,
                 settings: {
-                    reminderEnabled,
-                    reminderTime,
+                    ...$userProfile.settings,
                     trialsPerSession,
                 },
             };
@@ -113,34 +107,6 @@
             <p class="error">No user profile found. Please complete onboarding first.</p>
         </Card>
     {:else}
-        <!-- Notification Settings -->
-        <Card>
-            <h2>Notifications</h2>
-
-            <div class="setting-group">
-                <label class="toggle-label">
-                    <input type="checkbox" bind:checked={reminderEnabled} />
-                    <span class="toggle-text">Daily reminder</span>
-                </label>
-                <p class="setting-description">
-                    Get a daily notification to help maintain your training streak
-                </p>
-            </div>
-
-            {#if reminderEnabled}
-                <div class="setting-group">
-                    <label for="reminder-time" class="input-label">Reminder time</label>
-                    <input
-                        id="reminder-time"
-                        type="time"
-                        bind:value={reminderTime}
-                        class="time-input"
-                    />
-                    <p class="setting-description">What time should we remind you?</p>
-                </div>
-            {/if}
-        </Card>
-
         <!-- Session Settings -->
         <Card>
             <h2>Training Sessions</h2>
@@ -304,42 +270,12 @@
         margin-bottom: 0;
     }
 
-    .toggle-label {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        cursor: pointer;
-        user-select: none;
-    }
-
-    .toggle-label input[type='checkbox'] {
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-    }
-
-    .toggle-text {
-        font-size: var(--font-size-md);
-        font-weight: 500;
-        color: var(--color-text);
-    }
-
     .input-label {
         display: block;
         font-size: var(--font-size-md);
         font-weight: 500;
         color: var(--color-text);
         margin-bottom: var(--spacing-xs);
-    }
-
-    .time-input {
-        width: 100%;
-        padding: var(--spacing-sm);
-        font-size: var(--font-size-md);
-        border: 1px solid var(--color-border);
-        border-radius: var(--border-radius);
-        background: var(--color-background);
-        color: var(--color-text);
     }
 
     .select-input {

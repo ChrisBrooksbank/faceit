@@ -476,7 +476,7 @@ Progress and measurement:
 
 Bugs and cleanup:
 
-- [ ] Daily reminder setting does nothing (no notification code). Remove it or implement it (PWA notifications are limited).
+- [x] Daily reminder setting does nothing (no notification code). Removed the Notifications card from `/settings`; saving settings now spreads the existing `settings` so the stored `reminderEnabled`/`reminderTime` fields are preserved (kept in the type for data compatibility).
 - [ ] A failed session save in `src/routes/training/+page.svelte` is only logged; show the user an error and allow retry.
 - [ ] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume.
 - [ ] "Done for today" blocks extra practice. Consider allowing more sessions.
