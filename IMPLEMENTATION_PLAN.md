@@ -478,7 +478,7 @@ Bugs and cleanup:
 
 - [x] Daily reminder setting does nothing (no notification code). Removed the Notifications card from `/settings`; saving settings now spreads the existing `settings` so the stored `reminderEnabled`/`reminderTime` fields are preserved (kept in the type for data compatibility).
 - [x] A failed session save in `src/routes/training/+page.svelte` is only logged; show the user an error and allow retry. Now shows a "Couldn't save your session" overlay with a "Try again" button (`saveFailed`/`saving` state; retry re-runs `completeSession`). Also fixed `verify-faces` to expect 40 pairs.
-- [ ] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume.
+- [x] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume. `TrialDisplay` takes a `paused` prop; pausing during loading/target/mask stops the timers and resuming replays the trial from the start. Pausing during the choice phase does not restart it (that would re-show the target). Not unit tested (component tests here are import-only).
 - [ ] "Done for today" blocks extra practice. Consider allowing more sessions.
 - [ ] Verify PI20 wording, reverse-scored items and the percentile table in `src/lib/core/pi20.ts` against the published instrument (not verified offline).
 - [ ] Soften remaining "evidence-based" wording in `src/app.html`, `src/routes/+page.svelte`, `src/routes/settings/+page.svelte` and the README header.

@@ -8,6 +8,7 @@
      * 3. Choice: Shows 3 faces, waits for selection
      */
 
+    import { untrack } from 'svelte';
     import FaceDisplay from './FaceDisplay.svelte';
     import FaceComparison from './FaceComparison.svelte';
     import Button from './Button.svelte';
@@ -46,9 +47,21 @@
          * When omitted the feedback has no continue button.
          */
         onContinue?: () => void;
+        /**
+         * While true, the trial is paused; if the target hasn't been fully shown yet it
+         * restarts from the beginning when this turns false again.
+         */
+        paused?: boolean;
     }
 
-    const { faces, onSelect, size = 'medium', variations, onContinue }: Props = $props();
+    const {
+        faces,
+        onSelect,
+        size = 'medium',
+        variations,
+        onContinue,
+        paused = false,
+    }: Props = $props();
 
     const DISPLAY_TIME = 2000; // 2 seconds for target display
     const MASK_TIME = 500; // 500ms for mask
@@ -126,6 +139,9 @@
         onSelect(position, correct);
     }
 
+    let stopPhases: (() => void) | null = null;
+    let interruptedEarly = false;
+
     // Restart phases when faces change (new trial)
     $effect(() => {
         const { targetFaceId, choiceFaceIds, correctPosition } = faces;
@@ -133,7 +149,23 @@
         void choiceFaceIds;
         void correctPosition;
 
-        return startPhases();
+        interruptedEarly = false;
+        stopPhases = untrack(startPhases);
+        return () => stopPhases?.();
+    });
+
+    // A pause during loading/target/mask would let the timers run out under the overlay,
+    // so stop them and replay the trial from the start on resume
+    $effect(() => {
+        if (paused) {
+            if (untrack(() => phase === 'loading' || phase === 'target' || phase === 'mask')) {
+                stopPhases?.();
+                interruptedEarly = true;
+            }
+        } else if (interruptedEarly) {
+            interruptedEarly = false;
+            stopPhases = untrack(startPhases);
+        }
     });
 </script>
 

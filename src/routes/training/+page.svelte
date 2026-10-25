@@ -363,6 +363,7 @@
                 {variations}
                 onSelect={handleTrialResponse}
                 onContinue={proceed}
+                paused={showPauseMenu || showExitConfirm}
                 size="large"
             />
         {/if}
