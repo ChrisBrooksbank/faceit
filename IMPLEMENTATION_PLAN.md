@@ -485,7 +485,7 @@ Bugs and cleanup:
     - Severity bands (65-74, 75-84, 85-100) match the paper. Percentile table now uses the control norms (M 38.9, SD 10.9) instead of SD 13. Updated tests, `CLAUDE.md` and `docs/mvp-specification.md`.
     - Existing stored PI20 scores were computed with the old key and are not recalculated.
 - [x] Soften remaining "evidence-based" wording in `src/app.html`, `src/routes/+page.svelte`, `src/routes/settings/+page.svelte` and the README header. Also changed the PWA manifest description in `vite.config.ts`. Not changed: `package.json` description, `CLAUDE.md`, and `docs/`.
-- [ ] Tooling: `npx` is broken on the dev machine (npm under nvm mismatches Node 26), which breaks the pre-commit hook (`npx lint-staged`). Reinstall Node/npm, or work around with a local `npx` shim on `PATH`.
+- [x] Tooling: `npx` was broken on the dev machine (npm under nvm mismatched Node 26), which broke the pre-commit hook (`npx lint-staged`). Re-checked: Node 26.12.1 / npm 11.20.0, `npx --version` works and `npm run check` passes (159 tests). No code change needed.
 
 ## Notes
 
