@@ -59,12 +59,11 @@
         <Card>
             <div class="primary-action">
                 <Button
-                    variant="primary"
+                    variant={$hasSessionToday ? 'secondary' : 'primary'}
                     onclick={onStartSession}
-                    disabled={$hasSessionToday}
                     fullWidth={true}
                 >
-                    {$hasSessionToday ? 'Done for today' : 'Start Session'}
+                    {$hasSessionToday ? 'Practice again' : 'Start Session'}
                 </Button>
             </div>
         </Card>
