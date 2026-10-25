@@ -14,7 +14,7 @@ export default defineConfig({
                 name: 'FaceIt - Face Recognition Training',
                 short_name: 'FaceIt',
                 description:
-                    'A Progressive Web App to help people with prosopagnosia improve face recognition through evidence-based training',
+                    'A Progressive Web App to help people with prosopagnosia improve face recognition through perceptual discrimination training',
                 theme_color: '#2563eb',
                 background_color: '#f5f5f5',
                 id: '/',

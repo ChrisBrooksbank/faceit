@@ -17,8 +17,8 @@
         <Card>
             <h2>Welcome to FaceIt</h2>
             <p>
-                Train your brain to recognize faces better through evidence-based perceptual
-                discrimination training.
+                Practise telling faces apart with perceptual discrimination training, a method based
+                on face-recognition research.
             </p>
             <p class="privacy">🔒 All data stays on your device</p>
         </Card>

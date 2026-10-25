@@ -481,7 +481,7 @@ Bugs and cleanup:
 - [x] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume. `TrialDisplay` takes a `paused` prop; pausing during loading/target/mask stops the timers and resuming replays the trial from the start. Pausing during the choice phase does not restart it (that would re-show the target). Not unit tested (component tests here are import-only).
 - [x] "Done for today" blocks extra practice. The dashboard button now stays enabled after a session and reads "Practice again" (secondary style); streak logic already handles multiple sessions per day.
 - [ ] Verify PI20 wording, reverse-scored items and the percentile table in `src/lib/core/pi20.ts` against the published instrument (not verified offline).
-- [ ] Soften remaining "evidence-based" wording in `src/app.html`, `src/routes/+page.svelte`, `src/routes/settings/+page.svelte` and the README header.
+- [x] Soften remaining "evidence-based" wording in `src/app.html`, `src/routes/+page.svelte`, `src/routes/settings/+page.svelte` and the README header. Also changed the PWA manifest description in `vite.config.ts`. Not changed: `package.json` description, `CLAUDE.md`, and `docs/`.
 - [ ] Tooling: `npx` is broken on the dev machine (npm under nvm mismatches Node 26), which breaks the pre-commit hook (`npx lint-staged`). Reinstall Node/npm, or work around with a local `npx` shim on `PATH`.
 
 ## Notes

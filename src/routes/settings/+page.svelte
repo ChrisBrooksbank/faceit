@@ -173,8 +173,8 @@
                     servers.
                 </p>
                 <p class="about-item">
-                    <strong>Research:</strong> Based on evidence-based perceptual discrimination training
-                    protocols.
+                    <strong>Research:</strong> Inspired by perceptual discrimination training research.
+                    Results vary between people.
                 </p>
                 <p class="about-item">
                     <strong>Face stimuli:</strong>

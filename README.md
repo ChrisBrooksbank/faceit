@@ -1,6 +1,6 @@
 # FaceIt
 
-A Progressive Web App to help people with prosopagnosia improve face recognition through evidence-based training.
+A Progressive Web App to help people with prosopagnosia improve face recognition through perceptual discrimination training.
 
 ## About
 
