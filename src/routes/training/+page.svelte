@@ -45,6 +45,8 @@
     let staircaseState = $state<StaircaseState | null>(null);
     let showPauseMenu = $state<boolean>(false);
     let showExitConfirm = $state<boolean>(false);
+    let saving = $state<boolean>(false);
+    let saveFailed = $state<boolean>(false);
 
     // Current trial faces
     let targetFaceId = $state<string>('');
@@ -213,7 +215,9 @@
     }
 
     async function completeSession(): Promise<void> {
-        if (!staircaseState) return;
+        if (!staircaseState || saving) return;
+        saving = true;
+        saveFailed = false;
 
         const duration = Math.floor((Date.now() - sessionStartTime) / 1000);
         const correctTrials = trials.filter(t => t.correct).length;
@@ -264,7 +268,14 @@
             goto('/training/summary');
         } catch (error) {
             logger.error('Failed to save session', error);
+            saveFailed = true;
+        } finally {
+            saving = false;
         }
+    }
+
+    function handleRetrySave(): void {
+        void completeSession();
     }
 
     // ============================================
@@ -359,7 +370,22 @@
 
     <!-- The trial stays mounted under an opaque overlay, so pausing can't be used to
          see the target face again -->
-    {#if showPauseMenu}
+    {#if saveFailed}
+        <div class="overlay" role="alert">
+            <Card>
+                <div class="exit-confirm">
+                    <h2>Couldn't save your session</h2>
+                    <p>
+                        Something went wrong saving your results. Your answers are still here, so
+                        you can try again.
+                    </p>
+                    <div class="button-group">
+                        <Button onclick={handleRetrySave}>Try again</Button>
+                    </div>
+                </div>
+            </Card>
+        </div>
+    {:else if showPauseMenu}
         <div class="overlay">
             <Card>
                 <div class="pause-menu">

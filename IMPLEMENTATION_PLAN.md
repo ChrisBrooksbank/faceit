@@ -477,7 +477,7 @@ Progress and measurement:
 Bugs and cleanup:
 
 - [x] Daily reminder setting does nothing (no notification code). Removed the Notifications card from `/settings`; saving settings now spreads the existing `settings` so the stored `reminderEnabled`/`reminderTime` fields are preserved (kept in the type for data compatibility).
-- [ ] A failed session save in `src/routes/training/+page.svelte` is only logged; show the user an error and allow retry.
+- [x] A failed session save in `src/routes/training/+page.svelte` is only logged; show the user an error and allow retry. Now shows a "Couldn't save your session" overlay with a "Try again" button (`saveFailed`/`saving` state; retry re-runs `completeSession`). Also fixed `verify-faces` to expect 40 pairs.
 - [ ] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume.
 - [ ] "Done for today" blocks extra practice. Consider allowing more sessions.
 - [ ] Verify PI20 wording, reverse-scored items and the percentile table in `src/lib/core/pi20.ts` against the published instrument (not verified offline).

@@ -13,7 +13,7 @@ const FACES_DIR = join(PROJECT_ROOT, 'static', 'faces');
 const METADATA_PATH = join(FACES_DIR, 'metadata.json');
 const RUNTIME_METADATA_PATH = join(PROJECT_ROOT, 'src', 'lib', 'data', 'face-metadata.json');
 const EXPECTED_LEVELS = [28, 40, 52, 64, 76, 88];
-const EXPECTED_PAIRS = 20;
+const EXPECTED_PAIRS = 40;
 
 async function fileExists(path) {
     try {
