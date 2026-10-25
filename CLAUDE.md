@@ -130,7 +130,7 @@ See `src/lib/types/` for:
 
 ### PI20 Assessment
 
-20 Likert-scale questions (1-5), items 8 and 9 reverse-scored.
+20 Likert-scale questions (1-5), items 8, 9, 13, 17 and 19 reverse-scored.
 Score interpretation:
 
 - 20-64: Typical

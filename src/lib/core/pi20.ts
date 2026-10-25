@@ -6,7 +6,7 @@
  *
  * Scoring:
  * - 20 questions, each scored 1-5 (Strongly Disagree to Strongly Agree)
- * - Items 8 and 9 are reverse-scored
+ * - Items 8, 9, 13, 17 and 19 are reverse-scored
  * - Total range: 20-100
  * - Higher scores indicate greater face recognition difficulty
  */
@@ -15,24 +15,25 @@ import type { PI20Question, PI20Response, PI20Result, PI20Severity } from '../ty
 
 /**
  * The complete PI20 questionnaire
- * Items 8 and 9 are reverse-scored (higher agreement = better ability)
+ * Items 8, 9, 13, 17 and 19 are reverse-scored (higher agreement = better ability)
+ * Wording and scoring key verified against Shah et al. (2015), table 1
  */
 export const PI20_QUESTIONS: PI20Question[] = [
     { id: 1, text: 'My face recognition ability is worse than most people.', reverseScored: false },
     { id: 2, text: 'I have always had a bad memory for faces.', reverseScored: false },
     {
         id: 3,
-        text: 'I find it notably easier to recognize people who have a distinctive feature (e.g., birthmark, glasses, unusual hair).',
+        text: 'I find it notably easier to recognize people who have distinctive facial features.',
         reverseScored: false,
     },
     {
         id: 4,
-        text: 'I sometimes find movies hard to follow because of difficulties recognizing characters.',
+        text: 'I often mistake people I have met before for strangers.',
         reverseScored: false,
     },
     {
         id: 5,
-        text: 'If I met a colleague or classmate out of context (e.g., at the supermarket), I might fail to recognize them.',
+        text: 'When I was at school, I struggled to recognize my classmates.',
         reverseScored: false,
     },
     {
@@ -45,11 +46,7 @@ export const PI20_QUESTIONS: PI20Question[] = [
         text: 'I sometimes have to warn new people I meet that I am "bad with faces."',
         reverseScored: false,
     },
-    {
-        id: 8,
-        text: 'I find it easy to picture individual faces in my mind.',
-        reverseScored: true,
-    },
+    { id: 8, text: 'I find it easy to picture individual faces in my mind.', reverseScored: true },
     {
         id: 9,
         text: 'I am better than most people at putting a "name to a face."',
@@ -57,57 +54,57 @@ export const PI20_QUESTIONS: PI20Question[] = [
     },
     {
         id: 10,
-        text: "Without hearing someone's voice, I struggle to recognize them.",
+        text: "Without hearing people's voices, I struggle to recognize them.",
         reverseScored: false,
     },
     {
         id: 11,
-        text: 'It is hard for me to recognize familiar people when I am in an unfamiliar place.',
+        text: 'Anxiety about face recognition has led me to avoid certain social or professional situations.',
         reverseScored: false,
     },
     {
         id: 12,
-        text: 'In the past, I have lost track of a friend in a shopping mall because they have changed their clothes.',
+        text: 'I have to try harder than other people to memorize faces.',
         reverseScored: false,
     },
     {
         id: 13,
-        text: 'The first time I meet a new person, I carefully study their face so I can recognize them later.',
-        reverseScored: false,
+        text: 'I am very confident in my ability to recognize myself in photographs.',
+        reverseScored: true,
     },
     {
         id: 14,
-        text: 'When I was at school, I struggled to recognize my classmates.',
+        text: 'I sometimes find movies hard to follow because of difficulties recognizing characters.',
         reverseScored: false,
     },
     {
         id: 15,
-        text: 'When my close friends or family change their appearance, I have trouble recognizing them.',
+        text: 'My friends and family think I have bad face recognition or bad face memory.',
         reverseScored: false,
     },
     {
         id: 16,
-        text: 'At family gatherings, I sometimes confuse members of my own family.',
+        text: 'I feel like I frequently offend people by not recognizing who they are.',
         reverseScored: false,
     },
     {
         id: 17,
-        text: 'I have recognized people I have met before, but have mistaken them for someone else.',
-        reverseScored: false,
+        text: 'It is easy for me to recognize individuals in situations that require people to wear similar clothes (e.g., suits, uniforms and swimwear).',
+        reverseScored: true,
     },
     {
         id: 18,
-        text: 'I find it difficult to follow the plot of TV shows because the characters look too similar.',
+        text: 'At family gatherings, I sometimes confuse individual family members.',
         reverseScored: false,
     },
     {
         id: 19,
-        text: 'I often have to ask people where I have met them before.',
-        reverseScored: false,
+        text: "I find it easy to recognize celebrities in 'before-they-were-famous' photos, even if they have changed considerably.",
+        reverseScored: true,
     },
     {
         id: 20,
-        text: 'I have sometimes not recognized close family members when they have unexpectedly approached me.',
+        text: 'It is hard for me to recognize familiar people when I meet them out of context (e.g., meeting a work colleague unexpectedly while shopping).',
         reverseScored: false,
     },
 ];
@@ -167,14 +164,14 @@ export function getPI20Severity(score: number): PI20Severity {
  * Note: This is an approximation. True percentiles require population norms.
  */
 export function estimatePI20Percentile(score: number): number {
-    // Approximate percentiles based on published data
-    // Mean ≈ 39, SD ≈ 13 for typical population
-    if (score <= 26) return 5;
-    if (score <= 32) return 16;
+    // Approximate percentiles from the control sample in Shah et al. (2015),
+    // validation study 1: mean 38.9, SD 10.9 (N = 242), via normal quantiles
+    if (score <= 21) return 5;
+    if (score <= 28) return 16;
     if (score <= 39) return 50;
-    if (score <= 46) return 84;
-    if (score <= 52) return 95;
-    if (score <= 65) return 98;
+    if (score <= 50) return 84;
+    if (score <= 57) return 95;
+    if (score <= 64) return 98;
     return 99; // Prosopagnosia range
 }
 

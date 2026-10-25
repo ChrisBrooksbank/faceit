@@ -480,7 +480,10 @@ Bugs and cleanup:
 - [x] A failed session save in `src/routes/training/+page.svelte` is only logged; show the user an error and allow retry. Now shows a "Couldn't save your session" overlay with a "Try again" button (`saveFailed`/`saving` state; retry re-runs `completeSession`). Also fixed `verify-faces` to expect 40 pairs.
 - [x] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume. `TrialDisplay` takes a `paused` prop; pausing during loading/target/mask stops the timers and resuming replays the trial from the start. Pausing during the choice phase does not restart it (that would re-show the target). Not unit tested (component tests here are import-only).
 - [x] "Done for today" blocks extra practice. The dashboard button now stays enabled after a session and reads "Practice again" (secondary style); streak logic already handles multiple sessions per day.
-- [ ] Verify PI20 wording, reverse-scored items and the percentile table in `src/lib/core/pi20.ts` against the published instrument (not verified offline).
+- [x] Verify PI20 wording, reverse-scored items and the percentile table in `src/lib/core/pi20.ts` against the published instrument (Shah et al. 2015, table 1, City Research Online PDF).
+    - Found the item wording was largely wrong and only 2 items were reverse-scored. Replaced all 20 items with the published text; reverse-scored items are 8, 9, 13, 17, 19 (so the score range is now 40-80 for all-1s / all-5s, still 20-100 overall).
+    - Severity bands (65-74, 75-84, 85-100) match the paper. Percentile table now uses the control norms (M 38.9, SD 10.9) instead of SD 13. Updated tests, `CLAUDE.md` and `docs/mvp-specification.md`.
+    - Existing stored PI20 scores were computed with the old key and are not recalculated.
 - [x] Soften remaining "evidence-based" wording in `src/app.html`, `src/routes/+page.svelte`, `src/routes/settings/+page.svelte` and the README header. Also changed the PWA manifest description in `vite.config.ts`. Not changed: `package.json` description, `CLAUDE.md`, and `docs/`.
 - [ ] Tooling: `npx` is broken on the dev machine (npm under nvm mismatches Node 26), which breaks the pre-commit hook (`npx lint-staged`). Reinstall Node/npm, or work around with a local `npx` shim on `PATH`.
 

@@ -866,7 +866,7 @@ If analytics implemented:
 **Standard scoring:**
 
 - Sum all 20 items
-- Items 8 and 9 reverse scored: (6 - response)
+- Items 8, 9, 13, 17 and 19 reverse scored: (6 - response)
 - Range: 20-100
 
 **Validation statistics:**

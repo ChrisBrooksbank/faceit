@@ -16,13 +16,13 @@ describe('PI20 Assessment', () => {
             expect(PI20_QUESTIONS).toHaveLength(20);
         });
 
-        it('should have items 8 and 9 marked as reverse-scored', () => {
-            expect(PI20_QUESTIONS[7].reverseScored).toBe(true); // Item 8 (0-indexed)
-            expect(PI20_QUESTIONS[8].reverseScored).toBe(true); // Item 9 (0-indexed)
+        it('should have items 8, 9, 13, 17 and 19 marked as reverse-scored', () => {
+            const reversed = PI20_QUESTIONS.filter(q => q.reverseScored).map(q => q.id);
+            expect(reversed).toEqual([8, 9, 13, 17, 19]);
         });
 
         it('should have all other items not reverse-scored', () => {
-            const nonReversed = PI20_QUESTIONS.filter(q => q.id !== 8 && q.id !== 9);
+            const nonReversed = PI20_QUESTIONS.filter(q => ![8, 9, 13, 17, 19].includes(q.id));
             expect(nonReversed.every(q => !q.reverseScored)).toBe(true);
         });
     });
@@ -46,19 +46,19 @@ describe('PI20 Assessment', () => {
     describe('calculatePI20Score', () => {
         it('should calculate minimum score (all 1s)', () => {
             const responses: PI20Response[] = Array(20).fill(1);
-            // Items 8 & 9 reverse scored: 1 → 5, so min = 18*1 + 2*5 = 28
-            expect(calculatePI20Score(responses)).toBe(28);
+            // 5 reverse-scored items: 1 → 5, so min = 15*1 + 5*5 = 40
+            expect(calculatePI20Score(responses)).toBe(40);
         });
 
         it('should calculate maximum score (all 5s)', () => {
             const responses: PI20Response[] = Array(20).fill(5);
-            // Items 8 & 9 reverse scored: 5 → 1, so max = 18*5 + 2*1 = 92
-            expect(calculatePI20Score(responses)).toBe(92);
+            // 5 reverse-scored items: 5 → 1, so max = 15*5 + 5*1 = 80
+            expect(calculatePI20Score(responses)).toBe(80);
         });
 
         it('should calculate middle score (all 3s)', () => {
             const responses: PI20Response[] = Array(20).fill(3);
-            // Items 8 & 9 reverse scored: 3 → 3, so = 20*3 = 60
+            // Reverse-scored items: 3 → 3, so = 20*3 = 60
             expect(calculatePI20Score(responses)).toBe(60);
         });
 
@@ -70,29 +70,12 @@ describe('PI20 Assessment', () => {
 
         it('should handle mixed responses correctly', () => {
             // Create specific pattern
-            const responses: PI20Response[] = [
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5, // Items 1-7: all 5s = 35
-                1,
-                1, // Items 8-9 (reversed): 1 → 5, 1 → 5 = 10
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5,
-                5, // Items 10-20: all 5s = 55
-            ];
-            expect(calculatePI20Score(responses)).toBe(100); // 35 + 10 + 55
+            // Reverse-scored items (8, 9, 13, 17, 19) answered 1, the rest 5
+            const reversed = [8, 9, 13, 17, 19];
+            const responses = Array.from({ length: 20 }, (_, i) =>
+                reversed.includes(i + 1) ? 1 : 5
+            ) as PI20Response[];
+            expect(calculatePI20Score(responses)).toBe(100);
         });
     });
 
@@ -123,7 +106,7 @@ describe('PI20 Assessment', () => {
 
     describe('estimatePI20Percentile', () => {
         it('should return low percentile for low scores', () => {
-            expect(estimatePI20Percentile(25)).toBe(5);
+            expect(estimatePI20Percentile(20)).toBe(5);
         });
 
         it('should return 50th percentile around mean', () => {
