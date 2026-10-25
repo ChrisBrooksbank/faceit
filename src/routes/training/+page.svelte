@@ -99,6 +99,8 @@
     // Trial Management
     // ============================================
 
+    const usedPairIds = new Set<number>();
+
     function startNextTrial(): void {
         currentTrialNumber++;
         trialStartTime = Date.now();
@@ -110,9 +112,16 @@
 
         // Generate trial at current difficulty
         const morphLevel = findClosestMorphLevel(staircaseState.currentMorphLevel);
-        const { target, choices, correct } = buildTrainingTrial(staircaseState.currentMorphLevel);
+        const { pairId, target, choices, correct, differentPhoto } = buildTrainingTrial(
+            staircaseState.currentMorphLevel,
+            usedPairIds
+        );
+        usedPairIds.add(pairId);
 
-        const strength = variationStrengthFor(staircaseState.currentMorphLevel);
+        // Real different-photo trials replace the simulated photo variation
+        const strength = differentPhoto
+            ? 0
+            : variationStrengthFor(staircaseState.currentMorphLevel);
         variations = {
             target: createVariation(strength),
             choices: choices.map(() => createVariation(strength)),

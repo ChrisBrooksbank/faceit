@@ -1,4 +1,5 @@
 import faceDifferences from '$lib/data/face-differences.json';
+import regionBoxes from '$lib/data/region-boxes.json';
 
 export type Region = 'eyes' | 'brows' | 'nose' | 'mouth' | 'jawline';
 
@@ -25,10 +26,11 @@ export const GENERIC_DIFFERENCE_CUE =
     'Compare stable features: eye spacing, brow line, nose width, mouth shape, and jawline.';
 
 /**
- * Approximate region boxes as fractions of a stimulus image [left, top, right, bottom].
- * Stimuli are cropped from their landmarks, so features sit in similar places in every image.
+ * Fallback region boxes as fractions of a stimulus image [left, top, right, bottom], used when
+ * an image has no landmark-derived boxes. Stimuli are cropped from their landmarks, so
+ * features sit in similar places in every image.
  */
-export const REGION_BOXES: Record<Region, [number, number, number, number]> = {
+export const REGION_BOXES: Record<Region, RegionBox> = {
     brows: [0.12, 0.2, 0.88, 0.31],
     eyes: [0.14, 0.3, 0.86, 0.42],
     nose: [0.34, 0.4, 0.66, 0.62],
@@ -36,9 +38,22 @@ export const REGION_BOXES: Record<Region, [number, number, number, number]> = {
     jawline: [0.14, 0.78, 0.86, 0.98],
 };
 
+type RegionBox = [number, number, number, number];
+
+/** Per-image boxes from scripts/compute-region-boxes.py, keyed by image id */
+const IMAGE_REGION_BOXES = regionBoxes as unknown as Record<
+    string,
+    Partial<Record<Region, RegionBox>>
+>;
+
+/** Box for a region on a specific image, falling back to the fixed approximation */
+export function getRegionBox(face: string, region: Region): RegionBox {
+    return IMAGE_REGION_BOXES[normalizeFaceId(face)]?.[region] ?? REGION_BOXES[region];
+}
+
 export function getDifferenceRegions(selectedFace: string, correctFace: string): Region[] {
-    const selectedFaceId = normalizeFaceId(selectedFace);
-    const correctFaceId = normalizeFaceId(correctFace);
+    const selectedFaceId = differenceFaceId(selectedFace);
+    const correctFaceId = differenceFaceId(correctFace);
 
     if (!selectedFaceId || !correctFaceId || selectedFaceId === correctFaceId) {
         return [];
@@ -50,8 +65,8 @@ export function getDifferenceRegions(selectedFace: string, correctFace: string):
 }
 
 export function getDifferenceCue(selectedFace: string, correctFace: string): string {
-    const selectedFaceId = normalizeFaceId(selectedFace);
-    const correctFaceId = normalizeFaceId(correctFace);
+    const selectedFaceId = differenceFaceId(selectedFace);
+    const correctFaceId = differenceFaceId(correctFace);
 
     if (!selectedFaceId || !correctFaceId || selectedFaceId === correctFaceId) {
         return GENERIC_DIFFERENCE_CUE;
@@ -72,6 +87,11 @@ export function normalizeFaceId(face: string): string {
         .replace(/^\/?faces\//, '')
         .replace(/\.jpg$/, '')
         .trim();
+}
+
+/** Difference data is computed on the neutral photos; smiling photos share the framing */
+function differenceFaceId(face: string): string {
+    return normalizeFaceId(face).replace('_smile', '');
 }
 
 export function comparisonKey(faceA: string, faceB: string): string {

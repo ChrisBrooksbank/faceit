@@ -93,6 +93,7 @@
 
         <Card>
             <div class="secondary-actions">
+                <a href="/learn" class="link">Learn Faces</a>
                 <a href="/progress" class="link">View Progress</a>
                 <a href="/settings" class="link">Settings</a>
             </div>

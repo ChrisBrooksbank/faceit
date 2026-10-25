@@ -1,4 +1,5 @@
 import faceMetadata from '$lib/data/face-metadata.json';
+import { variationStrengthFor } from './image-variation';
 
 interface FacePair {
     id: number;
@@ -6,12 +7,17 @@ interface FacePair {
     faceB: string;
     morphLevels: number[];
     files: string[];
+    smileFiles?: string[];
 }
 
 export interface FaceTrial {
+    /** Id of the face pair the trial was built from */
+    pairId: number;
     target: string;
     choices: string[];
     correct: number;
+    /** The choices are a different photo (smiling) of the target's identity */
+    differentPhoto: boolean;
 }
 
 const FACE_PAIRS: FacePair[] = faceMetadata.facePairs;
@@ -23,8 +29,8 @@ export const FACE_SOURCE = {
     license: faceMetadata.license,
 };
 
-function faceIdFor(pair: FacePair, morphLevel: number): string {
-    return `${pair.faceA}_${pair.faceB}_${morphLevel}`;
+function faceIdFor(pair: FacePair, morphLevel: number, smiling = false): string {
+    return `${pair.faceA}_${pair.faceB}${smiling ? '_smile' : ''}_${morphLevel}`;
 }
 
 function faceUrlFor(pair: FacePair, morphLevel: number): string {
@@ -66,28 +72,47 @@ function buildTrial(
     pair: FacePair,
     difficultyLevel: number,
     pickIndex: (length: number) => number,
-    toId: (pair: FacePair, level: number) => string
+    toId: (pair: FacePair, level: number, smiling?: boolean) => string,
+    differentPhoto = false
 ): FaceTrial {
     const gap = gapForDifficulty(difficultyLevel);
     const candidates = validTargetLevels(pair, gap);
     const targetLevel = candidates[pickIndex(candidates.length)];
-    const distractors = distractorLevelsFor(pair, targetLevel, gap).map(level => toId(pair, level));
+    const distractors = distractorLevelsFor(pair, targetLevel, gap).map(level =>
+        toId(pair, level, differentPhoto)
+    );
     const correct = randomIndex(3);
     const target = toId(pair, targetLevel);
+    const answer = toId(pair, targetLevel, differentPhoto);
 
     return {
+        pairId: pair.id,
         target,
-        choices: placeCorrectAnswer(target, distractors, correct),
+        choices: placeCorrectAnswer(answer, distractors, correct),
         correct,
+        differentPhoto,
     };
 }
 
-export function buildTrainingTrial(difficultyLevel: number): FaceTrial {
+/**
+ * From the level where photo variation starts, the answer is a different photo
+ * (smiling) of the target's identity rather than the same image.
+ */
+export function buildTrainingTrial(
+    difficultyLevel: number,
+    usedPairIds: ReadonlySet<number> = new Set()
+): FaceTrial {
+    const withSmiles = FACE_PAIRS.filter(pair => pair.smileFiles);
+    const differentPhoto = variationStrengthFor(difficultyLevel) > 0 && withSmiles.length > 0;
+    const pool = differentPhoto ? withSmiles : FACE_PAIRS;
+    const fresh = pool.filter(pair => !usedPairIds.has(pair.id));
+    const choices = fresh.length > 0 ? fresh : pool;
     return buildTrial(
-        FACE_PAIRS[randomIndex(FACE_PAIRS.length)],
+        choices[randomIndex(choices.length)],
         difficultyLevel,
         randomIndex,
-        faceIdFor
+        faceIdFor,
+        differentPhoto
     );
 }
 

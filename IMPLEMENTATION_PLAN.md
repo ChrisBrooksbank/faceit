@@ -3,7 +3,7 @@
 ## Status
 
 - Planning iterations: 0
-- Build iterations: 23
+- Build iterations: 24
 - Last updated: 2026-02-01
 
 ## Current Phase: Polish & Settings (Phase 3)
@@ -456,11 +456,17 @@ Already done in PR #1 (do not redo):
 
 Training quality (highest value first):
 
-- [ ] **Real different-photo trials.** Download the other views/expressions from the Face Research Lab London Set (smiling, other angles; only `neutral_front` is in `.face-source/` today), generate morphs/crops for them, and build trials where the target and the correct answer are different photos of the same identity. The CSS rotate/lighting variation is only a stand-in.
-- [ ] **Identity learning.** Add tasks that need learning and recalling who someone is (names, the same faces repeated across sessions), not only discrimination.
-- [ ] **More stimuli.** Only 20 pairs, all neutral and frontal, and pairs can repeat within a session. Add pairs and avoid repeats within a session.
+- [x] **Real different-photo trials.** Done for `smiling_front` only (decision: detect landmarks on that one view; 3/4 views were left out as unreliable).
+    - `scripts/generate-face-morphs.py --smile-dir .face-source/smiling_front/smiling_front` detects landmarks with the MediaPipe face landmarker (`pip install mediapipe`, model at `.face-source/models/face_landmarker.task`), morphs the smiling photos and crops them with the neutral photos' geometry so framing and `REGION_BOXES` still apply. Output is `face{A}_face{B}_smile_{level}.jpg` (120 new images, listed as `smileFiles` in the metadata). Neutral images regenerate byte-identical.
+    - `buildTrainingTrial` (`src/lib/core/faces.ts`) now returns `differentPhoto`. Where photo variation used to start (level < 58) the target is the neutral photo and every choice is the smiling photo, so the correct answer is the same identity in a different photo. The training page turns the simulated variation off for those trials. Difference cues reuse the neutral data. Perception test is unchanged.
+    - Not done: 3/4 and other views; `verify-faces` still only counts the 120 neutral images.
+- [x] **Identity learning.** Add tasks that need learning and recalling who someone is (names, the same faces repeated across sessions), not only discrimination.
+    - `/learn` route: meet 4 people by name, then name each from a different (smiling) photo. The set rotates weekly (`identitiesForWeek` in `src/lib/core/identity-learning.ts`) so the same faces repeat across sessions. Linked from the dashboard.
+    - Not done: results are not saved to IndexedDB, and there is no spaced repetition.
+- [x] **More stimuli.** 40 pairs (was 20); existing images regenerate byte-identical. `buildTrainingTrial` takes the set of pairs already used and the training page tracks it, so pairs only repeat once all 40 are used.
+    - Not done: still neutral/frontal and smiling only; the perception test still uses the first pairs.
 - [ ] **Tune the difficulty ladder.** The 12-48 morph gaps and the levels where photo variation starts (`variationStrengthFor`) are guesses. Check against real use, ideally with someone who has face-recognition difficulty.
-- [ ] **Better region highlights.** `REGION_BOXES` in `src/lib/core/face-differences.ts` are fixed approximations. Compute per-image boxes from the landmarks (the morph script already has them).
+- [x] **Better region highlights.** `scripts/compute-region-boxes.py` runs the MediaPipe landmarker on every stimulus and writes `src/lib/data/region-boxes.json` (480 images). `getRegionBox` uses it, falling back to the fixed `REGION_BOXES`. Re-run the script after regenerating stimuli.
 
 Progress and measurement:
 

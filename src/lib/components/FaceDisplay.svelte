@@ -5,7 +5,7 @@
      * Used for both target display (single face) and choice phase (multiple faces)
      */
 
-    import { REGION_BOXES, type Region } from '$lib/core/face-differences';
+    import { getRegionBox, type Region } from '$lib/core/face-differences';
     import {
         NO_VARIATION,
         variationFilter,
@@ -79,7 +79,7 @@
     <div class="face-container face-{size}" style={frameStyle}>
         <img src={imageSrc} alt={ariaLabel} class="face-image" style={imageStyle} />
         {#each highlight as region (region)}
-            {@const [left, top, right, bottom] = REGION_BOXES[region]}
+            {@const [left, top, right, bottom] = getRegionBox(faceId, region)}
             <span
                 class="region-highlight"
                 style="left:{left * 100}%;top:{top * 100}%;width:{(right - left) *

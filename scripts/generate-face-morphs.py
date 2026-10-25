@@ -20,6 +20,14 @@ Usage:
         --source-dir .face-source/neutral_front/neutral_front \
         --info-csv .face-source/london_faces_info.csv \
         --output-dir static/faces
+
+Optionally add --smile-dir .face-source/smiling_front/smiling_front to also generate a
+second photo of every morph (the same identities smiling). Those images ship without
+Psychomorph templates, so their landmarks come from the MediaPipe face landmarker
+(pip install mediapipe; see --landmarker-model for the model file).
+The smiling morphs are cropped with the neutral photos' geometry, so both sets frame the
+face identically and the same region boxes apply. They are named
+face{A}_face{B}_smile_{level}.jpg and let trials ask for a match across different photos.
 """
 
 from __future__ import annotations
@@ -43,6 +51,8 @@ BACKGROUND = (214, 217, 217)
 FACE_TOP_FRACTION = 0.86  # share of the landmark height (chin up) kept inside the face mask
 FACE_SIDE_MARGIN = 0.86
 SEED = "faceit-london-set-v5-2026-04"
+SMILE_TAG = "smile"
+SMILE_SUFFIX = "_08"  # London Set file suffix of the smiling_front view
 ARTICLE_URL = "https://figshare.com/articles/dataset/Face_Research_Lab_London_Set/5047666/5"
 DOI = "10.6084/m9.figshare.5047666.v5"
 LICENSE = "CC BY 4.0"
@@ -184,8 +194,12 @@ def read_template(path: Path, image_size: int) -> list[tuple[float, float]]:
     if len(points) != declared_count:
         raise ValueError(f"{path} declared {declared_count} points but contained {len(points)}")
 
+    return points + frame_points(image_size)
+
+
+def frame_points(image_size: int) -> list[tuple[float, float]]:
     edge = image_size - 1
-    boundary = [
+    return [
         (0.0, 0.0),
         (edge / 2, 0.0),
         (edge, 0.0),
@@ -195,7 +209,6 @@ def read_template(path: Path, image_size: int) -> list[tuple[float, float]]:
         (0.0, edge),
         (0.0, edge / 2),
     ]
-    return points + boundary
 
 
 def circumcircle(triangle: tuple[int, int, int], points: list[tuple[float, float]]) -> tuple[float, float, float]:
@@ -378,13 +391,49 @@ def isolate_face(image: Image.Image, landmarks: list[tuple[float, float]]) -> Im
     return output
 
 
-def morph_pair(pair: FacePair, output_dir: Path, image_size: int) -> list[str]:
-    image_a = load_face(pair.face_a.image_path, image_size)
-    image_b = load_face(pair.face_b.image_path, image_size)
-    points_a = read_template(pair.face_a.template_path, image_size)
-    points_b = read_template(pair.face_b.template_path, image_size)
+def create_detector(model_path: Path):
+    from mediapipe.tasks.python import BaseOptions, vision
+
+    if not model_path.exists():
+        raise SystemExit(f"Landmarker model not found: {model_path}")
+    options = vision.FaceLandmarkerOptions(
+        base_options=BaseOptions(model_asset_path=str(model_path)), num_faces=1
+    )
+    return vision.FaceLandmarker.create_from_options(options)
+
+
+def load_smile_photo(
+    face: SourceFace, smile_dir: Path, detector, image_size: int
+) -> tuple[Path, list[tuple[float, float]]]:
+    """Return the smiling photo of a source identity and its detected landmarks."""
+    import mediapipe as mp
+
+    path = smile_dir / f"{face.source_id}{SMILE_SUFFIX}.jpg"
+    if not path.exists():
+        raise SystemExit(f"Missing smiling photo: {path}")
+    result = detector.detect(mp.Image.create_from_file(str(path)))
+    if not result.face_landmarks:
+        raise SystemExit(f"No face detected in {path}")
+    points = [(p.x * image_size, p.y * image_size) for p in result.face_landmarks[0]]
+    return path, points + frame_points(image_size)
+
+
+def morph_pair(
+    pair: FacePair,
+    output_dir: Path,
+    image_size: int,
+    smile: tuple[tuple[Path, list], tuple[Path, list]] | None = None,
+) -> list[str]:
+    """Write a pair's morph series. smile is ((path, points) for A, for B) to build the smiling set."""
+    neutral_a = read_template(pair.face_a.template_path, image_size)
+    neutral_b = read_template(pair.face_b.template_path, image_size)
+    path_a, points_a = smile[0] if smile else (pair.face_a.image_path, neutral_a)
+    path_b, points_b = smile[1] if smile else (pair.face_b.image_path, neutral_b)
+    image_a = load_face(path_a, image_size)
+    image_b = load_face(path_b, image_size)
     mean_points = [((a[0] + b[0]) / 2, (a[1] + b[1]) / 2) for a, b in zip(points_a, points_b)]
     triangles = triangulate(mean_points)
+    stem = f"face{pair.face_a_number}_face{pair.face_b_number}" + (f"_{SMILE_TAG}" if smile else "")
     files: list[str] = []
 
     for level in MORPH_LEVELS:
@@ -393,19 +442,27 @@ def morph_pair(pair: FacePair, output_dir: Path, image_size: int) -> list[str]:
             (alpha * a[0] + (1 - alpha) * b[0], alpha * a[1] + (1 - alpha) * b[1])
             for a, b in zip(points_a, points_b)
         ]
+        # Smiling photos are cropped with the neutral geometry so both sets frame identically
+        geometry_points = [
+            (alpha * a[0] + (1 - alpha) * b[0], alpha * a[1] + (1 - alpha) * b[1])
+            for a, b in zip(neutral_a, neutral_b)
+        ][:-BOUNDARY_POINTS]
         warped_a = warp_image(image_a, points_a, destination_points, triangles, image_size)
         warped_b = warp_image(image_b, points_b, destination_points, triangles, image_size)
-        morphed = isolate_face(
-            Image.blend(warped_b, warped_a, alpha), destination_points[:-BOUNDARY_POINTS]
-        )
-        filename = f"face{pair.face_a_number}_face{pair.face_b_number}_{level}.jpg"
+        morphed = isolate_face(Image.blend(warped_b, warped_a, alpha), geometry_points)
+        filename = f"{stem}_{level}.jpg"
         morphed.save(output_dir / filename, format="JPEG", quality=88, optimize=True, progressive=True)
         files.append(filename)
 
     return files
 
 
-def build_metadata(pairs: list[FacePair], generated_files: dict[int, list[str]], image_size: int) -> dict:
+def build_metadata(
+    pairs: list[FacePair],
+    generated_files: dict[int, list[str]],
+    image_size: int,
+    smile_files: dict[int, list[str]],
+) -> dict:
     metadata = {
         "version": "2.0",
         "source": "Face Research Lab London Set",
@@ -424,6 +481,7 @@ def build_metadata(pairs: list[FacePair], generated_files: dict[int, list[str]],
             "outputSize": [image_size, image_size],
             "morphLevels": MORPH_LEVELS,
             "sourceView": "neutral_front",
+            **({"alternateView": "smiling_front"} if smile_files else {}),
         },
         "facePairs": [
             {
@@ -434,12 +492,13 @@ def build_metadata(pairs: list[FacePair], generated_files: dict[int, list[str]],
                 "sourceFaceB": pair.face_b.source_id,
                 "morphLevels": MORPH_LEVELS,
                 "files": generated_files[pair.index],
+                **({"smileFiles": smile_files[pair.index]} if pair.index in smile_files else {}),
             }
             for pair in pairs
         ],
         "totalPairs": len(pairs),
         "totalMorphLevels": len(MORPH_LEVELS),
-        "totalImages": len(pairs) * len(MORPH_LEVELS),
+        "totalImages": len(pairs) * len(MORPH_LEVELS) * (2 if smile_files else 1),
         "morphLevels": MORPH_LEVELS,
         "imageFormat": "jpg",
         "imageSize": [image_size, image_size],
@@ -509,6 +568,13 @@ def main() -> None:
     parser.add_argument("--num-pairs", type=int, default=NUM_PAIRS)
     parser.add_argument("--size", type=int, default=OUTPUT_SIZE)
     parser.add_argument("--contact-sheet", action="store_true")
+    parser.add_argument("--smile-dir", type=Path, help="smiling_front JPG directory (adds the second photo set)")
+    parser.add_argument(
+        "--landmarker-model",
+        type=Path,
+        default=Path(".face-source/models/face_landmarker.task"),
+        help="MediaPipe face_landmarker.task (storage.googleapis.com/mediapipe-models/face_landmarker)",
+    )
     args = parser.parse_args()
 
     if not args.source_dir.exists():
@@ -522,8 +588,10 @@ def main() -> None:
     if len(pairs) < args.num_pairs:
         raise SystemExit(f"Only selected {len(pairs)} pairs; need {args.num_pairs}")
 
+    detector = create_detector(args.landmarker_model) if args.smile_dir else None
     clear_existing_outputs(args.output_dir)
     generated_files: dict[int, list[str]] = {}
+    smile_files: dict[int, list[str]] = {}
     for pair in pairs:
         print(
             f"[{pair.index}/{len(pairs)}] "
@@ -531,15 +599,20 @@ def main() -> None:
             f"{pair.face_b.source_id} -> face{pair.face_b_number}"
         )
         generated_files[pair.index] = morph_pair(pair, args.output_dir, args.size)
+        if detector:
+            smile_a = load_smile_photo(pair.face_a, args.smile_dir, detector, args.size)
+            smile_b = load_smile_photo(pair.face_b, args.smile_dir, detector, args.size)
+            smile_files[pair.index] = morph_pair(pair, args.output_dir, args.size, (smile_a, smile_b))
 
-    metadata = build_metadata(pairs, generated_files, args.size)
+    metadata = build_metadata(pairs, generated_files, args.size, smile_files)
     write_json(args.output_dir / "metadata.json", metadata)
     write_json(args.runtime_metadata, metadata)
     write_source_pairs(args.output_dir, pairs)
     if args.contact_sheet:
         write_contact_sheet(args.output_dir, pairs, args.size)
 
-    print(f"Generated {len(pairs) * len(MORPH_LEVELS)} real morph images in {args.output_dir}")
+    total = sum(len(files) for files in [*generated_files.values(), *smile_files.values()])
+    print(f"Generated {total} real morph images in {args.output_dir}")
 
 
 if __name__ == "__main__":

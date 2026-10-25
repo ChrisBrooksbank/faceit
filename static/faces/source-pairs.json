@@ -147,6 +147,146 @@
             "faceB": "face40",
             "sourceFaceA": "010",
             "sourceFaceB": "013"
+        },
+        {
+            "id": 21,
+            "faceA": "face41",
+            "faceB": "face42",
+            "sourceFaceA": "022",
+            "sourceFaceB": "041"
+        },
+        {
+            "id": 22,
+            "faceA": "face43",
+            "faceB": "face44",
+            "sourceFaceA": "137",
+            "sourceFaceB": "061"
+        },
+        {
+            "id": 23,
+            "faceA": "face45",
+            "faceB": "face46",
+            "sourceFaceA": "011",
+            "sourceFaceB": "032"
+        },
+        {
+            "id": 24,
+            "faceA": "face47",
+            "faceB": "face48",
+            "sourceFaceA": "029",
+            "sourceFaceB": "117"
+        },
+        {
+            "id": 25,
+            "faceA": "face49",
+            "faceB": "face50",
+            "sourceFaceA": "014",
+            "sourceFaceB": "016"
+        },
+        {
+            "id": 26,
+            "faceA": "face51",
+            "faceB": "face52",
+            "sourceFaceA": "092",
+            "sourceFaceB": "103"
+        },
+        {
+            "id": 27,
+            "faceA": "face53",
+            "faceB": "face54",
+            "sourceFaceA": "039",
+            "sourceFaceB": "144"
+        },
+        {
+            "id": 28,
+            "faceA": "face55",
+            "faceB": "face56",
+            "sourceFaceA": "108",
+            "sourceFaceB": "138"
+        },
+        {
+            "id": 29,
+            "faceA": "face57",
+            "faceB": "face58",
+            "sourceFaceA": "081",
+            "sourceFaceB": "094"
+        },
+        {
+            "id": 30,
+            "faceA": "face59",
+            "faceB": "face60",
+            "sourceFaceA": "131",
+            "sourceFaceB": "173"
+        },
+        {
+            "id": 31,
+            "faceA": "face61",
+            "faceB": "face62",
+            "sourceFaceA": "086",
+            "sourceFaceB": "122"
+        },
+        {
+            "id": 32,
+            "faceA": "face63",
+            "faceB": "face64",
+            "sourceFaceA": "033",
+            "sourceFaceB": "143"
+        },
+        {
+            "id": 33,
+            "faceA": "face65",
+            "faceB": "face66",
+            "sourceFaceA": "090",
+            "sourceFaceB": "112"
+        },
+        {
+            "id": 34,
+            "faceA": "face67",
+            "faceB": "face68",
+            "sourceFaceA": "068",
+            "sourceFaceB": "132"
+        },
+        {
+            "id": 35,
+            "faceA": "face69",
+            "faceB": "face70",
+            "sourceFaceA": "097",
+            "sourceFaceB": "100"
+        },
+        {
+            "id": 36,
+            "faceA": "face71",
+            "faceB": "face72",
+            "sourceFaceA": "069",
+            "sourceFaceB": "104"
+        },
+        {
+            "id": 37,
+            "faceA": "face73",
+            "faceB": "face74",
+            "sourceFaceA": "019",
+            "sourceFaceB": "139"
+        },
+        {
+            "id": 38,
+            "faceA": "face75",
+            "faceB": "face76",
+            "sourceFaceA": "123",
+            "sourceFaceB": "130"
+        },
+        {
+            "id": 39,
+            "faceA": "face77",
+            "faceB": "face78",
+            "sourceFaceA": "091",
+            "sourceFaceB": "134"
+        },
+        {
+            "id": 40,
+            "faceA": "face79",
+            "faceB": "face80",
+            "sourceFaceA": "004",
+            "sourceFaceB": "125"
         }
     ]
 }
