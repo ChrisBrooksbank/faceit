@@ -18,3 +18,7 @@ vite.config.ts.timestamp-*
 
 # Local Netlify folder
 .netlify
+
+# Python / Windows artifacts
+__pycache__/
+nul
