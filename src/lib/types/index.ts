@@ -33,6 +33,12 @@ export interface Trial {
     targetFaceId: string;
     distractorFaceIds: string[];
     morphLevel: number;
+    /** Exact staircase level the trial was built at (morphLevel is snapped to the image grid) */
+    difficultyLevel?: number;
+    /** Morph gap between the target and its distractors */
+    gap?: number;
+    /** Whether the answer was a different photo of the target's identity */
+    differentPhoto?: boolean;
     responseTime: number;
     correct: boolean;
     selectedPosition: number;

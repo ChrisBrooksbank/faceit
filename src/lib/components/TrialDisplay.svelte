@@ -151,7 +151,7 @@
 
         interruptedEarly = false;
         stopPhases = untrack(startPhases);
-        return () => stopPhases?.();
+        return (): void => stopPhases?.();
     });
 
     // A pause during loading/target/mask would let the timers run out under the overlay,

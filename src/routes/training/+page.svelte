@@ -25,7 +25,7 @@
         variationStrengthFor,
         type ImageVariation,
     } from '$lib/core/image-variation';
-    import { buildTrainingTrial, findClosestMorphLevel } from '$lib/core/faces';
+    import { buildTrainingTrial, findClosestMorphLevel, gapForDifficulty } from '$lib/core/faces';
     import {
         updateProgressMetrics as recalculateProgressMetrics,
         CURRENT_DIFFICULTY_VERSION,
@@ -105,6 +105,7 @@
     // ============================================
 
     const usedPairIds = new Set<number>();
+    let trialDifficulty: Pick<Trial, 'difficultyLevel' | 'gap' | 'differentPhoto'> = {};
 
     function startNextTrial(): void {
         currentTrialNumber++;
@@ -122,6 +123,11 @@
             usedPairIds
         );
         usedPairIds.add(pairId);
+        trialDifficulty = {
+            difficultyLevel: staircaseState.currentMorphLevel,
+            gap: gapForDifficulty(staircaseState.currentMorphLevel),
+            differentPhoto,
+        };
 
         // Real different-photo trials replace the simulated photo variation
         const strength = differentPhoto
@@ -156,6 +162,7 @@
             targetFaceId,
             distractorFaceIds: choiceFaceIds.filter((_, i) => i !== correctPosition),
             morphLevel,
+            ...trialDifficulty,
             responseTime,
             correct,
             selectedPosition: position,

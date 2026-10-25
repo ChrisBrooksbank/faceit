@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { buildPerceptionTrial, buildTrainingTrial, gapForDifficulty } from './faces';
+import { variationStrengthFor } from './image-variation';
 
 const FACE_ID_PATTERN = /face\d+_face\d+(?:_smile)?_(\d+)/;
 const FACE_URL_PATTERN = /\/faces\/face\d+_face\d+_(\d+)\.jpg/;
@@ -112,5 +113,31 @@ describe('face trial generation', () => {
         const target = morphLevelFrom(trial.target, FACE_URL_PATTERN);
 
         expect(levels.filter(l => l !== target).every(l => Math.abs(l - target) >= 48)).toBe(true);
+    });
+});
+
+describe('difficulty ladder', () => {
+    const levels = Array.from({ length: 61 }, (_, i) => 28 + i);
+
+    it('never gets easier as the level drops', () => {
+        for (const level of levels.slice(1)) {
+            expect(gapForDifficulty(level)).toBeGreaterThanOrEqual(gapForDifficulty(level - 1));
+        }
+    });
+
+    it('switches to different-photo trials exactly where the gap drops below 36', () => {
+        for (const level of levels) {
+            const differentPhoto = variationStrengthFor(level) > 0;
+            expect(differentPhoto).toBe(gapForDifficulty(level) < 36);
+        }
+    });
+
+    it('can build a trial at every level', () => {
+        for (const level of levels) {
+            const trial = buildTrainingTrial(level);
+
+            expect(trial.choices).toHaveLength(3);
+            expect(trial.choices.every(Boolean)).toBe(true);
+        }
     });
 });
