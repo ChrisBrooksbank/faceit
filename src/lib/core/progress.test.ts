@@ -315,7 +315,40 @@ describe('updateProgressMetrics', () => {
         expect(updated.totalTrainingTime).toBe(1860); // 600 + 720 + 540
     });
 
-    it('calculates improvement rate based on first session threshold', async () => {
+    it('reports no improvement until sessions exist beyond the baseline sessions', async () => {
+        const sessions = [
+            createSession('2026-01-15', true, 60),
+            createSession('2026-01-16', true, 50),
+            createSession('2026-01-17', true, 40),
+        ];
+
+        vi.mocked(db.getSessionsByDate).mockResolvedValue(sessions);
+        vi.mocked(db.getProgressMetrics).mockResolvedValue(createProgressMetrics('user-1'));
+        vi.mocked(db.saveProgressMetrics).mockResolvedValue();
+
+        const updated = await updateProgressMetrics('user-1');
+
+        expect(updated.improvementRate).toBe(0);
+    });
+
+    it('uses the average of the first three sessions as the baseline', async () => {
+        const sessions = [
+            createSession('2026-01-15', true, 70),
+            createSession('2026-01-16', true, 60),
+            createSession('2026-01-17', true, 50),
+            createSession('2026-01-18', true, 48),
+        ];
+
+        vi.mocked(db.getSessionsByDate).mockResolvedValue(sessions);
+        vi.mocked(db.getProgressMetrics).mockResolvedValue(createProgressMetrics('user-1'));
+        vi.mocked(db.saveProgressMetrics).mockResolvedValue();
+
+        const updated = await updateProgressMetrics('user-1');
+
+        expect(updated.improvementRate).toBe(20); // baseline 60, recent 48
+    });
+
+    it('calculates improvement rate based on early session thresholds', async () => {
         const sessions = [
             createSession('2026-01-15', true, 60),
             createSession('2026-01-16', true, 58),

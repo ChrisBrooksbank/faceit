@@ -79,6 +79,26 @@ export function calculateImprovement(
     return Math.round(improvement * 10) / 10; // Round to 1 decimal place
 }
 
+/** Number of first training sessions averaged to form the improvement baseline */
+const BASELINE_SESSION_COUNT = 3;
+
+/**
+ * Improvement relative to the user's own early training, not the onboarding perception
+ * test (6 trials, chance is about 2/6, so too noisy to anchor on).
+ * Averages the first few sessions as the baseline and compares later sessions against it.
+ * Returns 0 until at least one session exists beyond the baseline sessions.
+ * @param completedSessions - Completed sessions sorted by date (oldest first)
+ */
+function improvementFromTrainingBaseline(completedSessions: TrainingSession[]): number {
+    if (completedSessions.length <= BASELINE_SESSION_COUNT) return 0;
+
+    const baselineSessions = completedSessions.slice(0, BASELINE_SESSION_COUNT);
+    const baselineThreshold =
+        baselineSessions.reduce((sum, s) => sum + s.thresholdLevel, 0) / baselineSessions.length;
+
+    return calculateImprovement(completedSessions.slice(BASELINE_SESSION_COUNT), baselineThreshold);
+}
+
 /**
  * Update progress metrics for a user after completing a session
  * Recalculates all metrics based on session history
@@ -124,11 +144,7 @@ export async function updateProgressMetrics(userId: string): Promise<ProgressMet
             ? completedSessions.reduce((sum, s) => sum + s.accuracy, 0) / completedSessions.length
             : 0;
 
-    // Calculate improvement rate (requires baseline from first session or stored baseline)
-    // Use the first session's threshold as baseline if available
-    const baselineThreshold =
-        completedSessions.length > 0 ? completedSessions[0].thresholdLevel : avgThreshold;
-    const improvementRate = calculateImprovement(completedSessions, baselineThreshold);
+    const improvementRate = improvementFromTrainingBaseline(completedSessions);
 
     // Get last session date
     const lastSessionDate =

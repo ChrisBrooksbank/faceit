@@ -470,7 +470,8 @@ Training quality (highest value first):
 
 Progress and measurement:
 
-- [ ] **Improvement metric.** `updateProgressMetrics` compares against the first training session, not the onboarding baseline. The 6-trial baseline test is very noisy (chance is about 2/6). The threshold falls back to the last level when there are fewer than 6 reversals.
+- [x] **Improvement metric.** `updateProgressMetrics` now uses the average of the first 3 training sessions as the baseline (not a single session, and not the noisy 6-trial onboarding test) and compares it with the later sessions (last 7). It reports 0 until a session exists beyond the baseline ones (`improvementFromTrainingBaseline` in `src/lib/core/progress.ts`).
+    - Not done: the threshold still falls back to the last level when there are fewer than 6 reversals.
 - [ ] **Legacy sessions.** Sessions saved before PR #1 used the old difficulty definition, so their thresholds are not comparable. Mark them as legacy or exclude them from trends.
 
 Bugs and cleanup:
