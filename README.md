@@ -1,56 +1,115 @@
+<div align="center">
+
 # FaceIt
 
-A Progressive Web App to help people with prosopagnosia improve face recognition through perceptual discrimination training.
+### Train the part of your brain that tells faces apart.
 
-## About
+A free, private, offline-first web app for people with face blindness (prosopagnosia).
+Short daily sessions. Adaptive difficulty. Nothing leaves your device.
 
-FaceIt uses **perceptual discrimination training** - users practice telling apart very similar faces at adaptive difficulty levels. Small laboratory studies of face-perception training in developmental prosopagnosia have reported improvements on trained and some untrained faces, with some gains still present months later. The evidence base is limited, results vary a lot between people, and transfer to everyday recognition is not guaranteed. FaceIt is a practice tool, not a clinical treatment or a diagnosis.
+![FaceIt difficulty ladder: the wrong answers close in on the right one as training gets harder](docs/media/difficulty-ladder.gif)
 
-## The Problem
+<sub>The real training stimuli. The correct image never changes; the wrong answers creep closer every time you succeed.</sub>
 
-Prosopagnosia (face blindness) affects approximately 2% of the population. Despite this prevalence, no widely available, research-backed app exists specifically for face recognition training. FaceIt aims to fill this gap.
+</div>
 
-## Features (MVP)
+---
 
-- **PI20 Self-Assessment** - Validated 20-question survey to assess face recognition difficulty
-- **Baseline Perception Test** - Quick test to establish starting ability
-- **Adaptive Training** - Staircase algorithm maintains optimal difficulty (converges on ~71% accuracy)
-- **Progress Tracking** - Monitor improvement over time
-- **Offline-First** - All data stays on your device; works without internet
-- **Daily Sessions** - 10-minute sessions designed for consistent practice
+## Imagine not knowing your own friends
 
-## Getting Started
+You walk into a café. Someone waves. You have no idea who they are: not a stranger, a colleague you have worked beside for two years. Their eyes work. Their memory works. But the face gives you nothing, so you learn to cope: hair, voice, the way they walk, the jacket they always wear. When any of those change, the person vanishes.
 
-### Prerequisites
+That is **prosopagnosia**, or face blindness. It affects roughly **1 in 50 people**, which is about as common as red hair. Most of them have had it since birth and many do not realise it, because they assume everyone else is using the same tricks.
 
-- Node.js 20+
-- npm
+## A short history of a hidden condition
 
-### Installation
+- **1800s** - Doctors describe patients who suddenly lose the ability to recognise familiar faces after a brain injury. The cases are treated as medical curiosities.
+- **1947** - German neurologist Joachim Bodamer gives the condition its name, _prosopagnosia_, from the Greek for "face" and "lack of knowledge".
+- **Late 20th century** - The condition is mostly associated with stroke and head injury. Artist Chuck Close and neurologist Oliver Sacks become its best-known public faces, both of them unable to recognise people they knew well.
+- **Early 2000s** - Researchers realise that many people have _developmental_ prosopagnosia: a lifelong, often inherited difference, with no injury at all. Far more people are affected than anyone had thought.
+- **2015** - The **PI20**, a 20-question self-report questionnaire (Shah et al.), gives people a validated way to find out whether their everyday experience matches face blindness.
+- **Today** - Small laboratory studies report that structured training can help some people. There is still no widely available, research-informed app built for it.
+
+That last gap is what FaceIt is for.
+
+## Why training might help
+
+The brain does not recognise a face by reading a feature list. It builds a holistic picture, and it learns to do that through enormous amounts of practice. In prosopagnosia, that learning seems to have stalled somewhere.
+
+**Perceptual learning** is the brain's habit of getting better at telling similar things apart when it practises at the edge of its ability. Wine tasters, radiologists and chicken sexers all use it. Studies of face training in developmental prosopagnosia have used exactly this recipe:
+
+1. Show faces that are _almost_ identical.
+2. Keep the task hard enough that you sometimes get it wrong, but not so hard that you guess.
+3. Repeat, daily, for weeks.
+
+In published studies some participants improved on faces they were trained on, some on faces they had never seen, and in some cases the gains were still there months later. Others did not improve, and responses vary a lot from person to person. See the [research summary](docs/prosopagnosia-research.md) for the detail and sources.
+
+> **Honest expectations.** FaceIt is a practice tool, not a treatment or a diagnosis. Training is not a cure, and how well it carries over to everyday life is still an open research question.
+
+## What FaceIt does
+
+|                         |                                                                                                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Find your baseline**  | Answer the PI20 questionnaire, then take a short perception test, to see where you start.                                                                                       |
+| **Train at your edge**  | A staircase algorithm moves the difficulty after every answer so you spend your time at the point where learning happens (about 71% accuracy).                                  |
+| **Learn from mistakes** | After a wrong answer you see your pick beside the right one, with the most different regions outlined, or flicker between the two to spot what changed.                         |
+| **Match across photos** | At higher levels the right answer is a _different photograph_ of the same person (a smile instead of a neutral face), because real recognition never sees the same image twice. |
+| **Learn real people**   | The `/learn` mode introduces four people by name, then asks you to name them from a different photo. The set rotates weekly so faces come back.                                 |
+| **Watch it move**       | Threshold charts, streaks, accuracy and a baseline-corrected improvement score.                                                                                                 |
+| **Keep your privacy**   | No account, no server, no analytics. Export or delete everything from Settings.                                                                                                 |
+
+### How a trial works
+
+1. **Look** (2 s): a target face appears.
+2. **Mask** (0.5 s): a pattern wipes your visual memory so you cannot just compare pixels.
+3. **Choose**: pick the match from three images.
+4. **Learn**: if you were wrong, study exactly where the faces differ.
+5. **Adapt**: two right in a row makes the next one harder; one wrong makes it easier.
+
+### The difficulty ladder
+
+Difficulty is not a vague slider. It is the **morph distance** between the right answer and the wrong ones, and every stimulus is a real photograph blend:
+
+| Staircase level | Morph gap | What you get                                           |
+| --------------- | --------- | ------------------------------------------------------ |
+| 73-88           | 48        | Wrong answers are obviously different                  |
+| 58-72           | 36        | Differences are clear but need attention               |
+| 43-57           | 24        | A different photo of the person, with small variations |
+| 28-42           | 12        | A different photo, nearly identical wrong answers      |
+
+The stimuli are cropped to the inner face, with no hair or clothing, because blended hair leaves a ghost image that would otherwise give the answer away.
+
+> The gap sizes and the level where different-photo trials begin are educated guesses that have not yet been checked against real users, ideally people with face-recognition difficulty. Each trial now records its exact level, gap and photo type so they can be tuned from real data.
+
+## Try it
 
 ```bash
-# Clone the repository
 git clone https://github.com/ChrisBrooksbank/faceit.git
 cd faceit
-
-# Install dependencies
 npm install
-
-# Initialize Playwright (for E2E tests)
-npx playwright install
-
-# Run development server
 npm run dev
 ```
 
-### Building for Production
+Then open the URL it prints. Build a production, installable PWA with `npm run build && npm run preview`. Requires Node.js 20+.
 
-```bash
-npm run build
-npm run preview
-```
+## Privacy by design
 
-## Scripts
+- **No cloud.** Everything is stored in your browser's IndexedDB.
+- **No accounts.** FaceIt never asks who you are.
+- **No tracking.** No analytics, no third-party scripts.
+- **Works offline.** After the first load, it is a self-contained PWA.
+- **Your data is yours.** Export it as JSON or delete it from Settings.
+
+## Under the hood
+
+Built with **SvelteKit** and **Svelte 5** (runes), **TypeScript** in strict mode, **Zod** for validation and **IndexedDB** via `idb` for storage. It ships as a PWA through `@vite-pwa/sveltekit`.
+
+Quality is enforced rather than hoped for: ESLint with complexity limits, Prettier, Knip for dead code, **Vitest** with an 80% coverage gate, **Playwright** end-to-end tests across desktop and mobile browsers, and a pre-commit hook that runs type checks and lint-staged. A WCAG 2.1 AA [accessibility audit](docs/accessibility-audit.md) is included.
+
+The face stimuli are generated by a reproducible Python pipeline (`scripts/generate-face-morphs.py`) using MediaPipe landmarks, so difficulty, cropping and difference highlighting all come from the same geometry.
+
+<details>
+<summary><strong>All npm scripts</strong></summary>
 
 | Command                 | Description               |
 | ----------------------- | ------------------------- |
@@ -61,95 +120,41 @@ npm run preview
 | `npm run test:run`      | Run tests once            |
 | `npm run test:coverage` | Generate coverage report  |
 | `npm run test:e2e`      | Run Playwright E2E tests  |
-| `npm run lint`          | Check for lint errors     |
-| `npm run lint:fix`      | Fix lint errors           |
+| `npm run lint`          | ESLint and svelte-check   |
 | `npm run format`        | Format code with Prettier |
 | `npm run typecheck`     | TypeScript type checking  |
 | `npm run knip`          | Find unused code          |
-| `npm run check`         | Run all checks            |
+| `npm run check`         | Run every check           |
 
-## How It Works
+</details>
 
-### Training Approach
+## Roadmap
 
-Each training trial follows this structure:
-
-1. **Target Display** (2 sec) - A face is shown to remember
-2. **Visual Mask** (500ms) - Brief pattern to clear visual memory
-3. **Choice** - Pick the exact match from three images of the same two-person blend
-4. **Feedback** - After a mistake, see your choice next to the right answer with the most different facial regions outlined, or flicker between the two images
-5. **Adapt** - Difficulty adjusts based on performance
-
-Difficulty is the morph distance between the target and the wrong answers (12 to 48 morph units). The **staircase algorithm** adjusts it:
-
-- Two correct answers in a row → wrong answers get closer to the target (harder)
-- One wrong answer → wrong answers move further away (easier)
-- Sessions resume from where the last one ended; new users start at the easiest level
-- As the task gets harder, each image is also shown with a small simulated change of angle, position and lighting, so you have to match the face rather than a pixel-identical picture
-
-The stimuli are cropped to the inner face (no hair or clothing) because hair blends into a ghosted overlay whose opacity would otherwise reveal the answer.
-
-**Known limitations:** all faces are neutral, front-facing photos from a single set, so real changes of viewpoint and expression are only simulated. Adding genuinely different photos of each person is the main planned improvement.
-
-### What to Expect
-
-- Training is not a cure, and evidence for how well it carries over to everyday recognition is limited and mixed
-- Benefits typically appear after 2-4 weeks of consistent practice
-- Daily 10-minute sessions work better than occasional longer sessions
-
-## Privacy
-
-FaceIt is designed with privacy as a core principle:
-
-- **No cloud storage** - All data stays on your device
-- **No accounts required** - No personal information collected
-- **No tracking** - No analytics or third-party services
-- **Your data, your control** - Export or delete anytime
+- [x] PI20 assessment, baseline test, adaptive training, progress and settings
+- [x] Real face morphs, different-photo trials, 40 face pairs
+- [x] Identity learning mode
+- [ ] Tune the difficulty ladder against real users
+- [ ] Viewpoint changes (3/4 views) and more expressions
+- [ ] Save identity-learning results and add spaced repetition
+- [ ] A clinical review of the wording and the training protocol
 
 ## Documentation
 
-- [MVP Specification](docs/mvp-specification.md) - Detailed feature specifications
-- [Research Summary](docs/prosopagnosia-research.md) - Scientific background
-- [User Research](docs/interview-report.md) - Interview insights
-
-## Technology
-
-- **SvelteKit** - Full-stack Svelte framework with routing and SSG
-- **Svelte 5** - Reactive UI with minimal bundle size (~2KB)
-- **TypeScript** - Strict type-safe development
-- **Zod** - Runtime validation for config and data
-- **IndexedDB** (via idb) - Local data persistence
-- **PWA** - Installable, offline-capable (@vite-pwa/sveltekit)
-- **Vitest** - Unit testing with 80% coverage threshold
-- **Playwright** - E2E testing across browsers
-- **ESLint + Prettier** - Code quality and formatting
-- **Knip** - Dead code detection
-- **Husky** - Pre-commit hooks
-
-## Research Background
-
-FaceIt's approach is based on peer-reviewed research:
-
-- Perceptual discrimination training shows 3+ month retention
-- Staircase procedures optimize learning at threshold difficulty
-- The PI20 questionnaire is a validated screening tool (Cronbach's α = 0.93)
-
-See [prosopagnosia-research.md](docs/prosopagnosia-research.md) for detailed research citations.
+- [MVP specification](docs/mvp-specification.md)
+- [Research summary](docs/prosopagnosia-research.md)
+- [User research](docs/interview-report.md)
+- [Accessibility audit](docs/accessibility-audit.md)
 
 ## Contributing
 
-_Contribution guidelines coming soon_
+Ideas, bug reports and especially feedback from people with face-recognition difficulty are very welcome. Open an issue or a pull request. Please run `npm run check` before you submit.
 
-## License
+## Licence and credits
 
-_License to be determined_
+Code is released under the [MIT licence](LICENSE).
 
-## Acknowledgments
-
-- Research participants who shared their experiences
-- The prosopagnosia research community
-- Face databases: Utrecht ECVP, Face Research Lab London
+Face stimuli are generated from the **Face Research Lab London Set** by Lisa DeBruine and Benedict Jones ([DOI 10.6084/m9.figshare.5047666.v5](https://doi.org/10.6084/m9.figshare.5047666.v5)), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [the attribution file](static/faces/ATTRIBUTION.md). Thanks also to the research participants who shared their experiences and to the prosopagnosia research community.
 
 ---
 
-**Note:** FaceIt is not a medical device and does not diagnose or treat prosopagnosia. It is a training tool based on published research. Consult healthcare providers for medical advice.
+<sub>FaceIt is not a medical device and does not diagnose or treat prosopagnosia. It is a practice tool informed by published research. Consult a healthcare professional for medical advice.</sub>
