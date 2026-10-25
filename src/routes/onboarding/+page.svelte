@@ -21,9 +21,9 @@
             <h2 class="tagline">Train your brain to recognize faces better</h2>
 
             <p class="description">
-                FaceIt uses evidence-based perceptual discrimination training to help improve face
-                recognition abilities. Through consistent practice, many people see measurable
-                improvements in their ability to recognize faces.
+                FaceIt uses perceptual discrimination training, an approach studied in people with
+                face recognition difficulties, to help you practise telling similar faces apart.
+                Results vary from person to person.
             </p>
 
             <div class="privacy-notice">

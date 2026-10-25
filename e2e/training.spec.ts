@@ -120,4 +120,10 @@ async function clickFirstChoice(page: Page): Promise<void> {
     await expect(choice).toBeVisible({ timeout: 8_000 });
     await expect(choice).toBeEnabled({ timeout: 8_000 });
     await choice.click();
+
+    // Wrong answers show the differences until the user presses Continue
+    await page
+        .getByRole('button', { name: 'Continue', exact: true })
+        .click({ timeout: 3_000 })
+        .catch((): void => undefined);
 }

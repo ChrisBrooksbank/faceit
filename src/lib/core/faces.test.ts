@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { buildPerceptionTrial, buildTrainingTrial } from './faces';
+import { buildPerceptionTrial, buildTrainingTrial, gapForDifficulty } from './faces';
 
 const FACE_ID_PATTERN = /face\d+_face\d+_(\d+)/;
 const FACE_URL_PATTERN = /\/faces\/face\d+_face\d+_(\d+)\.jpg/;
@@ -35,13 +35,34 @@ describe('face trial generation', () => {
         expect(new Set(trial.choices).size).toBe(3);
     });
 
-    it('uses nearby morph levels as training distractors', () => {
-        vi.spyOn(Math, 'random').mockReturnValue(0);
+    it('uses the smallest morph gap for the hardest training level', () => {
+        vi.spyOn(Math, 'random').mockReturnValue(0.5);
 
-        const trial = buildTrainingTrial(64);
-        const choiceLevels = trial.choices.map(choice => morphLevelFrom(choice, FACE_ID_PATTERN));
+        const trial = buildTrainingTrial(28);
+        const levels = trial.choices.map(choice => morphLevelFrom(choice, FACE_ID_PATTERN));
+        const targetLevel = morphLevelFrom(trial.target, FACE_ID_PATTERN);
 
-        expect(choiceLevels.sort((a, b) => a - b)).toEqual([52, 64, 76]);
+        expect(levels.filter(l => l !== targetLevel).map(l => Math.abs(l - targetLevel))).toEqual(
+            expect.arrayContaining([12])
+        );
+    });
+
+    it('makes distractors further from the target as difficulty gets easier', () => {
+        const minGap = (level: number): number => {
+            const trial = buildTrainingTrial(level);
+            const target = morphLevelFrom(trial.target, FACE_ID_PATTERN);
+            return Math.min(
+                ...trial.choices
+                    .map(choice => Math.abs(morphLevelFrom(choice, FACE_ID_PATTERN) - target))
+                    .filter(gap => gap > 0)
+            );
+        };
+
+        for (let i = 0; i < 50; i++) {
+            expect(minGap(28)).toBe(12);
+            expect(minGap(88)).toBe(48);
+        }
+        expect(gapForDifficulty(60)).toBe(36);
     });
 
     it('builds perception choices from the same identity pair', () => {
@@ -56,12 +77,11 @@ describe('face trial generation', () => {
         expect(new Set(trial.choices).size).toBe(3);
     });
 
-    it('uses nearby morph levels as perception distractors', () => {
-        vi.spyOn(Math, 'random').mockReturnValue(0);
+    it('uses a wider morph gap for easy perception trials', () => {
+        const trial = buildPerceptionTrial(0, 88);
+        const levels = trial.choices.map(choice => morphLevelFrom(choice, FACE_URL_PATTERN));
+        const target = morphLevelFrom(trial.target, FACE_URL_PATTERN);
 
-        const trial = buildPerceptionTrial(0, 76);
-        const choiceLevels = trial.choices.map(choice => morphLevelFrom(choice, FACE_URL_PATTERN));
-
-        expect(choiceLevels.sort((a, b) => a - b)).toEqual([64, 76, 88]);
+        expect(levels.filter(l => l !== target).every(l => Math.abs(l - target) >= 48)).toBe(true);
     });
 });

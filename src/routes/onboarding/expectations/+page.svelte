@@ -151,9 +151,11 @@
                     <div class="icon">📊</div>
                     <h2 class="expectation-title">Results vary between individuals</h2>
                     <p class="expectation-text">
-                        Research shows 50-60% of people see measurable improvement with perceptual
-                        discrimination training. Your results will depend on factors like the type
-                        and severity of your difficulties, as well as how consistently you practice.
+                        Research on perceptual training is limited, and outcomes differ a lot from
+                        person to person. Some people improve at telling similar faces apart; others
+                        see little change, and improvement may not carry over to everyday
+                        recognition. Results depend on factors like the type and severity of your
+                        difficulties, as well as how consistently you practice.
                     </p>
                 </div>
 

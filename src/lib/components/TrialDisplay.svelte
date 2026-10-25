@@ -9,7 +9,10 @@
      */
 
     import FaceDisplay from './FaceDisplay.svelte';
+    import FaceComparison from './FaceComparison.svelte';
+    import Button from './Button.svelte';
     import { getDifferenceCue } from '$lib/core/face-differences';
+    import { NO_VARIATION, type ImageVariation } from '$lib/core/image-variation';
 
     type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'feedback';
 
@@ -34,9 +37,18 @@
          * Size variant for face displays
          */
         size?: 'small' | 'medium' | 'large';
+        /**
+         * Simulated photo changes for the target and each choice
+         */
+        variations?: { target: ImageVariation; choices: ImageVariation[] };
+        /**
+         * Called when the user is done studying the feedback after a mistake.
+         * When omitted the feedback has no continue button.
+         */
+        onContinue?: () => void;
     }
 
-    const { faces, onSelect, size = 'medium' }: Props = $props();
+    const { faces, onSelect, size = 'medium', variations, onContinue }: Props = $props();
 
     const DISPLAY_TIME = 2000; // 2 seconds for target display
     const MASK_TIME = 500; // 500ms for mask
@@ -139,10 +151,15 @@
     {:else if phase === 'target'}
         <div class="phase-instruction">Remember this face</div>
         <div class="target-display">
-            <FaceDisplay faceId={faces.targetFaceId} {size} ariaLabel="Target face to remember" />
+            <FaceDisplay
+                faceId={faces.targetFaceId}
+                {size}
+                variation={variations?.target ?? NO_VARIATION}
+                ariaLabel="Target face to remember"
+            />
         </div>
     {:else if phase === 'mask'}
-        <div class="phase-instruction">Processing...</div>
+        <div class="phase-instruction">Hold the image in mind...</div>
         <div class="mask-display">
             <div
                 class="mask"
@@ -161,6 +178,7 @@
                     selectable={true}
                     selected={selectedPosition === index}
                     onclick={(): void => handleChoice(index)}
+                    variation={variations?.choices[index] ?? NO_VARIATION}
                     ariaLabel="Choice {index + 1}"
                 />
             {/each}
@@ -168,26 +186,18 @@
     {:else if phase === 'feedback'}
         <div class="phase-instruction">Look again at the differences</div>
         <div class="feedback-display" aria-live="polite">
-            <div class="feedback-face">
-                <div class="feedback-label">Your choice</div>
-                <FaceDisplay
-                    faceId={faces.choiceFaceIds[selectedPosition]}
-                    {size}
-                    ariaLabel="Your selected image"
-                />
-            </div>
-            <div class="feedback-face">
-                <div class="feedback-label">Exact match</div>
-                <div class="correct-frame">
-                    <FaceDisplay
-                        faceId={faces.choiceFaceIds[faces.correctPosition]}
-                        {size}
-                        ariaLabel="Correct matching image"
-                    />
-                </div>
-            </div>
+            <FaceComparison
+                selectedFaceId={faces.choiceFaceIds[selectedPosition]}
+                correctFaceId={faces.choiceFaceIds[faces.correctPosition]}
+                {size}
+                selectedVariation={variations?.choices[selectedPosition]}
+                correctVariation={variations?.choices[faces.correctPosition]}
+            />
         </div>
         <p class="feedback-hint">{feedbackCue}</p>
+        {#if onContinue}
+            <Button variant="primary" onclick={onContinue}>Continue</Button>
+        {/if}
     {/if}
 </div>
 
@@ -242,38 +252,19 @@
         height: 280px;
     }
 
+    /* Three choices stay on one row (even on phones) so they can be compared without scrolling */
     .choices-display {
-        display: flex;
-        gap: var(--spacing-lg);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 280px));
+        gap: var(--spacing-md);
         justify-content: center;
-        flex-wrap: wrap;
+        width: 100%;
     }
 
     .feedback-display {
         display: flex;
-        gap: var(--spacing-lg);
         justify-content: center;
-        align-items: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .feedback-face {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-sm);
-    }
-
-    .feedback-label {
-        font-size: var(--font-size-sm);
-        font-weight: 600;
-        color: var(--color-text-muted);
-    }
-
-    .correct-frame {
-        border-radius: var(--radius-md);
-        outline: 3px solid var(--color-success);
-        outline-offset: 4px;
+        width: 100%;
     }
 
     .feedback-hint {

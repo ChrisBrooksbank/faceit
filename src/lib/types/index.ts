@@ -14,6 +14,8 @@ export interface UserProfile {
     baselinePerception: number;
     onboardingComplete: boolean;
     settings: UserSettings;
+    /** Staircase level (28 hard - 88 easy) the next session resumes from */
+    staircaseLevel?: number;
 }
 
 export interface UserSettings {

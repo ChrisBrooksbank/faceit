@@ -4,14 +4,30 @@
      * Conducts perceptual discrimination training trials with adaptive difficulty
      */
 
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import { goto } from '$app/navigation';
     import { Button, Card, ProgressBar, TrialDisplay } from '$lib/components';
-    import { userProfile, setCurrentSession, setProgressMetrics } from '$lib/stores';
-    import { createStaircaseState, updateStaircase, calculateThreshold } from '$lib/core/staircase';
+    import {
+        userProfile,
+        setUserProfile,
+        setCurrentSession,
+        setProgressMetrics,
+    } from '$lib/stores';
+    import {
+        DEFAULT_STAIRCASE_CONFIG,
+        chooseStartingLevel,
+        createStaircaseState,
+        updateStaircase,
+        calculateThreshold,
+    } from '$lib/core/staircase';
+    import {
+        createVariation,
+        variationStrengthFor,
+        type ImageVariation,
+    } from '$lib/core/image-variation';
     import { buildTrainingTrial, findClosestMorphLevel } from '$lib/core/faces';
     import { updateProgressMetrics as recalculateProgressMetrics } from '$lib/core/progress';
-    import { saveSession } from '$lib/db';
+    import { saveSession, saveUserProfile } from '$lib/db';
     import { logger } from '$lib/utils/logger';
     import type { Trial, TrainingSession, StaircaseState } from '$lib/types';
 
@@ -31,12 +47,15 @@
     let targetFaceId = $state<string>('');
     let choiceFaceIds = $state<string[]>([]);
     let correctPosition = $state<number>(0);
+    let variations = $state<{ target: ImageVariation; choices: ImageVariation[] } | undefined>();
 
     // Session configuration
     let trialsTotal = $state<number>(60);
     let sessionId = $state<string>('');
+    let nextTrialTimer: ReturnType<typeof setTimeout> | null = null;
+    let pausedSince = 0;
+    let pausedTotal = 0;
     const CORRECT_TRIAL_DELAY = 800;
-    const WRONG_FEEDBACK_DELAY = 5000;
 
     // ============================================
     // Derived values
@@ -61,12 +80,19 @@
         trialsTotal = profile.settings.trialsPerSession;
         sessionId = crypto.randomUUID();
         sessionStartTime = Date.now();
-        staircaseState = createStaircaseState();
+        staircaseState = createStaircaseState({
+            ...DEFAULT_STAIRCASE_CONFIG,
+            startingLevel: chooseStartingLevel(profile.staircaseLevel, profile.baselinePerception),
+        });
 
         logger.info('Training session started', { sessionId, trialsTotal });
 
         // Start first trial
         startNextTrial();
+    });
+
+    onDestroy(() => {
+        if (nextTrialTimer) clearTimeout(nextTrialTimer);
     });
 
     // ============================================
@@ -84,7 +110,14 @@
 
         // Generate trial at current difficulty
         const morphLevel = findClosestMorphLevel(staircaseState.currentMorphLevel);
-        const { target, choices, correct } = buildTrainingTrial(morphLevel);
+        const { target, choices, correct } = buildTrainingTrial(staircaseState.currentMorphLevel);
+
+        const strength = variationStrengthFor(staircaseState.currentMorphLevel);
+        variations = {
+            target: createVariation(strength),
+            choices: choices.map(() => createVariation(strength)),
+        };
+        pausedTotal = 0;
 
         targetFaceId = target;
         choiceFaceIds = choices;
@@ -100,7 +133,7 @@
     function handleTrialResponse(position: number, correct: boolean): void {
         if (!staircaseState) return;
 
-        const responseTime = Date.now() - trialStartTime;
+        const responseTime = Date.now() - trialStartTime - pausedTotal;
         const morphLevel = findClosestMorphLevel(staircaseState.currentMorphLevel);
 
         // Record trial
@@ -127,17 +160,18 @@
             reversals: staircaseState.reversals.length,
         });
 
-        // Check if session complete
+        if (correct) {
+            // Correct answers need no study time: move straight on
+            nextTrialTimer = setTimeout(proceed, CORRECT_TRIAL_DELAY);
+        }
+        // Wrong answers wait for the user to press Continue after studying the differences
+    }
+
+    function proceed(): void {
         if (currentTrialNumber >= trialsTotal) {
-            completeSession();
+            void completeSession();
         } else {
-            // Give wrong answers enough time for comparison feedback.
-            setTimeout(
-                () => {
-                    startNextTrial();
-                },
-                correct ? CORRECT_TRIAL_DELAY : WRONG_FEEDBACK_DELAY
-            );
+            startNextTrial();
         }
     }
 
@@ -151,6 +185,20 @@
     // ============================================
     // Session Completion
     // ============================================
+
+    /** Remember where the staircase ended so the next session resumes at the same difficulty */
+    async function saveStaircaseLevel(): Promise<void> {
+        const profile = $userProfile;
+        if (!profile || !staircaseState) return;
+
+        const updated = { ...profile, staircaseLevel: staircaseState.currentMorphLevel };
+        try {
+            await saveUserProfile(updated);
+            setUserProfile(updated);
+        } catch (error) {
+            logger.error('Failed to save staircase level', error);
+        }
+    }
 
     async function completeSession(): Promise<void> {
         if (!staircaseState) return;
@@ -178,6 +226,7 @@
         try {
             // Save session
             await saveSession(session);
+            await saveStaircaseLevel();
             setCurrentSession(session);
 
             // Update progress metrics
@@ -210,10 +259,17 @@
     // ============================================
 
     function handlePause(): void {
+        pausedSince = Date.now();
         showPauseMenu = true;
     }
 
+    function endPause(): void {
+        if (pausedSince) pausedTotal += Date.now() - pausedSince;
+        pausedSince = 0;
+    }
+
     function handleResume(): void {
+        endPause();
         showPauseMenu = false;
     }
 
@@ -223,6 +279,7 @@
     }
 
     function handleCancelExit(): void {
+        endPause();
         showExitConfirm = false;
         showPauseMenu = false;
     }
@@ -252,6 +309,7 @@
 
             try {
                 await saveSession(session);
+                await saveStaircaseLevel();
                 logger.info('Partial session saved', { sessionId, trialsCompleted: trials.length });
             } catch (error) {
                 logger.error('Failed to save partial session', error);
@@ -263,8 +321,31 @@
 </script>
 
 <div class="training-session">
+    <div class="session-header">
+        <div class="progress-section">
+            <div class="progress-text">
+                Trial {currentTrialNumber} of {trialsTotal}
+            </div>
+            <ProgressBar value={progressPercent} />
+        </div>
+        <Button variant="secondary" onclick={handlePause}>Pause</Button>
+    </div>
+
+    <div class="trial-container" aria-hidden={showPauseMenu || showExitConfirm}>
+        {#if targetFaceId && choiceFaceIds.length > 0}
+            <TrialDisplay
+                faces={{ targetFaceId, choiceFaceIds, correctPosition }}
+                {variations}
+                onSelect={handleTrialResponse}
+                onContinue={proceed}
+                size="large"
+            />
+        {/if}
+    </div>
+
+    <!-- The trial stays mounted under an opaque overlay, so pausing can't be used to
+         see the target face again -->
     {#if showPauseMenu}
-        <!-- Pause Menu Overlay -->
         <div class="overlay">
             <Card>
                 <div class="pause-menu">
@@ -279,7 +360,6 @@
             </Card>
         </div>
     {:else if showExitConfirm}
-        <!-- Exit Confirmation Overlay -->
         <div class="overlay">
             <Card>
                 <div class="exit-confirm">
@@ -294,27 +374,6 @@
                     </div>
                 </div>
             </Card>
-        </div>
-    {:else}
-        <!-- Training Session Content -->
-        <div class="session-header">
-            <div class="progress-section">
-                <div class="progress-text">
-                    Trial {currentTrialNumber} of {trialsTotal}
-                </div>
-                <ProgressBar value={progressPercent} />
-            </div>
-            <Button variant="secondary" onclick={handlePause}>Pause</Button>
-        </div>
-
-        <div class="trial-container">
-            {#if targetFaceId && choiceFaceIds.length > 0}
-                <TrialDisplay
-                    faces={{ targetFaceId, choiceFaceIds, correctPosition }}
-                    onSelect={handleTrialResponse}
-                    size="large"
-                />
-            {/if}
         </div>
     {/if}
 </div>
@@ -358,7 +417,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: var(--color-background);
         display: flex;
         justify-content: center;
         align-items: center;

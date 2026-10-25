@@ -4,7 +4,9 @@ Generate FaceIt morph stimuli from the Face Research Lab London Set.
 
 This script uses the London Set neutral-front JPGs and their Psychomorph
 template coordinate files. It performs a deterministic piecewise-affine
-shape morph, then blends texture at each configured morph level.
+shape morph, then blends texture at each configured morph level. Each result is
+cropped to an elliptical inner-face mask so hair and clothing (which morph into
+ghosted overlays whose opacity leaks the morph level) are not part of the stimulus.
 
 It intentionally depends only on Pillow from the bundled workspace runtime.
 Raw source images should live outside git, for example:
@@ -30,12 +32,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 
 MORPH_LEVELS = [28, 40, 52, 64, 76, 88]
 NUM_PAIRS = 20
+BOUNDARY_POINTS = 8  # frame points appended by read_template
 OUTPUT_SIZE = 400
+BACKGROUND = (214, 217, 217)
+FACE_TOP_FRACTION = 0.86  # share of the landmark height (chin up) kept inside the face mask
+FACE_SIDE_MARGIN = 0.86
 SEED = "faceit-london-set-v5-2026-04"
 ARTICLE_URL = "https://figshare.com/articles/dataset/Face_Research_Lab_London_Set/5047666/5"
 DOI = "10.6084/m9.figshare.5047666.v5"
@@ -333,6 +339,45 @@ def load_face(path: Path, image_size: int) -> Image.Image:
     return Image.open(path).convert("RGB").resize((image_size, image_size), Image.Resampling.LANCZOS)
 
 
+def face_geometry(points: list[tuple[float, float]]) -> tuple[float, float, float, float]:
+    """Return (center_x, top, chin, half_width) of the inner face from landmarks."""
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    chin = max(ys)
+    top = chin - (chin - min(ys)) * FACE_TOP_FRACTION
+    center_x = (min(xs) + max(xs)) / 2
+    half_width = (max(xs) - min(xs)) / 2 * FACE_SIDE_MARGIN
+    return center_x, top, chin, half_width
+
+
+def isolate_face(image: Image.Image, landmarks: list[tuple[float, float]]) -> Image.Image:
+    """Crop to the inner face (no hair, ears or clothing) on a neutral background.
+
+    Hair and clothing blend into ghosted overlays in a morph, and their opacity changes
+    with the morph level, which would let people answer without looking at the face.
+    The crop is normalised from the landmarks, so features land in similar places in
+    every output image (the app relies on this to highlight regions).
+    """
+    size = image.width
+    center_x, top, chin, half_width = face_geometry(landmarks)
+    center_y = (top + chin) / 2
+    half_height = (chin - top) / 2 * 1.04
+    half = max(half_width, half_height)
+    box = (center_x - half, center_y - half, center_x + half, center_y + half)
+    crop = image.crop(tuple(round(v) for v in box)).resize((size, size), Image.Resampling.LANCZOS)
+    scale = size / (2 * half)
+
+    mask = Image.new("L", (size, size), 0)
+    cx, cy = size / 2, (center_y - box[1]) * scale
+    rx, ry = half_width * scale, half_height * scale
+    ImageDraw.Draw(mask).ellipse((cx - rx, cy - ry, cx + rx, cy + ry), fill=255)
+    mask = mask.filter(ImageFilter.GaussianBlur(size * 0.012))
+    output = Image.new("RGB", (size, size), BACKGROUND)
+    output.paste(crop, (0, 0), mask)
+
+    return output
+
+
 def morph_pair(pair: FacePair, output_dir: Path, image_size: int) -> list[str]:
     image_a = load_face(pair.face_a.image_path, image_size)
     image_b = load_face(pair.face_b.image_path, image_size)
@@ -350,7 +395,9 @@ def morph_pair(pair: FacePair, output_dir: Path, image_size: int) -> list[str]:
         ]
         warped_a = warp_image(image_a, points_a, destination_points, triangles, image_size)
         warped_b = warp_image(image_b, points_b, destination_points, triangles, image_size)
-        morphed = Image.blend(warped_b, warped_a, alpha)
+        morphed = isolate_face(
+            Image.blend(warped_b, warped_a, alpha), destination_points[:-BOUNDARY_POINTS]
+        )
         filename = f"face{pair.face_a_number}_face{pair.face_b_number}_{level}.jpg"
         morphed.save(output_dir / filename, format="JPEG", quality=88, optimize=True, progressive=True)
         files.append(filename)
@@ -371,7 +418,7 @@ def build_metadata(pairs: list[FacePair], generated_files: dict[int, list[str]],
         "isPlaceholder": False,
         "isProduction": True,
         "generation": {
-            "method": "piecewise-affine template morph with texture blend",
+            "method": "piecewise-affine template morph with texture blend, masked to the inner face",
             "script": "scripts/generate-face-morphs.py",
             "seed": SEED,
             "outputSize": [image_size, image_size],

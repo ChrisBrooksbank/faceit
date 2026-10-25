@@ -33,7 +33,7 @@
         if (hasPerceptualDifficulty && hasFaceRecognitionDifficulty) {
             return 'Your results indicate difficulties with both face perception and recognition. Perceptual discrimination training (our approach) can help improve your ability to distinguish between similar faces. This training works best when practiced consistently.';
         } else if (hasPerceptualDifficulty) {
-            return 'Your results suggest perceptual difficulties with face discrimination. The good news is that perceptual discrimination training is specifically designed to address this. With consistent practice, many people see measurable improvements.';
+            return 'Your results suggest perceptual difficulties with face discrimination. The good news is that perceptual discrimination training is specifically designed to address this. Results vary, but consistent practice gives you the best chance of improvement.';
         } else if (hasFaceRecognitionDifficulty) {
             return 'Your results indicate face recognition difficulties, though your perceptual discrimination is relatively good. Training may still help by fine-tuning your ability to notice subtle differences between faces, which can improve memory encoding.';
         } else {

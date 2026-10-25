@@ -10,7 +10,7 @@
     "isPlaceholder": false,
     "isProduction": true,
     "generation": {
-        "method": "piecewise-affine template morph with texture blend",
+        "method": "piecewise-affine template morph with texture blend, masked to the inner face",
         "script": "scripts/generate-face-morphs.py",
         "seed": "faceit-london-set-v5-2026-04",
         "outputSize": [400, 400],
