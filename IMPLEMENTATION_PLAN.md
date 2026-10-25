@@ -441,6 +441,42 @@ Onboarding flow to guide new users through assessment.
     - All 130 tests passing
     - All validation checks passing
 
+### Phase 5: Training validity follow-ups
+
+Source: review of how well the app helps people who find all faces look the same, plus PR #1
+("Make training difficulty real and stimuli face-only", merged).
+
+Already done in PR #1 (do not redo):
+
+- Difficulty is the morph gap between target and wrong answers (`gapForDifficulty` in `src/lib/core/faces.ts`, 12 to 48 units)
+- Stimuli cropped to an inner-face mask in `scripts/generate-face-morphs.py` (hair ghosting leaked the answer)
+- New users start easy; staircase level resumes between sessions (`UserProfile.staircaseLevel`)
+- Mistake feedback: outlined regions plus flicker (`FaceComparison.svelte`), Continue button instead of a 5s timer
+- Simulated photo variation (`src/lib/core/image-variation.ts`), mobile layout, pause no longer re-shows the target, softened research claims
+
+Training quality (highest value first):
+
+- [ ] **Real different-photo trials.** Download the other views/expressions from the Face Research Lab London Set (smiling, other angles; only `neutral_front` is in `.face-source/` today), generate morphs/crops for them, and build trials where the target and the correct answer are different photos of the same identity. The CSS rotate/lighting variation is only a stand-in.
+- [ ] **Identity learning.** Add tasks that need learning and recalling who someone is (names, the same faces repeated across sessions), not only discrimination.
+- [ ] **More stimuli.** Only 20 pairs, all neutral and frontal, and pairs can repeat within a session. Add pairs and avoid repeats within a session.
+- [ ] **Tune the difficulty ladder.** The 12-48 morph gaps and the levels where photo variation starts (`variationStrengthFor`) are guesses. Check against real use, ideally with someone who has face-recognition difficulty.
+- [ ] **Better region highlights.** `REGION_BOXES` in `src/lib/core/face-differences.ts` are fixed approximations. Compute per-image boxes from the landmarks (the morph script already has them).
+
+Progress and measurement:
+
+- [ ] **Improvement metric.** `updateProgressMetrics` compares against the first training session, not the onboarding baseline. The 6-trial baseline test is very noisy (chance is about 2/6). The threshold falls back to the last level when there are fewer than 6 reversals.
+- [ ] **Legacy sessions.** Sessions saved before PR #1 used the old difficulty definition, so their thresholds are not comparable. Mark them as legacy or exclude them from trends.
+
+Bugs and cleanup:
+
+- [ ] Daily reminder setting does nothing (no notification code). Remove it or implement it (PWA notifications are limited).
+- [ ] A failed session save in `src/routes/training/+page.svelte` is only logged; show the user an error and allow retry.
+- [ ] Pausing during the target phase lets the target timer run out under the overlay. Restart the trial on resume.
+- [ ] "Done for today" blocks extra practice. Consider allowing more sessions.
+- [ ] Verify PI20 wording, reverse-scored items and the percentile table in `src/lib/core/pi20.ts` against the published instrument (not verified offline).
+- [ ] Soften remaining "evidence-based" wording in `src/app.html`, `src/routes/+page.svelte`, `src/routes/settings/+page.svelte` and the README header.
+- [ ] Tooling: `npx` is broken on the dev machine (npm under nvm mismatches Node 26), which breaks the pre-commit hook (`npx lint-staged`). Reinstall Node/npm, or work around with a local `npx` shim on `PATH`.
+
 ## Notes
 
 - Staircase algorithm already implemented in src/lib/core/staircase.ts
