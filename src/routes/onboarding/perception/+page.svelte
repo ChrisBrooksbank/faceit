@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Button, Card, ProgressBar } from '$lib/components';
+    import { Button, Card, FaceComparison, ProgressBar } from '$lib/components';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
     import { getDifferenceCue } from '$lib/core/face-differences';
@@ -14,7 +14,6 @@
     // Trial state
     type TrialPhase = 'loading' | 'target' | 'mask' | 'choice' | 'feedback' | 'complete';
     const CORRECT_DELAY = 500;
-    const WRONG_FEEDBACK_DELAY = 4500;
     let currentTrialIndex = $state(0);
     let phase = $state<TrialPhase>('target');
     let correctCount = $state(0);
@@ -82,14 +81,15 @@
             phase = 'feedback';
         }
 
-        // Move to next trial after brief delay
-        setTimeout(
-            () => {
-                currentTrialIndex++;
-                void startTrial();
-            },
-            isCorrect ? CORRECT_DELAY : WRONG_FEEDBACK_DELAY
-        );
+        // Correct answers move on quickly; mistakes wait for the user to press Continue
+        if (isCorrect) {
+            setTimeout(advance, CORRECT_DELAY);
+        }
+    }
+
+    function advance(): void {
+        currentTrialIndex++;
+        void startTrial();
     }
 
     // Handle completion
@@ -152,7 +152,7 @@
                             <img src={targetFaceUrl} alt="Target face" class="face-image" />
                         </div>
                     {:else if phase === 'mask'}
-                        <div class="phase-instruction">Processing...</div>
+                        <div class="phase-instruction">Hold the image in mind...</div>
                         <div class="mask-display">
                             <div class="mask"></div>
                         </div>
@@ -178,24 +178,13 @@
                     {:else if phase === 'feedback'}
                         <div class="phase-instruction">Look again at the differences</div>
                         <div class="feedback-display" aria-live="polite">
-                            <div class="feedback-face">
-                                <div class="feedback-label">Your choice</div>
-                                <img
-                                    src={choiceFaceUrls[selectedPosition]}
-                                    alt="Your selected choice"
-                                    class="face-image"
-                                />
-                            </div>
-                            <div class="feedback-face">
-                                <div class="feedback-label">Exact match</div>
-                                <img
-                                    src={choiceFaceUrls[correctPosition]}
-                                    alt="Correct match"
-                                    class="face-image correct-image"
-                                />
-                            </div>
+                            <FaceComparison
+                                selectedFaceId={choiceFaceUrls[selectedPosition]}
+                                correctFaceId={choiceFaceUrls[correctPosition]}
+                            />
                         </div>
                         <p class="feedback-hint">{feedbackCue}</p>
+                        <Button variant="primary" onclick={advance}>Continue</Button>
                     {/if}
                 </div>
             {:else}
@@ -274,8 +263,10 @@
     }
 
     .face-image {
+        display: block;
         width: 200px;
-        height: 200px;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
         border-radius: var(--radius-md);
         box-shadow: var(--shadow-md);
     }
@@ -294,13 +285,15 @@
     }
 
     .choices-display {
-        display: flex;
-        gap: var(--spacing-lg);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 200px));
+        gap: var(--spacing-sm);
         justify-content: center;
-        flex-wrap: wrap;
+        width: 100%;
     }
 
     .choice-button {
+        min-width: 0;
         background: none;
         border: 2px solid var(--color-border);
         border-radius: var(--radius-md);
@@ -327,28 +320,8 @@
 
     .feedback-display {
         display: flex;
-        gap: var(--spacing-lg);
         justify-content: center;
-        align-items: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .feedback-face {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--spacing-sm);
-    }
-
-    .feedback-label {
-        font-size: var(--font-size-sm);
-        font-weight: 600;
-        color: var(--color-text-muted);
-    }
-
-    .correct-image {
-        outline: 3px solid var(--color-success);
-        outline-offset: 4px;
+        width: 100%;
     }
 
     .feedback-hint {

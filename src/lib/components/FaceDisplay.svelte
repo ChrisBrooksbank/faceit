@@ -5,6 +5,14 @@
      * Used for both target display (single face) and choice phase (multiple faces)
      */
 
+    import { REGION_BOXES, type Region } from '$lib/core/face-differences';
+    import {
+        NO_VARIATION,
+        variationFilter,
+        variationTransform,
+        type ImageVariation,
+    } from '$lib/core/image-variation';
+
     interface Props {
         /**
          * Face ID to display (e.g., "face1_face2_64")
@@ -30,6 +38,14 @@
          * ARIA label for accessibility
          */
         ariaLabel?: string;
+        /**
+         * Simulated photo change (rotation, scale, lighting) applied to the image
+         */
+        variation?: ImageVariation;
+        /**
+         * Facial regions to outline (used in mistake feedback)
+         */
+        highlight?: Region[];
     }
 
     const {
@@ -39,24 +55,38 @@
         onclick,
         size = 'medium',
         ariaLabel = 'Face stimulus',
+        variation = NO_VARIATION,
+        highlight = [],
     }: Props = $props();
 
     const imageSrc = $derived(`/faces/${faceId}.jpg`);
+    const imageStyle = $derived(variationTransform(variation));
+    const frameStyle = $derived(variationFilter(variation));
 </script>
 
 {#if selectable}
     <button
         class="face-container face-{size} selectable"
         class:selected
+        style={frameStyle}
         {onclick}
         aria-label={ariaLabel}
         aria-pressed={selected}
     >
-        <img src={imageSrc} alt={ariaLabel} class="face-image" />
+        <img src={imageSrc} alt={ariaLabel} class="face-image" style={imageStyle} />
     </button>
 {:else}
-    <div class="face-container face-{size}">
-        <img src={imageSrc} alt={ariaLabel} class="face-image" />
+    <div class="face-container face-{size}" style={frameStyle}>
+        <img src={imageSrc} alt={ariaLabel} class="face-image" style={imageStyle} />
+        {#each highlight as region (region)}
+            {@const [left, top, right, bottom] = REGION_BOXES[region]}
+            <span
+                class="region-highlight"
+                style="left:{left * 100}%;top:{top * 100}%;width:{(right - left) *
+                    100}%;height:{(bottom - top) * 100}%"
+                aria-hidden="true"
+            ></span>
+        {/each}
     </div>
 {/if}
 
@@ -66,8 +96,16 @@
         position: relative;
         border-radius: var(--radius-md);
         overflow: hidden;
-        background: var(--color-surface);
+        background: #d6d9d9; /* matches the stimulus background so shifted images blend in */
         box-shadow: var(--shadow-md);
+    }
+
+    .region-highlight {
+        position: absolute;
+        border: 2px solid #f59e0b;
+        border-radius: var(--radius-sm, 4px);
+        background: rgba(245, 158, 11, 0.12);
+        pointer-events: none;
     }
 
     .face-image {
@@ -78,19 +116,23 @@
     }
 
     /* Size variants */
+    .face-small,
+    .face-medium,
+    .face-large {
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+
     .face-small {
-        width: 120px;
-        height: 120px;
+        width: min(120px, 100%);
     }
 
     .face-medium {
-        width: 200px;
-        height: 200px;
+        width: min(200px, 100%);
     }
 
     .face-large {
-        width: 280px;
-        height: 280px;
+        width: min(280px, 100%);
     }
 
     /* Selectable faces (choice phase) */
@@ -102,7 +144,6 @@
             transform 0.1s,
             box-shadow 0.2s;
         padding: 0;
-        background: var(--color-surface);
     }
 
     .selectable:hover {

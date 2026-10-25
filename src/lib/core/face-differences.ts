@@ -1,6 +1,6 @@
 import faceDifferences from '$lib/data/face-differences.json';
 
-type Region = 'eyes' | 'brows' | 'nose' | 'mouth' | 'jawline';
+export type Region = 'eyes' | 'brows' | 'nose' | 'mouth' | 'jawline';
 
 interface DifferenceComparison {
     topRegions: Region[];
@@ -23,6 +23,31 @@ const REGION_LABELS: Record<Region, string> = {
 
 export const GENERIC_DIFFERENCE_CUE =
     'Compare stable features: eye spacing, brow line, nose width, mouth shape, and jawline.';
+
+/**
+ * Approximate region boxes as fractions of a stimulus image [left, top, right, bottom].
+ * Stimuli are cropped from their landmarks, so features sit in similar places in every image.
+ */
+export const REGION_BOXES: Record<Region, [number, number, number, number]> = {
+    brows: [0.12, 0.2, 0.88, 0.31],
+    eyes: [0.14, 0.3, 0.86, 0.42],
+    nose: [0.34, 0.4, 0.66, 0.62],
+    mouth: [0.28, 0.63, 0.72, 0.76],
+    jawline: [0.14, 0.78, 0.86, 0.98],
+};
+
+export function getDifferenceRegions(selectedFace: string, correctFace: string): Region[] {
+    const selectedFaceId = normalizeFaceId(selectedFace);
+    const correctFaceId = normalizeFaceId(correctFace);
+
+    if (!selectedFaceId || !correctFaceId || selectedFaceId === correctFaceId) {
+        return [];
+    }
+
+    return (
+        DIFFERENCE_DATA.comparisons[comparisonKey(selectedFaceId, correctFaceId)]?.topRegions ?? []
+    );
+}
 
 export function getDifferenceCue(selectedFace: string, correctFace: string): string {
     const selectedFaceId = normalizeFaceId(selectedFace);

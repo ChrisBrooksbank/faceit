@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+    chooseStartingLevel,
     createStaircaseState,
     updateStaircase,
     calculateThreshold,
@@ -8,10 +9,17 @@ import {
     DEFAULT_STAIRCASE_CONFIG,
 } from './staircase';
 
+// Mid-range start so tests can move both up and down
+const MID_CONFIG = { ...DEFAULT_STAIRCASE_CONFIG, startingLevel: 60 };
+
 describe('Staircase Algorithm', () => {
     describe('createStaircaseState', () => {
+        it('starts at the easiest level by default', () => {
+            expect(createStaircaseState().currentMorphLevel).toBe(88);
+        });
+
         it('should create initial state with default config', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
 
             expect(state.currentMorphLevel).toBe(60);
             expect(state.consecutiveCorrect).toBe(0);
@@ -30,7 +38,7 @@ describe('Staircase Algorithm', () => {
 
     describe('updateStaircase', () => {
         it('should not change difficulty after single correct answer', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
             const updated = updateStaircase(state, true);
 
             expect(updated.currentMorphLevel).toBe(60);
@@ -39,7 +47,7 @@ describe('Staircase Algorithm', () => {
         });
 
         it('should decrease morph level (harder) after 2 correct answers', () => {
-            let state = createStaircaseState();
+            let state = createStaircaseState(MID_CONFIG);
             state = updateStaircase(state, true);
             state = updateStaircase(state, true);
 
@@ -49,7 +57,7 @@ describe('Staircase Algorithm', () => {
         });
 
         it('should increase morph level (easier) after incorrect answer', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
             const updated = updateStaircase(state, false);
 
             expect(updated.currentMorphLevel).toBe(64); // 60 + 4
@@ -83,7 +91,7 @@ describe('Staircase Algorithm', () => {
         });
 
         it('should record reversal when direction changes from up to down', () => {
-            let state = createStaircaseState();
+            let state = createStaircaseState(MID_CONFIG);
 
             // First go up (incorrect)
             state = updateStaircase(state, false); // 60 → 64, direction = up
@@ -97,7 +105,7 @@ describe('Staircase Algorithm', () => {
         });
 
         it('should record reversal when direction changes from down to up', () => {
-            let state = createStaircaseState();
+            let state = createStaircaseState(MID_CONFIG);
 
             // First go down (2 correct)
             state = updateStaircase(state, true);
@@ -113,14 +121,14 @@ describe('Staircase Algorithm', () => {
 
     describe('calculateThreshold', () => {
         it('should return null if not enough reversals', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
             const threshold = calculateThreshold(state);
 
             expect(threshold).toBeNull();
         });
 
         it('should calculate average of last N reversals', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
             state.reversals = [50, 54, 48, 52, 50, 52, 48, 50];
 
             const threshold = calculateThreshold(state, 6);
@@ -132,14 +140,14 @@ describe('Staircase Algorithm', () => {
 
     describe('hasConverged', () => {
         it('should return false with insufficient reversals', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
             state.reversals = [50, 54, 48];
 
             expect(hasConverged(state)).toBe(false);
         });
 
         it('should return true with sufficient reversals', () => {
-            const state = createStaircaseState();
+            const state = createStaircaseState(MID_CONFIG);
             state.reversals = [50, 54, 48, 52, 50, 52, 48, 50];
 
             expect(hasConverged(state)).toBe(true);
@@ -158,5 +166,22 @@ describe('Staircase Algorithm', () => {
         it('should return 50% for middle morph level', () => {
             expect(getDifficultyPercent(58)).toBe(50);
         });
+    });
+});
+
+describe('chooseStartingLevel', () => {
+    it('resumes from a saved level, clamped to the valid range', () => {
+        expect(chooseStartingLevel(52, 0)).toBe(52);
+        expect(chooseStartingLevel(10, 6)).toBe(28);
+        expect(chooseStartingLevel(120, 6)).toBe(88);
+    });
+
+    it('starts struggling users at the easiest level', () => {
+        expect(chooseStartingLevel(undefined, 1)).toBe(88);
+    });
+
+    it('starts stronger baselines closer to the middle', () => {
+        expect(chooseStartingLevel(undefined, 3)).toBe(76);
+        expect(chooseStartingLevel(undefined, 6)).toBe(64);
     });
 });

@@ -37,15 +37,43 @@ export function findClosestMorphLevel(target: number): number {
     );
 }
 
-export function buildTrainingTrial(morphLevel: number): FaceTrial {
-    const pairIndex = randomIndex(FACE_PAIRS.length);
-    const targetPair = FACE_PAIRS[pairIndex];
-    const targetMorphLevel = findClosestMorphLevel(morphLevel);
-    const distractors = pickNearbyMorphLevels(targetPair, targetMorphLevel, 2).map(level =>
-        faceIdFor(targetPair, level)
-    );
+const MORPH_STEP = 12;
+const MAX_GAP_STEPS = 4;
+
+/**
+ * Difficulty is the morph distance between the target and its distractors:
+ * a small gap means near-identical images (hard), a large gap means obviously
+ * different ones (easy). The staircase level (28 = hard ... 88 = easy) maps onto
+ * gaps of 12, 24, 36 and 48 morph units.
+ */
+export function gapForDifficulty(difficultyLevel: number): number {
+    const steps = 1 + Math.floor((difficultyLevel - 28) / 15);
+    return MORPH_STEP * Math.min(Math.max(steps, 1), MAX_GAP_STEPS);
+}
+
+function distractorLevelsFor(pair: FacePair, target: number, gap: number): number[] {
+    return pair.morphLevels
+        .filter(level => Math.abs(level - target) >= gap)
+        .sort((a, b) => Math.abs(a - target) - Math.abs(b - target))
+        .slice(0, 2);
+}
+
+function validTargetLevels(pair: FacePair, gap: number): number[] {
+    return pair.morphLevels.filter(level => distractorLevelsFor(pair, level, gap).length === 2);
+}
+
+function buildTrial(
+    pair: FacePair,
+    difficultyLevel: number,
+    pickIndex: (length: number) => number,
+    toId: (pair: FacePair, level: number) => string
+): FaceTrial {
+    const gap = gapForDifficulty(difficultyLevel);
+    const candidates = validTargetLevels(pair, gap);
+    const targetLevel = candidates[pickIndex(candidates.length)];
+    const distractors = distractorLevelsFor(pair, targetLevel, gap).map(level => toId(pair, level));
     const correct = randomIndex(3);
-    const target = faceIdFor(targetPair, targetMorphLevel);
+    const target = toId(pair, targetLevel);
 
     return {
         target,
@@ -54,32 +82,26 @@ export function buildTrainingTrial(morphLevel: number): FaceTrial {
     };
 }
 
-export function buildPerceptionTrial(trialIndex: number, morphLevel: number): FaceTrial {
-    const pairIndex = trialIndex % FACE_PAIRS.length;
-    const targetPair = FACE_PAIRS[pairIndex];
-    const targetMorphLevel = findClosestMorphLevel(morphLevel);
-    const distractors = pickNearbyMorphLevels(targetPair, targetMorphLevel, 2).map(level =>
-        faceUrlFor(targetPair, level)
+export function buildTrainingTrial(difficultyLevel: number): FaceTrial {
+    return buildTrial(
+        FACE_PAIRS[randomIndex(FACE_PAIRS.length)],
+        difficultyLevel,
+        randomIndex,
+        faceIdFor
     );
-    const target = faceUrlFor(targetPair, targetMorphLevel);
-    const correct = randomIndex(3);
+}
 
-    return {
-        target,
-        choices: placeCorrectAnswer(target, distractors, correct),
-        correct,
-    };
+export function buildPerceptionTrial(trialIndex: number, difficultyLevel: number): FaceTrial {
+    return buildTrial(
+        FACE_PAIRS[trialIndex % FACE_PAIRS.length],
+        difficultyLevel,
+        length => trialIndex % length,
+        faceUrlFor
+    );
 }
 
 function randomIndex(length: number): number {
     return Math.floor(Math.random() * length);
-}
-
-function pickNearbyMorphLevels(pair: FacePair, targetMorphLevel: number, count: number): number[] {
-    return pair.morphLevels
-        .filter(level => level !== targetMorphLevel)
-        .sort((a, b) => Math.abs(a - targetMorphLevel) - Math.abs(b - targetMorphLevel))
-        .slice(0, count);
 }
 
 function placeCorrectAnswer(target: string, distractors: string[], correct: number): string[] {

@@ -1,7 +1,8 @@
 /**
  * Staircase Algorithm for Adaptive Difficulty
  *
- * Implements a 2-down/1-up staircase procedure that targets ~71% accuracy.
+ * Implements a 2-down/1-up staircase procedure that converges on ~71% accuracy
+ * (a 3-choice task has 33% chance, so this is well above guessing).
  * This is the standard approach in psychophysics for threshold estimation.
  *
  * How it works:
@@ -17,8 +18,8 @@ export const DEFAULT_STAIRCASE_CONFIG: StaircaseConfig = {
     minMorphLevel: 28, // Hardest (faces very similar)
     maxMorphLevel: 88, // Easiest (faces very different)
     stepSize: 4, // Morph level change per step
-    startingLevel: 60, // Medium difficulty
-    targetAccuracy: 0.75, // Target 75% accuracy
+    startingLevel: 88, // Easiest: wide morph gaps so struggling users start with visible differences
+    targetAccuracy: 0.71, // 2-down/1-up converges on ~70.7% accuracy
 };
 
 /**
@@ -34,6 +35,26 @@ export function createStaircaseState(
         trialCount: 0,
         direction: null,
     };
+}
+
+/**
+ * Pick where a session's staircase should begin.
+ *
+ * Returning users resume from where their last session ended. New users start from
+ * the baseline perception test (0-6 correct): people who missed most baseline trials
+ * start at the easiest level, people who did well start closer to the middle.
+ */
+export function chooseStartingLevel(
+    savedLevel: number | undefined,
+    baselinePerception: number,
+    config: StaircaseConfig = DEFAULT_STAIRCASE_CONFIG
+): number {
+    if (savedLevel !== undefined && Number.isFinite(savedLevel)) {
+        return Math.min(Math.max(savedLevel, config.minMorphLevel), config.maxMorphLevel);
+    }
+    if (baselinePerception >= 5) return 64;
+    if (baselinePerception >= 3) return 76;
+    return config.startingLevel;
 }
 
 /**
