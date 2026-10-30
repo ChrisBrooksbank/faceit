@@ -2,6 +2,8 @@
 
 # FaceIt
 
+**Live demo:** [faceit-training.netlify.app](https://faceit-training.netlify.app)
+
 ### Train the part of your brain that tells faces apart.
 
 A free, private, offline-first web app for people with face blindness (prosopagnosia).
